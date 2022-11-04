@@ -17,8 +17,8 @@
         <img src="https://img.shields.io/badge/vue-3-green" ></img>
         <img src="https://img.shields.io/badge/swagger-3.0.0-brightgreen" ></img>
         <img src="https://img.shields.io/badge/mybatis--plus-3.5.1-green" ></img>
-        <img src="https://img.shields.io/github/stars/Forever2ha/erha-admin-web.svg?style=social&label=Stars" ></img>
-        <img src="https://img.shields.io/github/forks/Forever2ha/erha-admin-web.svg?style=social&label=Fork" ></img>
+        <img src="https://img.shields.io/github/stars/Forever2ha/erha-admin-main.svg?style=social&label=Stars" ></img>
+        <img src="https://img.shields.io/github/forks/Forever2ha/erha-admin-main.svg?style=social&label=Fork" ></img>
 </a></p>
 
 [项目介绍](#项目介绍) | [站点演示](#站点演示) | [项目特点](#项目特点) | [技术架构](#技术选型) | [项目文档](#项目文档)

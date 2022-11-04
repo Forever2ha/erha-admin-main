@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysMenu">
+    <!--@mbg.generated-->
+    <!--@Table sys_menu-->
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="sub_count" jdbcType="INTEGER" property="subCount" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="locale" jdbcType="VARCHAR" property="locale" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="i_frame" jdbcType="BIT" property="iFrame" />
+    <result column="cache" jdbcType="BIT" property="cache" />
+    <result column="hidden" jdbcType="BIT" property="hidden" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    pid,sub_count,type,title,name,
+locale, `order`,icon,path,i_frame, `cache`, hidden, permission, create_by, update_by, create_time, update_time
+  </sql>
+
+  <select id="selectByRoleIds" resultMap="BaseResultMap">
+    SELECT
+      m.menu_id,
+      m.pid,
+      m.sub_count,
+      m.`type`,
+      m.title,
+      m.`name`,
+      m.locale,
+      m.`order`,
+      m.icon,
+      m.`path`,
+      m.i_frame,
+      m.`cache`,
+      m.hidden,
+      m.permission,
+      m.create_by,
+      m.update_by,
+      m.create_time,
+      m.update_time
+    from sys_menu m
+           left join sys_roles_menus rm on rm.menu_id = m.menu_id
+    where rm.role_id in
+    <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+      #{roleId}
+    </foreach>
+  </select>
+
+  <select id="test" resultMap="BaseResultMap">
+    select * from sys_menu
+    where menu_id > #{id}
+  </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysQuartzJobMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysQuartzJob">
+    <!--@mbg.generated-->
+    <!--@Table sys_quartz_job-->
+    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
+    <result column="is_pause" jdbcType="BIT" property="isPause" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="person_in_charge" jdbcType="VARCHAR" property="personInCharge" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="sub_task" jdbcType="VARCHAR" property="subTask" />
+    <result column="pause_after_failure" jdbcType="BIT" property="pauseAfterFailure" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    job_id, bean_name, cron_expression, is_pause, job_name, method_name, params, description, 
+    person_in_charge, email, sub_task, pause_after_failure, create_by, update_by, create_time, 
+    update_time
+  </sql>
+</mapper>

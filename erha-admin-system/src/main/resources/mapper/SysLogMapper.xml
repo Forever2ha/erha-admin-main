@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysLog">
+    <!--@mbg.generated-->
+    <!--@Table sys_log-->
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="params" jdbcType="LONGVARCHAR" property="params" />
+    <result column="request_ip" jdbcType="VARCHAR" property="requestIp" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="browser" jdbcType="VARCHAR" property="browser" />
+    <result column="exception_detail" jdbcType="LONGVARCHAR" property="exceptionDetail" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    log_id, description, log_type, `method`, params, request_ip, `time`, username, address, 
+    browser, exception_detail, create_time
+  </sql>
+</mapper>

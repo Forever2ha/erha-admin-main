@@ -1,0 +1,92 @@
+package fun.yizhierha.modules.system.controller;
+
+
+import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BizCodeEnum;
+import fun.yizhierha.common.utils.*;
+import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
+import fun.yizhierha.modules.system.domain.vo.CreateDictVo;
+import fun.yizhierha.modules.system.domain.vo.RetrieveDictVo;
+import fun.yizhierha.modules.system.domain.vo.UpdateDictVo;
+import fun.yizhierha.modules.system.service.SysDictService;
+import fun.yizhierha.modules.system.service.dto.DictDto;
+import fun.yizhierha.utils.CommonUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Set;
+
+@Api(tags = "系统:字典")
+@RestController
+@RequestMapping("/api/dict")
+public class DictController {
+
+    @Autowired
+    SysDictService sysDictService;
+
+    @ApiOperation("获取字典")
+    @GetMapping
+    @PreAuthorize("@eh.check('dict:list')")
+    public R<PageUtils<DictDto>> list(RetrieveDictVo retrieveDictVo, Query.PageVo pageVo){
+        return R.<PageUtils<DictDto>>ok().setData(sysDictService.listDict(retrieveDictVo,pageVo));
+    }
+
+    @ApiOperation("添加字典")
+    @PostMapping
+    @PreAuthorize("@eh.check('dict:add')")
+    public R<List<BaseErrDto>> addDict(@Validated @RequestBody CreateDictVo createDictVo, BindingResult bindingResult){
+        List<BaseErrDto> baseErrDtoList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        if (baseErrDtoList.isEmpty()) {
+            sysDictService.saveDict(createDictVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
+            return R.ok();
+        }
+        return R.<List<BaseErrDto>>error(BizCodeEnum.Client_Error_CRUD.getCode(), BizCodeEnum.Client_Error_CRUD.getMsg())
+                .setData(baseErrDtoList);
+
+    }
+
+    @ApiOperation("修改字典")
+    @PutMapping
+    @PreAuthorize("@eh.check('dict:edit')")
+    public R<List<BaseErrDto>> editDict(@Validated @RequestBody ValidList<UpdateDictVo> updateDictVos,BindingResult bindingResult){
+        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(updateDictVos, bindingResult);
+        if (errDtoList.isEmpty()) {
+            sysDictService.editDict(updateDictVos,errDtoList, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
+            if (errDtoList.isEmpty()){
+                return R.ok();
+            }else {
+                return  R.<List<BaseErrDto>>error(
+                        BizCodeEnum.Client_Error_CRUD.getCode(),
+                        BizCodeEnum.Client_Error_CRUD.getMsg()
+                ).setData(errDtoList);
+            }
+        }
+        return  R.<List<BaseErrDto>>error(
+                BizCodeEnum.Client_Error_CRUD.getCode(),
+                BizCodeEnum.Client_Error_CRUD.getMsg()
+        ).setData(errDtoList);
+    }
+
+
+    @ApiOperation("删除字典")
+    @DeleteMapping
+    @PreAuthorize("@eh.check('dict:del')")
+    public R delDict(@RequestBody Set<Long> dictIds){
+        sysDictService.removeDict(dictIds);
+        return R.ok();
+    }
+
+    @ApiOperation("导出数据")
+    @GetMapping("/download")
+    @PreAuthorize("@eh.check('dict:list')")
+    public void download(HttpServletResponse response){
+        sysDictService.download(response);
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysRolesMenusMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysRolesMenus">
+    <!--@mbg.generated-->
+    <!--@Table sys_roles_menus-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, menu_id, role_id
+  </sql>
+</mapper>

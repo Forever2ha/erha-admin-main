@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysJobMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysJob">
+    <!--@mbg.generated-->
+    <!--@Table sys_job-->
+    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="job_sort" jdbcType="INTEGER" property="jobSort" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    job_id, `name`, enabled, job_sort, create_by, update_by, create_time, update_time
+  </sql>
+
+  <select id="selectSysJobByUserId" resultMap="BaseResultMap">
+    SELECT
+      j.job_id,
+      j.`name`,
+      j.enabled,
+      j.job_sort,
+      j.create_by,
+      j.update_by,
+      j.create_time,
+      j.update_time
+    FROM
+      sys_users_jobs uj
+        JOIN sys_job j ON j.job_id = uj.job_id
+    WHERE
+      uj.user_id = #{userId}
+    </select>
+
+  <select id="selectJobDtoSetByUserIds" resultType="fun.yizhierha.modules.system.service.dto.JobDto">
+    SELECT
+      suj.id,
+      suj.user_id,
+      sj.*
+    FROM
+      sys_users_jobs suj
+        LEFT JOIN sys_job sj ON sj.job_id = suj.job_id
+    WHERE
+        suj.user_id IN
+    <foreach collection="userIds" separator="," open="(" close=")" item="userId">
+      #{userId}
+    </foreach>
+  </select>
+</mapper>

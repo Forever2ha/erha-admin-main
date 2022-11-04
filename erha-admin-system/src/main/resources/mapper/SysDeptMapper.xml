@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.modules.system.mapper.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.modules.system.domain.SysDept">
+    <!--@mbg.generated-->
+    <!--@Table sys_dept-->
+    <id column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="sub_count" jdbcType="INTEGER" property="subCount" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dept_sort" jdbcType="INTEGER" property="deptSort" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dept_id, pid, sub_count, `name`, dept_sort, enabled, create_by, update_by, create_time, 
+    update_time
+  </sql>
+
+  <select id="selectNameByRoleId" resultType="java.lang.String">
+    SELECT
+      sd.`name`
+    FROM
+      sys_roles_depts srd
+        JOIN sys_dept sd ON srd.role_id = #{roleId}
+        AND srd.dept_id = sd.dept_id
+    </select>
+</mapper>

@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.config.FileProperties;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
-import fun.yizhierha.common.utils.PageUtils;
-import fun.yizhierha.common.utils.Query;
-import fun.yizhierha.common.utils.ValidList;
+import fun.yizhierha.common.utils.*;
 import fun.yizhierha.common.utils.file.ExcelUtils;
+import fun.yizhierha.common.utils.file.FileUtil;
 import fun.yizhierha.modules.system.domain.vo.UpdateUserVo;
 import fun.yizhierha.modules.security.service.UserCacheManager;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -24,8 +24,10 @@ import fun.yizhierha.modules.system.service.mapstruct.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.yizhierha.modules.system.mapper.SysUserMapper;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,6 +61,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     SysUsersRolesService sysUsersRolesService;
     @Autowired
     SysUsersJobsService sysUsersJobsService;
+
+    @Autowired
+    FileProperties fileProperties;
 
     @Override
     public UserDetailsDto selectUserDetailDtoByUsername(String username) {
@@ -315,6 +321,38 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         pageVo.setPageSize(500);
         List<SummaryUserDto> list = listUser(null, pageVo).getList();
         ExcelUtils.export(response,"用户信息表",list,SummaryUserDto.class);
+    }
+
+    @Override
+    public Map<String, String> updateAvatar(MultipartFile multipartFile) {
+        // 文件大小验证
+        FileUtil.checkSize(fileProperties.getAvatarMaxSize(), multipartFile.getSize());
+        // 验证文件上传的格式
+        String image = "gif jpg png jpeg";
+        String fileType = FileUtil.getExtensionName(multipartFile.getOriginalFilename());
+        if(fileType != null && !image.contains(fileType)){
+            throw new BadRequestException("文件格式错误！, 仅支持 " + image +" 格式");
+        }
+
+        UserDto user = baseMapper.selectUserDtoByUsername(SecurityUtils.getCurrentUser().getUsername());
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId(user.getUserId());
+        String oldPath = user.getAvatarPath();
+        File file = FileUtil.upload(multipartFile, fileProperties.getPath().getAvatar());
+        sysUser.setAvatarPath(Objects.requireNonNull(file).getPath());
+        sysUser.setAvatarName(file.getName());
+
+        baseMapper.updateById(sysUser);
+
+        if (StringUtils.isNotBlank(oldPath)) {
+            FileUtil.del(oldPath);
+        }
+
+        // 删除缓存
+        cacheManager.cleanCacheByUsername(user.getUsername());
+        return new HashMap<String, String>(1) {{
+            put("avatar", file.getName());
+        }};
     }
 
     @Transactional(rollbackFor = Exception.class)

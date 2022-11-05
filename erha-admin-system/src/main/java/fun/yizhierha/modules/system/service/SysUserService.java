@@ -11,10 +11,12 @@ import fun.yizhierha.modules.system.domain.vo.CreateUserVo;
 import fun.yizhierha.modules.system.domain.vo.RetrieveUserVo;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.modules.system.service.dto.SummaryUserDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface SysUserService extends IService<SysUser>{
 
@@ -52,4 +54,6 @@ public interface SysUserService extends IService<SysUser>{
      * @param response
      */
     void download(HttpServletResponse response) throws IOException;
+
+    Map<String, String> updateAvatar(MultipartFile avatar);
 }

@@ -3,6 +3,7 @@ package fun.yizhierha.modules.system.controller;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
+import fun.yizhierha.modules.system.domain.vo.UpdateNowUserVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateUserVo;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
 import fun.yizhierha.modules.system.domain.SysRole;
@@ -18,10 +19,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,6 +50,37 @@ UserController {
     @GetMapping("/info")
     public R<UserDetailsDto> info() {
         return R.<UserDetailsDto>ok().setData((UserDetailsDto) SecurityUtils.getCurrentUser());
+    }
+
+    @ApiOperation(value = "修改当前用户头像")
+    @PostMapping("/updateAvatar")
+    public R<Map<String,String>> updateAvatar(@RequestParam MultipartFile avatar){
+        return R.<Map<String,String>>ok().setData(sysUserService.updateAvatar(avatar));
+    }
+
+    @ApiOperation(value = "修改当前用户信息")
+    @PutMapping("/update")
+    public R updateNowUser(@RequestBody @Validated UpdateNowUserVo nowUserVo,BindingResult bindingResult){
+
+        List<BaseErrDto> baseErrorList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        ValidList<UpdateUserVo> updateUserVos = new ValidList<>();
+        UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
+        UpdateUserVo updateUserVo = new UpdateUserVo();
+        updateUserVo.setId(currentUser.getUser().getUserId());
+        updateUserVo.setEmail(nowUserVo.getEmail());
+        updateUserVo.setNickName(nowUserVo.getNickName());
+        updateUserVo.setPhone(nowUserVo.getPhone());
+
+        updateUserVos.add(updateUserVo);
+        sysUserService.editUser(updateUserVos,baseErrorList, currentUser);
+        if (baseErrorList.isEmpty()){
+            return R.ok();
+        }else {
+            return R.error(BizCodeEnum.Client_Error_CRUD.getCode(),
+                    BizCodeEnum.Client_Error_CRUD.getMsg()
+                    ).setData(baseErrorList);
+        }
+
     }
 
     @ApiOperation("切换当前角色")

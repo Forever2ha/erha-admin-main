@@ -14,12 +14,11 @@ import fun.yizhierha.modules.system.service.SysRoleService;
 import fun.yizhierha.modules.system.service.SysUserService;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.modules.system.service.dto.SummaryUserDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -62,7 +61,7 @@ UserController {
     @PutMapping("/update")
     public R updateNowUser(@RequestBody @Validated UpdateNowUserVo nowUserVo,BindingResult bindingResult){
 
-        List<BaseErrDto> baseErrorList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> baseErrorList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         ValidList<UpdateUserVo> updateUserVos = new ValidList<>();
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
         UpdateUserVo updateUserVo = new UpdateUserVo();
@@ -154,7 +153,7 @@ UserController {
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
 
         // 先处理一下validList检测出来的错误
-        List<BaseErrDto> res = CommonUtil.getBaseErrDtoByBindingRes(updateUserVoList,bindingResult);
+        List<BaseErrDto> res = ValidUtils.getBaseErrDtoByBindingRes(updateUserVoList,bindingResult);
 
         // 增强for循环中不能删除集合中的元素，否则报错，所以复制一个列表
         ValidList<UpdateUserVo> tempUpdateUserVos = new ValidList<>();

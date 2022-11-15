@@ -7,7 +7,7 @@ import fun.yizhierha.common.utils.R;
 import fun.yizhierha.modules.system.domain.SysRolesMenus;
 import fun.yizhierha.modules.system.domain.vo.UpdateRoleMenuVo;
 import fun.yizhierha.modules.system.service.SysRolesMenusService;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -49,7 +49,7 @@ public class RoleMenuController {
     @PreAuthorize("@eh.check('role:edit')")
     @ApiOperation("修改角色菜单")
     public R editRoleMenu(@RequestBody @Validated UpdateRoleMenuVo updateRoleMenuVo, BindingResult bindingResult){
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (!errDtos.isEmpty()){
             return R.<List<BaseErrDto>>error(
                     BizCodeEnum.Client_Error_CRUD.getCode(), BizCodeEnum.Client_Error_CRUD.getMsg())

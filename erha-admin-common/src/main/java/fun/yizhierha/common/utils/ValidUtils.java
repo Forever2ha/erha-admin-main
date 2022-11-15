@@ -1,8 +1,7 @@
-package fun.yizhierha.utils;
+package fun.yizhierha.common.utils;
 
 import fun.yizhierha.common.base.BaseErrDto;
-import fun.yizhierha.common.utils.ValidList;
-import fun.yizhierha.modules.system.domain.vo.UpdateVo;
+import fun.yizhierha.common.base.UpdateVo;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommonUtil {
+public class ValidUtils {
 
     /**
      * 获取验证bean错误信息

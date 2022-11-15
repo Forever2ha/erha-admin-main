@@ -1,15 +1,14 @@
 package fun.yizhierha.modules.system.domain.vo;
 
 import fun.yizhierha.common.annotation.valid.CronExpression;
+import fun.yizhierha.common.base.UpdateVo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UpdateQuartzJobVo extends UpdateVo{
+public class UpdateQuartzJobVo extends UpdateVo {
 
     @ApiModelProperty(value = "Spring Bean名称")
     private String beanName;

@@ -10,7 +10,7 @@ import fun.yizhierha.modules.system.domain.vo.RetrieveDictVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateDictVo;
 import fun.yizhierha.modules.system.service.SysDictService;
 import fun.yizhierha.modules.system.service.dto.DictDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class DictController {
     @PostMapping
     @PreAuthorize("@eh.check('dict:add')")
     public R<List<BaseErrDto>> addDict(@Validated @RequestBody CreateDictVo createDictVo, BindingResult bindingResult){
-        List<BaseErrDto> baseErrDtoList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> baseErrDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (baseErrDtoList.isEmpty()) {
             sysDictService.saveDict(createDictVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             return R.ok();
@@ -56,7 +56,7 @@ public class DictController {
     @PutMapping
     @PreAuthorize("@eh.check('dict:edit')")
     public R<List<BaseErrDto>> editDict(@Validated @RequestBody ValidList<UpdateDictVo> updateDictVos,BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(updateDictVos, bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateDictVos, bindingResult);
         if (errDtoList.isEmpty()) {
             sysDictService.editDict(updateDictVos,errDtoList, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()){

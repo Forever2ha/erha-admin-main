@@ -10,7 +10,7 @@ import fun.yizhierha.modules.system.domain.vo.RetrieveQuartzJobVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateQuartzJobVo;
 import fun.yizhierha.modules.system.service.SysQuartzJobService;
 import fun.yizhierha.modules.system.service.dto.SummaryQuartzJobDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class QuartzController {
     @PreAuthorize("@eh.check('quartz:add')")
     public R<List<BaseErrDto>> addQuartzJob(@Validated @RequestBody CreateQuartzJobVo createQuartzJobVo,
         BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtoList.isEmpty()){
             sysQuartzJobService.saveQuartzJob(createQuartzJobVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             return R.ok();
@@ -61,7 +61,7 @@ public class QuartzController {
     @PreAuthorize("@eh.check('quartz:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateQuartzJobVo> updateQuartzJobList, BindingResult bindingResult){
 
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(updateQuartzJobList, bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateQuartzJobList, bindingResult);
         if (errDtoList.isEmpty()) {
             sysQuartzJobService.editQuartzJob(updateQuartzJobList,errDtoList,((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()){

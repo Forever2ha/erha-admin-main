@@ -9,7 +9,7 @@ import fun.yizhierha.modules.system.service.SysQuartzJobService;
 import fun.yizhierha.modules.system.service.SysQuartzLogService;
 import fun.yizhierha.modules.system.service.impl.SysQuartzJobServiceImpl;
 import fun.yizhierha.modules.system.service.impl.SysQuartzLogServiceImpl;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
@@ -67,7 +67,7 @@ public class ExecutionJob extends QuartzJobBean {
 
         }catch (Exception ex){
             sysQuartzLog.setIsSuccess(false);
-            sysQuartzLog.setExceptionDetail(CommonUtil.getStackTrace(ex));
+            sysQuartzLog.setExceptionDetail(ValidUtils.getStackTrace(ex));
             long times = System.currentTimeMillis() - startTime;
             sysQuartzLog.setTime(times);
             logger.error("任务执行失败，任务名称：" + sysQuartzJob.getJobName() + ", 执行时间：" + times + "毫秒");

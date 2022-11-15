@@ -11,7 +11,7 @@ import fun.yizhierha.modules.system.domain.vo.RetrieveRoleVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateRoleVo;
 import fun.yizhierha.modules.system.service.SysRoleService;
 import fun.yizhierha.modules.system.service.dto.SummaryRoleDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class RoleController {
     @PreAuthorize("@eh.check('role:add')")
     public R<List<BaseErrDto>> addRole(@RequestBody @Validated CreateRoleVo createRoleVo, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return R.<List<BaseErrDto>>error().setData(CommonUtil.getBaseErrDtoByBindingRes(bindingResult));
+            return R.<List<BaseErrDto>>error().setData(ValidUtils.getBaseErrDtoByBindingRes(bindingResult));
         }
         DataScopeEnum dataScopeEnum = DataScopeEnum.find(createRoleVo.getDataScope());
         if (dataScopeEnum == null){
@@ -89,7 +89,7 @@ public class RoleController {
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
 
         // 1.获取Valid校验的错误
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(updateRoleVos, bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(updateRoleVos, bindingResult);
         // 2.如果有角色等级，判断是否有权限更改此角色等级 && 判断DataScope是否存在
         List<Long> longList = new ArrayList<>();
         for (UpdateRoleVo roleVo : updateRoleVos) {

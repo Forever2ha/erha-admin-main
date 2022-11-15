@@ -10,7 +10,7 @@ import fun.yizhierha.modules.system.domain.vo.CreateDictDetailVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateDictDetailVo;
 import fun.yizhierha.modules.system.service.SysDictDetailService;
 import fun.yizhierha.modules.system.service.dto.DictDetailDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -47,7 +47,7 @@ public class DictDetailController {
     @PostMapping
     @PreAuthorize("@eh.check('dictDetail:add')")
     public R<List<BaseErrDto>> addDictDetail(@Validated @RequestBody CreateDictDetailVo createDictDetailVo, BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtoList.isEmpty()) {
             sysDictDetailService.saveDictDetail(createDictDetailVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             return R.ok();
@@ -64,7 +64,7 @@ public class DictDetailController {
     @PreAuthorize("@eh.check('dictDetail:edit')")
     public R<List<BaseErrDto>> editDictDetail(@Validated @RequestBody ValidList<UpdateDictDetailVo> updateDictDetailVos,
                                               BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(updateDictDetailVos, bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateDictDetailVos, bindingResult);
         if (errDtoList.isEmpty()) {
           sysDictDetailService.updateDictDetail(updateDictDetailVos, errDtoList, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()) {

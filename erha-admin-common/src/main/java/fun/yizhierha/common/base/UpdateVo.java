@@ -1,4 +1,4 @@
-package fun.yizhierha.modules.system.domain.vo;
+package fun.yizhierha.common.base;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

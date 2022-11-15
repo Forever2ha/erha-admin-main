@@ -1,20 +1,19 @@
 package fun.yizhierha.modules.system.domain.vo;
 
+import fun.yizhierha.common.base.UpdateVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel("修改角色Vo")
-public class UpdateRoleVo extends UpdateVo{
+public class UpdateRoleVo extends UpdateVo {
 
     @ApiModelProperty("描述")
     private String description;

@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.domain.vo;
 
+import fun.yizhierha.common.base.UpdateVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +11,7 @@ import javax.validation.constraints.Min;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel("修改菜单vo")
-public class UpdateMenuVo extends UpdateVo{
+public class UpdateMenuVo extends UpdateVo {
 
     @ApiModelProperty("菜单标题")
     private String title;

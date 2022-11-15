@@ -10,7 +10,7 @@ import fun.yizhierha.modules.system.domain.vo.UpdateMenuVo;
 import fun.yizhierha.modules.system.service.SysMenuService;
 import fun.yizhierha.modules.system.service.dto.MenuDto;
 import fun.yizhierha.modules.system.service.dto.SummaryMenuDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class MenuController {
     @PostMapping
     @PreAuthorize("@eh.check('menu:add')")
     public R<List<BaseErrDto>> addMenu(@Validated @RequestBody CreateMenuVo createMenuVo, BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtoList.isEmpty()){
             sysMenuService.saveMenu(createMenuVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             return R.ok();
@@ -63,7 +63,7 @@ public class MenuController {
     @PutMapping
     @PreAuthorize("@eh.check('menu:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateMenuVo> updateMenuVoList,BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = CommonUtil.getBaseErrDtoByBindingRes(updateMenuVoList, bindingResult);
+        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateMenuVoList, bindingResult);
         if (errDtoList.isEmpty()) {
             sysMenuService.editMenu(updateMenuVoList,errDtoList, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()){

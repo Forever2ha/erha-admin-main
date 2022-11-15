@@ -11,7 +11,7 @@ import fun.yizhierha.modules.system.domain.vo.RetrieveJobVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateJobVo;
 import fun.yizhierha.modules.system.service.SysJobService;
 import fun.yizhierha.modules.system.service.dto.SummaryJobDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class JobController {
     @PostMapping
     @PreAuthorize("@eh.check('job:add')")
     public R<List<BaseErrDto>> addJob(@RequestBody @Validated CreateJobVo createJobVo, BindingResult bindingResult){
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtos.isEmpty() ){
             sysJobService.save(createJobVo, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             return R.ok();
@@ -65,7 +65,7 @@ public class JobController {
     @PutMapping
     @PreAuthorize("@eh.check('job:edit')")
     public R<List<BaseErrDto>> editJob(@RequestBody @Validated ValidList<UpdateJobVo> updateJobVoValidList,BindingResult bindingResult){
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(updateJobVoValidList, bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(updateJobVoValidList, bindingResult);
         if (errDtos.isEmpty()){
             sysJobService.editJob(updateJobVoValidList,errDtos, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtos.isEmpty()){

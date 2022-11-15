@@ -10,7 +10,7 @@ import fun.yizhierha.modules.system.domain.vo.RetrieveDeptVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateDeptVo;
 import fun.yizhierha.modules.system.service.SysDeptService;
 import fun.yizhierha.modules.system.service.dto.SummaryDeptDto;
-import fun.yizhierha.utils.CommonUtil;
+import fun.yizhierha.common.utils.ValidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +52,7 @@ public class DeptController {
     @PostMapping
     @PreAuthorize("@eh.check('dept:add')")
     public R<List<BaseErrDto>> addDept(@RequestBody @Validated CreateDeptVo createDeptVo, BindingResult bindingResult){
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtos.isEmpty()){
             UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
             sysDeptService.save(createDeptVo,currentUser);
@@ -68,7 +67,7 @@ public class DeptController {
     @PutMapping
     @PreAuthorize("@eh.check('dept:edit')")
     public R<List<BaseErrDto>> editDept(@RequestBody @Validated ValidList<UpdateDeptVo> updateDeptVos,BindingResult bindingResult){
-        List<BaseErrDto> errDtos = CommonUtil.getBaseErrDtoByBindingRes(updateDeptVos, bindingResult);
+        List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(updateDeptVos, bindingResult);
 
         sysDeptService.editDept(updateDeptVos,errDtos, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
 

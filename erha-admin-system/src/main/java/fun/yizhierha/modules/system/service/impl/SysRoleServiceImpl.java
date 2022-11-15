@@ -19,7 +19,7 @@ import fun.yizhierha.modules.system.domain.*;
 import fun.yizhierha.modules.system.domain.vo.CreateRoleVo;
 import fun.yizhierha.modules.system.domain.vo.RetrieveRoleVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateRoleVo;
-import fun.yizhierha.modules.system.domain.vo.UpdateVo;
+import fun.yizhierha.common.base.UpdateVo;
 import fun.yizhierha.modules.system.service.*;
 import fun.yizhierha.modules.system.service.dto.RoleDto;
 import fun.yizhierha.modules.system.service.dto.SummaryRoleDto;

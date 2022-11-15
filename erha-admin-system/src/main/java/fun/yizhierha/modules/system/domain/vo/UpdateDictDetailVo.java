@@ -1,15 +1,15 @@
 package fun.yizhierha.modules.system.domain.vo;
 
+import fun.yizhierha.common.base.UpdateVo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UpdateDictDetailVo extends UpdateVo{
+public class UpdateDictDetailVo extends UpdateVo {
 
 
     @ApiModelProperty("标签")

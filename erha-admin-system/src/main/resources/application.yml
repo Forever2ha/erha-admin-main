@@ -50,3 +50,5 @@ spring:
           config:
             multi-statement-allow: true
 
+mybatis-plus:
+  type-handlers-package: fun.yizhierha.common.mybatis

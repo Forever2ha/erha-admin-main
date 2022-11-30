@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.tools.generate.mapper.TableMapper">
+
+<select id="selectTables" resultType="fun.yizhierha.tools.generate.domain.TableInfo">
+    SELECT
+        table_name,
+        create_time,
+        ENGINE engine,
+        table_collation,
+        table_comment
+    FROM
+        information_schema.TABLES
+    WHERE
+            table_schema = (
+            SELECT DATABASE
+                       ())
+        <if test=" tableName != null and tableName != ''">
+            AND table_name LIKE "%"#{tableName}"%"
+        </if>
+    ORDER BY
+        create_time DESC
+    limit #{l1},#{l2}
+    </select>
+
+<select id="selectTableCounts" resultType="int">
+    SELECT
+        count(*)
+    FROM
+        information_schema.TABLES
+    WHERE
+            table_schema = (
+            SELECT DATABASE
+                       ())
+
+</select>
+
+<resultMap id="CodeColumnConfigResultMap" type="fun.yizhierha.tools.generate.domain.CodeColumnConfig">
+    <result column="column_name" property="columnName"/>
+    <result column="data_type" property="columnType"/>
+    <result column="extra" property="extra"/>
+    <result column="column_key" property="keyType"/>
+    <result column="column_comment" property="remark"/>
+    <result column="is_nullable" property="notNull" typeHandler="fun.yizhierha.common.mybatis.MyBooleanTypeHandler"/>
+</resultMap>
+
+<select id="selectTableCols" resultMap="CodeColumnConfigResultMap">
+    SELECT
+        column_name,
+        is_nullable,
+        data_type,
+        column_comment,
+        column_key,
+        extra,
+     #{tableName}  as 'table_name',
+        1 as 'list_show',
+        1 as 'form_show'
+    FROM
+        information_schema.COLUMNS
+    WHERE
+        table_name = #{tableName}
+      AND table_schema = (
+        SELECT DATABASE
+                   ())
+    ORDER BY
+        ordinal_position
+    </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.tools.generate.mapper.CodeGenConfigMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.tools.generate.domain.CodeGenConfig">
+    <!--@mbg.generated-->
+    <!--@Table code_gen_config-->
+    <id column="config_id" jdbcType="BIGINT" property="configId" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="cover" jdbcType="BIT" property="cover" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="pack" jdbcType="VARCHAR" property="pack" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="api_path" jdbcType="VARCHAR" property="apiPath" />
+    <result column="prefix" jdbcType="VARCHAR" property="prefix" />
+    <result column="api_alias" jdbcType="VARCHAR" property="apiAlias" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    config_id, `table_name`, author, cover, module_name, pack, `path`, api_path, `prefix`, 
+    api_alias
+  </sql>
+</mapper>

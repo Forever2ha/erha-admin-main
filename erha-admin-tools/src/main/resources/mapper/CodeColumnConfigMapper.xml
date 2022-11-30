@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.yizhierha.tools.generate.mapper.CodeColumnConfigMapper">
+  <resultMap id="BaseResultMap" type="fun.yizhierha.tools.generate.domain.CodeColumnConfig">
+    <!--@mbg.generated-->
+    <!--@Table code_column_config-->
+    <id column="column_id" jdbcType="BIGINT" property="columnId" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+    <result column="column_type" jdbcType="VARCHAR" property="columnType" />
+    <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+    <result column="extra" jdbcType="VARCHAR" property="extra" />
+    <result column="form_show" jdbcType="BIT" property="formShow" />
+    <result column="form_type" jdbcType="VARCHAR" property="formType" />
+    <result column="key_type" jdbcType="VARCHAR" property="keyType" />
+    <result column="list_show" jdbcType="BIT" property="listShow" />
+    <result column="not_null" jdbcType="BIT" property="notNull" />
+    <result column="query_type" jdbcType="VARCHAR" property="queryType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="date_annotation" jdbcType="VARCHAR" property="dateAnnotation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    column_id, `table_name`, `column_name`, column_type, dict_name, extra, form_show, 
+    form_type, `key_type`, list_show, not_null, query_type, remark, date_annotation
+  </sql>
+</mapper>

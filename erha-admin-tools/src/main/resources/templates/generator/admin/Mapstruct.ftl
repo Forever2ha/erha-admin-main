@@ -7,8 +7,8 @@ import ${package}.domain.${className};
 <#list columns as col>
     <#if col.formType == '下拉框[多选]' && col.formShow>
 import org.mapstruct.Mapping;
+        <#break >
     </#if>
-    <#break >
 </#list>
 
 

@@ -406,15 +406,15 @@ public class GenUtil {
         }
 
         if ("CreateVo".equals(templateName)) {
-            return packagePath + "domain" + File.separator + "vo" + File.separator + className + "CreateVo.java";
+            return packagePath + "domain" + File.separator + "vo" + File.separator  + "Create"+className+"Vo.java";
         }
 
         if ("UpdateVo".equals(templateName)) {
-            return packagePath + "domain" + File.separator + "vo" + File.separator + className + "UpdateVo.java";
+            return packagePath + "domain" + File.separator + "vo" + File.separator + "Update"+className+"Vo.java";
         }
 
         if ("RetrieveVo".equals(templateName)) {
-            return packagePath + "domain" + File.separator + "vo" + File.separator + className + "RetrieveVo.java";
+            return packagePath + "domain" + File.separator + "vo" + File.separator  + "Retrieve"+className+"Vo.java";
         }
 
         if ("Entity".equals(templateName)) {

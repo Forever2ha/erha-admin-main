@@ -245,7 +245,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                     res.add(dto);
                     break;
                 }else{
-                    toUpdateSysUser.setPhone(phone);
+                    toUpdateSysUser.setEmail(email);
                 }
             }
 

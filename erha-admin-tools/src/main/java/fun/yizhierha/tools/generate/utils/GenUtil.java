@@ -83,7 +83,7 @@ public class GenUtil {
         templateNames.add("index");
         templateNames.add("api");
         templateNames.add("en-US");
-        templateNames.add("zn-CN");
+        templateNames.add("zh-CN");
         templateNames.add("router");
         return templateNames;
     }
@@ -452,7 +452,7 @@ public class GenUtil {
             return srcPath + "views" + File.separator  + apiNameF + File.separator + "locale" + File.separator + "en-US.ts";
         }
 
-        if ("zn-CN".equals(templateName)) {
+        if ("zh-CN".equals(templateName)) {
             return srcPath + "views" + File.separator  + apiNameF + File.separator + "locale" + File.separator + "zh-CN.ts";
         }
 

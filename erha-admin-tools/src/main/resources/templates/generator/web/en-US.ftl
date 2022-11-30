@@ -1,4 +1,5 @@
 export default {
   'menu.${apiPathF}': '${apiPathF}',
-  'menu.${apiShort}': '${apiShort}',
+  'menu.${apiShort}': '${apiPathS}',
+  '${apiShort}': '${apiPathS}',
 };

@@ -453,7 +453,7 @@ public class GenUtil {
         }
 
         if ("zn-CN".equals(templateName)) {
-            return srcPath + "views" + File.separator  + apiNameF + File.separator + "locale" + File.separator + "zn-CN.ts";
+            return srcPath + "views" + File.separator  + apiNameF + File.separator + "locale" + File.separator + "zh-CN.ts";
         }
 
         if ("router".equals(templateName)) {

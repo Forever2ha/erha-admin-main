@@ -7,6 +7,7 @@ import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.R;
 import fun.yizhierha.common.utils.StringUtils;
+import fun.yizhierha.common.utils.file.FileUtil;
 import fun.yizhierha.tools.generate.domain.CodeColumnConfig;
 import fun.yizhierha.tools.generate.domain.CodeGenConfig;
 import fun.yizhierha.tools.generate.service.CodeColumnConfigService;
@@ -55,6 +56,14 @@ public class GenerateController {
     @ApiOperation("预览代码")
     public void download(@Param("tableName") String tableName,HttpServletResponse response,HttpServletRequest request){
         generateService.download(tableName,request,response);
+    }
+
+    @GetMapping
+    @PreAuthorize("@eh.check('generate:list')")
+    @ApiOperation("生成代码")
+    public R generate(@Param("tableName") String tableName){
+        generateService.generate(tableName);
+        return R.ok();
     }
 
     @GetMapping("/previewDebug")

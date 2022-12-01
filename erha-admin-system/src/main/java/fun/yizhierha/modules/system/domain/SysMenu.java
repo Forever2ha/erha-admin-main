@@ -21,7 +21,7 @@ public class SysMenu implements Serializable {
     /**
      * ID
      */
-    @TableId(value = "menu_id", type = IdType.INPUT)
+    @TableId(value = "menu_id", type = IdType.AUTO)
     @ApiModelProperty(value = "ID")
     @ExcelExport(value = "ID")
 

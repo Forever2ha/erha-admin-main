@@ -96,5 +96,12 @@ public class MenuController {
         sysMenuService.download(response);
     }
 
+    @ApiOperation("代码生成自动生成菜单")
+    @PostMapping("/generate/{tableName}")
+    @PreAuthorize("@eh.check('menu:edit')")
+    public R generateMenu(@PathVariable String tableName){
+        sysMenuService.generateMenu(tableName);
+        return R.ok();
+    }
 
 }

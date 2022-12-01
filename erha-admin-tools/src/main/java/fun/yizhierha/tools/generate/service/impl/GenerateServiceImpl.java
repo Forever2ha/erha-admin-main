@@ -65,4 +65,15 @@ public class GenerateServiceImpl implements GenerateService {
         }
     }
 
+    @Override
+    public void generate(String tableName) {
+        List<CodeColumnConfig> columnConfigList = getColumnConfig(tableName);
+        CodeGenConfig genConfig = getGenConfig(tableName);
+        try {
+            GenUtil.generatorCode(columnConfigList,genConfig);
+        } catch (IOException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+    }
+
 }

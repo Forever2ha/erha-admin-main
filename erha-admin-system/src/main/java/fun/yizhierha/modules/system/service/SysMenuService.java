@@ -34,4 +34,5 @@ public interface SysMenuService extends IService<SysMenu>{
 
     void download(HttpServletResponse response);
 
+    void generateMenu(String tableName);
 }

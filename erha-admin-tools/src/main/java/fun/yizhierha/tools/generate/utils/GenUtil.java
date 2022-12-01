@@ -174,8 +174,10 @@ public class GenUtil {
         // 生成前端代码
         templates = getFrontTemplateNames();
         for (String templateName : templates) {
-            Template template = engine.getTemplate("generator/front/" + templateName + ".ftl");
-            String filePath = getFrontFilePath(templateName, genConfig.getApiPath(), genConfig.getPath(), genMap);
+            Template template = engine.getTemplate("generator/web/" + templateName + ".ftl");
+            String apiPath = "../erha-admin-web" + File.separator + "src" + File.separator + "api" + File.separator;
+            String srcPath = "../erha-admin-web" + File.separator +"src" + File.separator;
+            String filePath = getFrontFilePath(templateName, apiPath, srcPath, genMap);
 
             assert filePath != null;
             File file = new File(filePath);
@@ -185,7 +187,7 @@ public class GenUtil {
                 continue;
             }
             // 生成代码
-            genFile(file, template, genMap);
+             genFile(file, template, genMap);
         }
     }
 
@@ -441,7 +443,7 @@ public class GenUtil {
         String apiNameF = genMap.get("apiPathF").toString();
 
         if ("api".equals(templateName)) {
-            return apiPath + File.separator + apiNameF + File.separator + apiNameS + ".ts";
+            return apiPath + apiNameF + File.separator + apiNameS + ".ts";
         }
 
         if ("index".equals(templateName)) {
@@ -460,7 +462,7 @@ public class GenUtil {
             return srcPath + "router" + File.separator
                     + "routes" + File.separator
                     + "modules" + File.separator
-                    + File.separator + apiNameF + ".ts";
+                    + apiNameF + ".ts";
         }
 
         return null;

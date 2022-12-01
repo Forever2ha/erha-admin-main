@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import fun.yizhierha.common.base.BaseErrDto;
@@ -8,6 +9,7 @@ import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
+import fun.yizhierha.common.utils.StringUtils;
 import fun.yizhierha.common.utils.ValidList;
 import fun.yizhierha.common.utils.file.ExcelUtils;
 import fun.yizhierha.modules.security.service.UserCacheManager;
@@ -16,10 +18,13 @@ import fun.yizhierha.modules.system.domain.SysRolesMenus;
 import fun.yizhierha.modules.system.domain.vo.CreateMenuVo;
 import fun.yizhierha.modules.system.domain.vo.RetrieveMenuVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateMenuVo;
+import fun.yizhierha.modules.system.domain.vo.UpdateRoleMenuVo;
 import fun.yizhierha.modules.system.service.SysRolesMenusService;
 import fun.yizhierha.modules.system.service.dto.MenuDto;
 import fun.yizhierha.modules.system.service.dto.SummaryMenuDto;
 import fun.yizhierha.modules.system.service.mapstruct.MenuMapper;
+import fun.yizhierha.tools.generate.domain.CodeGenConfig;
+import fun.yizhierha.tools.generate.service.CodeGenConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +48,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Autowired
     SysRolesMenusService sysRolesMenusService;
+
+    @Autowired
+    CodeGenConfigService codeGenConfigService;
 
     @Autowired
     UserCacheManager cacheManager;
@@ -267,6 +275,146 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public void download(HttpServletResponse response) {
         List<SysMenu> sysMenuList = list();
         ExcelUtils.export(response,"菜单",sysMenuList,SysMenu.class);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void generateMenu(String tableName) {
+        if (StringUtils.isBlank(tableName)) throw new BadRequestException("tableName不能为空");
+        CodeGenConfig codeGenConfig = codeGenConfigService.getOne(new QueryWrapper<CodeGenConfig>()
+                .eq(CodeGenConfig.COL_TABLE_NAME, tableName));
+        if (codeGenConfig == null) throw new BadRequestException("请先配置[step2]");
+        // eg. codeGenConfig.getApiAlias() = "测试模块：学生信息" -> zhNames = {"测试模块","学生信息"}
+        // eg. codeGenConfig.getApiPath() = "test/student" -> enNames = {"test","student"}
+        String[] zhNames = codeGenConfig.getApiAlias().split("[:：]");
+        String[] enNames = codeGenConfig.getApiPath().split("/");
+        String className = StringUtils.toCamelCase(codeGenConfig.getTableName());
+
+
+        // 1. 添加菜单,如果存在同名就忽略
+        // 目录
+        SysMenu dir = this.getOne(new QueryWrapper<SysMenu>().eq(SysMenu.COL_TITLE, zhNames[0]));
+
+        if (dir == null){
+            dir = new SysMenu();
+            dir.setSubCount(1);
+            dir.setType(EhAdminConstant.MenuType.CATALOG.getValue());
+            dir.setTitle(zhNames[0]);
+            dir.setName(StringUtils.capitalize(enNames[0]));
+            dir.setLocale("menu."+enNames[0]);
+            dir.setOrder(999);
+            dir.setIcon("icon-heart-fill");
+            dir.setIFrame(false);
+            dir.setCache(false);
+            dir.setHidden(false);
+            dir.setCreateBy("SYSTEM");
+            dir.setCreateTime(new Date());
+            this.save(dir);
+        }else {
+            SysMenu update = new SysMenu();
+            update.setMenuId(dir.getMenuId());
+            update.setSubCount(dir.getSubCount()+1);
+            this.updateById(update);
+        }
+        // 菜单
+        SysMenu menu = this.getOne(new QueryWrapper<SysMenu>().eq(SysMenu.COL_TITLE, zhNames[1]));
+        if (menu == null || !menu.getPid().equals(dir.getMenuId())){
+            boolean isNull =  menu == null;
+            menu = new SysMenu();
+            menu.setPid(dir.getMenuId());
+            menu.setSubCount(3);
+            menu.setType(EhAdminConstant.MenuType.MENU.getValue());
+            menu.setTitle(zhNames[1]+ (!isNull ? "[存在同名，但pid不匹配,请修改]" : ""));
+            menu.setName(StringUtils.capitalize(enNames[1]));
+            menu.setLocale("menu."+enNames[0]+ "." + enNames[1]);
+            menu.setPermission(className+":list");
+            menu.setOrder(0);
+            menu.setIcon("icon-thumb-up-fill");
+            menu.setIFrame(false);
+            menu.setCache(false);
+            menu.setHidden(false);
+            menu.setCreateBy("SYSTEM");
+            menu.setCreateTime(new Date());
+            this.save(menu);
+        }else {
+            SysMenu update = new SysMenu();
+            update.setMenuId(menu.getMenuId());
+            update.setSubCount(menu.getSubCount() + 3);
+            this.updateById(update);
+        }
+
+        // 按钮
+        SysMenu addButton = this.getOne(new QueryWrapper<SysMenu>().eq(SysMenu.COL_TITLE, "添加" + zhNames[1]));
+
+        if (addButton == null || !addButton.getPid().equals(menu.getMenuId())){
+            boolean isNull =  addButton == null;
+            addButton = new SysMenu();
+            addButton.setPid(menu.getMenuId());
+            addButton.setSubCount(0);
+            addButton.setType(EhAdminConstant.MenuType.BUTTON.getValue());
+            addButton.setTitle("添加" + zhNames[1]  + (!isNull ? "[存在同名，但pid不匹配,请修改]" : ""));
+            addButton.setOrder(0);
+            addButton.setIFrame(false);
+            addButton.setCache(false);
+            addButton.setHidden(false);
+            addButton.setPermission(className+":add");
+            addButton.setCreateBy("SYSTEM");
+            addButton.setCreateTime(new Date());
+            this.save(addButton);
+        }
+
+        SysMenu editButton = this.getOne(new QueryWrapper<SysMenu>().eq(SysMenu.COL_TITLE, "编辑" + zhNames[1]));
+        if (editButton == null || !editButton.getPid().equals(menu.getMenuId())){
+            boolean isNull =  editButton == null;
+            editButton = new SysMenu();
+            editButton.setPid(menu.getMenuId());
+            editButton.setSubCount(0);
+            editButton.setType(EhAdminConstant.MenuType.BUTTON.getValue());
+            editButton.setTitle("编辑" + zhNames[1]  + (!isNull ? "[存在同名，但pid不匹配,请修改]" : ""));
+            editButton.setOrder(0);
+            editButton.setIFrame(false);
+            editButton.setCache(false);
+            editButton.setHidden(false);
+            editButton.setPermission(className+":edit");
+            editButton.setCreateBy("SYSTEM");
+            editButton.setCreateTime(new Date());
+            this.save(editButton);
+        }
+
+
+        SysMenu delButton = this.getOne(new QueryWrapper<SysMenu>().eq(SysMenu.COL_TITLE, "删除" + zhNames[1]));
+        if (delButton == null || !delButton.getPid().equals(menu.getMenuId())){
+            boolean isNull =  delButton == null;
+            delButton = new SysMenu();
+            delButton.setPid(menu.getMenuId());
+            delButton.setSubCount(0);
+            delButton.setType(EhAdminConstant.MenuType.BUTTON.getValue());
+            delButton.setTitle("删除" + zhNames[1]  + (!isNull ? "[存在同名，但pid不匹配,请修改]" : ""));
+            delButton.setOrder(0);
+            delButton.setIFrame(false);
+            delButton.setCache(false);
+            delButton.setHidden(false);
+            delButton.setPermission(className+":del");
+            delButton.setCreateBy("SYSTEM");
+            delButton.setCreateTime(new Date());
+            this.save(delButton);
+        }
+
+
+        // 2. 给超级管理员添加菜单,roleId 1是超级管理员
+        Set<Long> menuIds = sysRolesMenusService.list(new QueryWrapper<SysRolesMenus>().eq(SysRolesMenus.COL_ROLE_ID, 1))
+                .stream()
+                .map(SysRolesMenus::getMenuId)
+                .collect(Collectors.toSet());
+        menuIds.add(dir.getMenuId());
+        menuIds.add(menu.getMenuId());
+        menuIds.add(addButton.getMenuId());
+        menuIds.add(editButton.getMenuId());
+        menuIds.add(delButton.getMenuId());
+        UpdateRoleMenuVo updateRoleMenuVo = new UpdateRoleMenuVo();
+        updateRoleMenuVo.setMenuIdList(new ArrayList<>(menuIds));
+        updateRoleMenuVo.setRoleId(1L);
+        sysRolesMenusService.updateRoleMenu(updateRoleMenuVo);
     }
 
     private List<SummaryMenuDto> getChildSummaryMenu(Long id, List<SummaryMenuDto> allMenus) {

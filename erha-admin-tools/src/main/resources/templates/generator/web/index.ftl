@@ -156,24 +156,7 @@
           </a-col>
           <a-divider style="height: 84px" direction="vertical" />
           <a-col :flex="'86px'" style="text-align: right">
-            <a-space size="medium" direction="vertical">
-              <a-button
-                status="success"
-                long
-                :disabled="crud.options.tableInfo.isEdit"
-                @click="crud.method.refresh"
-              >
-                <template #icon> <icon-search /> </template
-                >{{ $t('crud.search') }}</a-button
-              ><a-button
-                status="warning"
-                :disabled="crud.options.tableInfo.isEdit"
-                @click="crud.update.resetParams"
-              >
-                <template #icon> <icon-refresh /> </template>
-                {{ $t('crud.reset') }}
-              </a-button>
-            </a-space>
+            <RROperation direction="vertical"/>
           </a-col>
         </a-row>
         <a-divider style="margin-top: 0" />

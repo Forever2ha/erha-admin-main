@@ -162,7 +162,7 @@
         <a-divider style="margin-top: 0" />
 </#if>
         <CrudOperation
-          :add-permission="['${changeClassName}:list']"
+          :add-permission="['${changeClassName}:add']"
           :edit-permission="['${changeClassName}:edit']"
           :del-permission="['${changeClassName}:del']"
           :download-permission="['${changeClassName}:list']"
@@ -746,17 +746,17 @@
 </#list>
 
 <#list columns as col>
-  <#if col.formType == '下拉框[多选]' && col.queryType??>
+  <#if col.formType == '下拉框[多选]'>
   crud.hook.afterRefresh = () => {
     for (let i = 0; i < (crud.options.tableInfo as any).data.length; i += 1) {
           <#list columns as col>
-            <#if col.formType == '下拉框[多选]' && col.queryType??>
+            <#if col.formType == '下拉框[多选]'>
       (crud.options.tableInfo as any).data[i].${col.changeColumnName} = parseToArray((crud.options.tableInfo as any).data[i].${col.changeColumnName});
             </#if>
           </#list>
     }
       <#list columns as col>
-        <#if col.formType == '下拉框[多选]' && col.queryType??>
+        <#if col.formType == '下拉框[多选]'>
     if (crud.options.query.${col.changeColumnName}) {
       crud.options.query.${col.changeColumnName} = parseToArray(crud.options.query.${col.changeColumnName});
     }
@@ -769,10 +769,10 @@
 </#list>
 
 <#list columns as col>
-  <#if col.formType == '下拉框[多选]' && col.queryType??>
+  <#if col.formType == '下拉框[多选]'>
   crud.hook.beforeRefresh = () => {
     <#list columns as col>
-    <#if col.formType == '下拉框[多选]' && col.queryType??>
+    <#if col.formType == '下拉框[多选]'>
     if (crud.options.query.${col.changeColumnName}){
       let newStr = '';
       for (let i = 0; i < crud.options.query.${col.changeColumnName}.length; i += 1) {

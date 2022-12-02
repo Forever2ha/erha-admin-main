@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 30/11/2022 21:04:24
+ Date: 02/12/2022 14:58:01
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `code_column_config`  (
                                        `date_annotation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
                                        PRIMARY KEY (`column_id`) USING BTREE,
                                        INDEX `idx_table_name`(`table_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 640 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 647 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of code_column_config
@@ -129,15 +129,6 @@ INSERT INTO `code_column_config` VALUES (557, 'sys_menu', 'update_time', 'dateti
 INSERT INTO `code_column_config` VALUES (629, 'test_student', 'student_id', 'bigint', NULL, 'auto_increment', b'0', NULL, 'PRI', b'0', b'0', NULL, 'id', NULL);
 INSERT INTO `code_column_config` VALUES (630, 'test_student', 'name', 'varchar', NULL, '', b'1', '文本框', 'UNI', b'1', b'1', 'Like', '学生姓名', NULL);
 INSERT INTO `code_column_config` VALUES (631, 'test_student', 'like_food', 'varchar', 'furit', '', b'1', '下拉框[多选]', '', b'1', b'1', 'Like', '水果', NULL);
-INSERT INTO `code_column_config` VALUES (632, 'test_student', 'age', 'int', NULL, '', b'1', '文本框', '', b'1', b'1', '>=', '年龄', NULL);
-INSERT INTO `code_column_config` VALUES (633, 'test_student', 'clazz_name', 'varchar', 'test_clazz', '', b'1', '下拉框[单选]', '', b'1', b'1', '=', '班级名', NULL);
-INSERT INTO `code_column_config` VALUES (634, 'test_student', 'gender', 'bit', 'gender', '', b'1', '单选框[按钮]', '', b'1', b'1', '=', '性别', NULL);
-INSERT INTO `code_column_config` VALUES (635, 'test_student', 'avg_score', 'decimal', NULL, '', b'1', '文本框', '', b'1', b'1', 'Between', '综合评分', NULL);
-INSERT INTO `code_column_config` VALUES (636, 'test_student', 'create_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'1', NULL, '创建时间', '自动创建时间');
-INSERT INTO `code_column_config` VALUES (637, 'test_student', 'update_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'0', 'NotNull', '更新时间', '自动更新时间');
-INSERT INTO `code_column_config` VALUES (638, 'test_student', 'enabled', 'bit', 'user_status', '', b'1', '开关[仅两个值]', '', b'1', b'1', NULL, '状态', NULL);
-INSERT INTO `code_column_config` VALUES (639, 'test_student', 'expire_time', 'datetime', NULL, '', b'1', '日期框', '', b'1', b'1', '>=', '账号过期时间', NULL);
-
 -- ----------------------------
 -- Table structure for code_gen_config
 -- ----------------------------
@@ -155,13 +146,13 @@ CREATE TABLE `code_gen_config`  (
                                     `api_alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口名称',
                                     PRIMARY KEY (`config_id`) USING BTREE,
                                     INDEX `idx_table_name`(`table_name`(100)) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of code_gen_config
 -- ----------------------------
 INSERT INTO `code_gen_config` VALUES (6, 'sys_user', '一只二哈233333', b'0', 'erha-admin-main', 'fun.yizhierha.systemtest', 'systemtest/user', 'systemtest/user', 'sys', '系统:用户');
-INSERT INTO `code_gen_config` VALUES (9, 'test_student', '二哈', b'0', 'erha-admin-test', 'fun.yizhierha.test', 'test/student', 'test/student', NULL, '测试：学生');
+INSERT INTO `code_gen_config` VALUES (9, 'test_student', '二哈', b'1', 'erha-admin-test', 'fun.yizhierha.test', 'test/student', 'test/student', NULL, '测试模块：学生信息');
 
 -- ----------------------------
 -- Table structure for mnt_app
@@ -463,9 +454,8 @@ CREATE TABLE `sys_menu`  (
                              `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
                              PRIMARY KEY (`menu_id`) USING BTREE,
                              UNIQUE INDEX `uniq_title`(`title`) USING BTREE,
-                             UNIQUE INDEX `uniq_name`(`name`) USING BTREE,
                              INDEX `inx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 151 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 178 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -496,10 +486,11 @@ INSERT INTO `sys_menu` VALUES (141, 130, 0, 2, '添加菜单', NULL, NULL, 0, NU
 INSERT INTO `sys_menu` VALUES (142, 130, 0, 2, '编辑菜单', NULL, NULL, 0, NULL, NULL, b'0', b'0', b'0', 'menu:edit', 'admin2', NULL, '2022-09-19 22:16:32', NULL);
 INSERT INTO `sys_menu` VALUES (143, 130, 0, 2, '删除菜单', NULL, NULL, 0, NULL, NULL, b'0', b'0', b'0', 'menu:del', 'admin2', NULL, '2022-09-19 22:16:46', NULL);
 INSERT INTO `sys_menu` VALUES (146, 117, 0, 1, '任务调度', 'Quartz', 'menu.system.quartz', 7, 'icon-schedule', NULL, b'0', b'0', b'0', 'quartz:list', 'admin2', 'admin2', '2022-10-13 22:47:44', '2022-10-13 22:52:21');
-INSERT INTO `sys_menu` VALUES (147, NULL, 1, 0, '系统工具', 'Tools', 'menu.tools', 0, 'icon-tool', NULL, b'0', b'0', b'0', NULL, 'admin2', NULL, '2022-11-05 14:24:10', NULL);
+INSERT INTO `sys_menu` VALUES (147, NULL, 1, 0, '系统工具', 'Tools', 'menu.tools', 5, 'icon-tool', NULL, b'0', b'0', b'0', NULL, 'admin2', 'admin2', '2022-11-05 14:24:10', '2022-12-02 11:59:44');
 INSERT INTO `sys_menu` VALUES (148, 147, 0, 1, '代码生成', 'Generate', 'menu.tools.generate', 0, 'icon-code', NULL, b'0', b'0', b'0', NULL, 'admin2', NULL, '2022-11-05 14:25:33', NULL);
-INSERT INTO `sys_menu` VALUES (149, NULL, 1, 0, '测试', 'Test', 'menu.test', 0, 'icon-tag', NULL, b'0', b'0', b'0', NULL, 'admin2', 'admin2', '2022-11-26 14:31:15', '2022-11-26 15:11:17');
-INSERT INTO `sys_menu` VALUES (150, 149, 0, 1, '学生', 'Student', 'menu.test.student', 0, 'icon-bulb', NULL, b'0', b'0', b'0', NULL, 'admin2', 'admin2', '2022-11-26 14:33:06', '2022-11-26 15:11:38');
+INSERT INTO `sys_menu` VALUES (173, NULL, 1, 0, '系统监控', 'Monitor', 'menu.monitor', 1, 'icon-computer', NULL, b'0', b'0', b'0', NULL, 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:59:44');
+INSERT INTO `sys_menu` VALUES (174, 173, 3, 1, '在线用户', 'Onlineuser', 'menu.monitor.onlineuser', 0, 'icon-user-group', NULL, b'0', b'0', b'0', 'onlineUser:list', 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:58:10');
+INSERT INTO `sys_menu` VALUES (177, 174, 0, 2, '强制退出', NULL, NULL, 0, NULL, NULL, b'0', b'0', b'0', 'onlineUser:del', 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:59:12');
 
 -- ----------------------------
 -- Table structure for sys_quartz_job
@@ -703,7 +694,7 @@ CREATE TABLE `sys_roles_menus`  (
                                     `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                     PRIMARY KEY (`id`) USING BTREE,
                                     INDEX `FKcngg2qadojhi3a651a5adkvbq`(`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 887 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色菜单关联' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1350 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色菜单关联' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_roles_menus
@@ -717,46 +708,59 @@ INSERT INTO `sys_roles_menus` VALUES (132, 9, 554);
 INSERT INTO `sys_roles_menus` VALUES (133, 9, 555);
 INSERT INTO `sys_roles_menus` VALUES (134, 9, 556);
 INSERT INTO `sys_roles_menus` VALUES (117, 9, 557);
-INSERT INTO `sys_roles_menus` VALUES (117, 2, 686);
-INSERT INTO `sys_roles_menus` VALUES (126, 2, 687);
-INSERT INTO `sys_roles_menus` VALUES (132, 2, 688);
-INSERT INTO `sys_roles_menus` VALUES (138, 2, 689);
-INSERT INTO `sys_roles_menus` VALUES (129, 2, 690);
-INSERT INTO `sys_roles_menus` VALUES (128, 2, 691);
-INSERT INTO `sys_roles_menus` VALUES (135, 2, 692);
-INSERT INTO `sys_roles_menus` VALUES (118, 2, 693);
-INSERT INTO `sys_roles_menus` VALUES (130, 2, 694);
-INSERT INTO `sys_roles_menus` VALUES (141, 2, 695);
-INSERT INTO `sys_roles_menus` VALUES (117, 1, 857);
-INSERT INTO `sys_roles_menus` VALUES (135, 1, 858);
-INSERT INTO `sys_roles_menus` VALUES (137, 1, 859);
-INSERT INTO `sys_roles_menus` VALUES (136, 1, 860);
-INSERT INTO `sys_roles_menus` VALUES (138, 1, 861);
-INSERT INTO `sys_roles_menus` VALUES (139, 1, 862);
-INSERT INTO `sys_roles_menus` VALUES (140, 1, 863);
-INSERT INTO `sys_roles_menus` VALUES (141, 1, 864);
-INSERT INTO `sys_roles_menus` VALUES (142, 1, 865);
-INSERT INTO `sys_roles_menus` VALUES (143, 1, 866);
-INSERT INTO `sys_roles_menus` VALUES (123, 1, 867);
-INSERT INTO `sys_roles_menus` VALUES (124, 1, 868);
-INSERT INTO `sys_roles_menus` VALUES (125, 1, 869);
-INSERT INTO `sys_roles_menus` VALUES (118, 1, 870);
-INSERT INTO `sys_roles_menus` VALUES (130, 1, 871);
-INSERT INTO `sys_roles_menus` VALUES (119, 1, 872);
-INSERT INTO `sys_roles_menus` VALUES (129, 1, 873);
-INSERT INTO `sys_roles_menus` VALUES (128, 1, 874);
-INSERT INTO `sys_roles_menus` VALUES (134, 1, 875);
-INSERT INTO `sys_roles_menus` VALUES (133, 1, 876);
-INSERT INTO `sys_roles_menus` VALUES (132, 1, 877);
-INSERT INTO `sys_roles_menus` VALUES (126, 1, 878);
-INSERT INTO `sys_roles_menus` VALUES (122, 1, 879);
-INSERT INTO `sys_roles_menus` VALUES (120, 1, 880);
-INSERT INTO `sys_roles_menus` VALUES (121, 1, 881);
-INSERT INTO `sys_roles_menus` VALUES (146, 1, 882);
-INSERT INTO `sys_roles_menus` VALUES (147, 1, 883);
-INSERT INTO `sys_roles_menus` VALUES (148, 1, 884);
-INSERT INTO `sys_roles_menus` VALUES (149, 1, 885);
-INSERT INTO `sys_roles_menus` VALUES (150, 1, 886);
+INSERT INTO `sys_roles_menus` VALUES (117, 2, 1254);
+INSERT INTO `sys_roles_menus` VALUES (126, 2, 1255);
+INSERT INTO `sys_roles_menus` VALUES (132, 2, 1256);
+INSERT INTO `sys_roles_menus` VALUES (138, 2, 1257);
+INSERT INTO `sys_roles_menus` VALUES (129, 2, 1258);
+INSERT INTO `sys_roles_menus` VALUES (128, 2, 1259);
+INSERT INTO `sys_roles_menus` VALUES (135, 2, 1260);
+INSERT INTO `sys_roles_menus` VALUES (118, 2, 1261);
+INSERT INTO `sys_roles_menus` VALUES (130, 2, 1262);
+INSERT INTO `sys_roles_menus` VALUES (141, 2, 1263);
+INSERT INTO `sys_roles_menus` VALUES (173, 2, 1264);
+INSERT INTO `sys_roles_menus` VALUES (174, 2, 1265);
+INSERT INTO `sys_roles_menus` VALUES (177, 2, 1266);
+INSERT INTO `sys_roles_menus` VALUES (128, 1, 1310);
+INSERT INTO `sys_roles_menus` VALUES (129, 1, 1311);
+INSERT INTO `sys_roles_menus` VALUES (130, 1, 1312);
+INSERT INTO `sys_roles_menus` VALUES (132, 1, 1313);
+INSERT INTO `sys_roles_menus` VALUES (133, 1, 1314);
+INSERT INTO `sys_roles_menus` VALUES (134, 1, 1315);
+INSERT INTO `sys_roles_menus` VALUES (135, 1, 1316);
+INSERT INTO `sys_roles_menus` VALUES (136, 1, 1317);
+INSERT INTO `sys_roles_menus` VALUES (137, 1, 1318);
+INSERT INTO `sys_roles_menus` VALUES (138, 1, 1319);
+INSERT INTO `sys_roles_menus` VALUES (139, 1, 1320);
+INSERT INTO `sys_roles_menus` VALUES (140, 1, 1321);
+INSERT INTO `sys_roles_menus` VALUES (141, 1, 1322);
+INSERT INTO `sys_roles_menus` VALUES (142, 1, 1323);
+INSERT INTO `sys_roles_menus` VALUES (143, 1, 1324);
+INSERT INTO `sys_roles_menus` VALUES (146, 1, 1325);
+INSERT INTO `sys_roles_menus` VALUES (147, 1, 1326);
+INSERT INTO `sys_roles_menus` VALUES (148, 1, 1327);
+INSERT INTO `sys_roles_menus` VALUES (153, 1, 1328);
+INSERT INTO `sys_roles_menus` VALUES (154, 1, 1329);
+INSERT INTO `sys_roles_menus` VALUES (155, 1, 1330);
+INSERT INTO `sys_roles_menus` VALUES (156, 1, 1331);
+INSERT INTO `sys_roles_menus` VALUES (157, 1, 1332);
+INSERT INTO `sys_roles_menus` VALUES (159, 1, 1333);
+INSERT INTO `sys_roles_menus` VALUES (160, 1, 1334);
+INSERT INTO `sys_roles_menus` VALUES (161, 1, 1335);
+INSERT INTO `sys_roles_menus` VALUES (162, 1, 1336);
+INSERT INTO `sys_roles_menus` VALUES (173, 1, 1337);
+INSERT INTO `sys_roles_menus` VALUES (174, 1, 1338);
+INSERT INTO `sys_roles_menus` VALUES (177, 1, 1339);
+INSERT INTO `sys_roles_menus` VALUES (117, 1, 1340);
+INSERT INTO `sys_roles_menus` VALUES (118, 1, 1341);
+INSERT INTO `sys_roles_menus` VALUES (119, 1, 1342);
+INSERT INTO `sys_roles_menus` VALUES (120, 1, 1343);
+INSERT INTO `sys_roles_menus` VALUES (121, 1, 1344);
+INSERT INTO `sys_roles_menus` VALUES (122, 1, 1345);
+INSERT INTO `sys_roles_menus` VALUES (123, 1, 1346);
+INSERT INTO `sys_roles_menus` VALUES (124, 1, 1347);
+INSERT INTO `sys_roles_menus` VALUES (125, 1, 1348);
+INSERT INTO `sys_roles_menus` VALUES (126, 1, 1349);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -794,9 +798,9 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 25, 'admin', '喵喵喵', '女', '18260974475', '201507802@qq.com', 'avatar-2022051402392086.png', 'C:\\ehadmin\\avatar\\avatar-2022051402392086.png', '$2a$10$9i.C984Nw5N.LW9n7/fdmu84MB8jA.Y2wzICyAUG1vBvcGFWFbS9G', b'1', b'1', NULL, 'admin2', '2022-05-31 16:38:31', '2018-08-23 09:11:56', '2022-11-29 21:23:47', 1);
-INSERT INTO `sys_user` VALUES (2, 24, 'test', '测试2333', '男', '19991169991', '231@qq.com', NULL, NULL, '$2a$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'0', b'1', 'admin', 'admin2', NULL, '2020-05-05 11:15:49', '2022-11-25 11:52:08', 2);
-INSERT INTO `sys_user` VALUES (3, 22, 'admin2', '大飒飒', '男', '17342320974', 'ads@qq.com', 'bc3-20221105011712921.jpg', 'C:\\ehadmin\\avatar\\bc3-20221105011712921.jpg', '$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'1', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:44:22', '2022-11-05 13:52:53', 1);
+INSERT INTO `sys_user` VALUES (1, 25, 'admin', '测试2333', '女', '18260974475', '11111111@qq.com', 'avatar-2022051402392086.png', 'C:\\ehadmin\\avatar\\avatar-2022051402392086.png', '$2a$10$9i.C984Nw5N.LW9n7/fdmu84MB8jA.Y2wzICyAUG1vBvcGFWFbS9G', b'1', b'1', NULL, 'admin2', '2022-05-31 16:38:31', '2018-08-23 09:11:56', '2022-11-30 22:50:28', 1);
+INSERT INTO `sys_user` VALUES (2, 24, 'test', '测试2333', '男', '19991169991', '231@qq.com', NULL, NULL, '$2a$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'0', b'1', 'admin', 'admin2', NULL, '2020-05-05 11:15:49', '2022-11-30 22:26:04', 2);
+INSERT INTO `sys_user` VALUES (3, 22, 'admin2', '大飒sad', '男', '17342320974', 'ads@qq.com', 'bc3-20221105011712921.jpg', 'C:\\ehadmin\\avatar\\bc3-20221105011712921.jpg', '$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'1', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:44:22', '2022-11-30 22:26:04', 1);
 INSERT INTO `sys_user` VALUES (4, 8, '小红', '汪汪汪', '男', '17342320971', 'ads2@qq.com', NULL, NULL, '$2a$10$ucE5qufBEcpnhwMqzNNnuuZZWYzrsKyIa0xRrAxlvdWKjc26gmP0i', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:47:51', '2022-10-22 13:07:45', 2);
 INSERT INTO `sys_user` VALUES (6, 6, '小蓝', '小蓝dsaasdafasf', '女', '17342320977', 'asd@q.swa', NULL, NULL, '$2a$10$vauz0kyCWTQrpzX5w9MkpOa2RjjBtVYkRb1FR9cBnmkjvG/7Qxyd2', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:50:42', '2022-11-25 20:06:30', 2);
 INSERT INTO `sys_user` VALUES (7, 22, '小蓝2', '小蓝23333333', '男', '17222320977', 'as2d@q.swa', NULL, NULL, '$2a$10$Tc4q0bQzZa/cyME44KKkH.sDNtJvILDJ8awWzeB.7F84biZBQb2pa', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:51:10', '2022-10-22 13:07:41', 2);
@@ -868,35 +872,6 @@ INSERT INTO `sys_users_roles` VALUES (2, 2, 39);
 INSERT INTO `sys_users_roles` VALUES (13, 2, 40);
 INSERT INTO `sys_users_roles` VALUES (9, 2, 41);
 INSERT INTO `sys_users_roles` VALUES (9, 9, 42);
-
--- ----------------------------
--- Table structure for test_student
--- ----------------------------
-DROP TABLE IF EXISTS `test_student`;
-CREATE TABLE `test_student`  (
-                                 `student_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-                                 `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生姓名',
-                                 `like_food` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '喜欢吃的水果',
-                                 `age` int(11) NOT NULL COMMENT '年龄',
-                                 `clazz_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级名',
-                                 `gender` bit(1) NOT NULL COMMENT '性别(1:男，0:女)',
-                                 `avg_score` decimal(65, 30) NOT NULL COMMENT '综合评分',
-                                 `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                                 `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-                                 `enabled` bit(1) NOT NULL COMMENT '状态',
-                                 `expire_time` datetime(0) NOT NULL COMMENT '账号过期时间',
-                                 PRIMARY KEY (`student_id`) USING BTREE,
-                                 UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '测试用的学生表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of test_student
--- ----------------------------
-INSERT INTO `test_student` VALUES (1, '阿松大', '[香蕉, 梨子, 苹果]', 3, '生医', b'1', 999.654100000000000000000000000000, '2022-11-26 16:22:35', '2022-11-30 15:08:34', b'1', '2022-11-01 22:14:22');
-INSERT INTO `test_student` VALUES (3, '啊的撒', '[]', 13, '通信', b'1', -664.540000000000000000000000000000, '2022-11-27 11:42:38', '2022-11-30 15:06:55', b'0', '2022-11-09 22:14:25');
-INSERT INTO `test_student` VALUES (4, 'aa', '[苹果]', 21, '生医', b'0', 666.994500000000000000000000000000, '2022-11-27 16:22:37', '2022-11-27 19:52:07', b'1', '2022-11-17 22:14:28');
-INSERT INTO `test_student` VALUES (6, 'DSASA', '[苹果]', 1, '通信', b'0', 132.550000000000000000000000000000, '2022-11-27 22:43:50', '2022-11-29 15:55:29', b'1', '2022-11-01 23:00:00');
-INSERT INTO `test_student` VALUES (7, 'aab', '[香蕉, 苹果]', 223, '通信', b'0', 12.000000000000000000000000000000, '2022-11-29 22:43:13', NULL, b'1', '2022-11-29 00:07:00');
 
 -- ----------------------------
 -- Table structure for tool_alipay_config

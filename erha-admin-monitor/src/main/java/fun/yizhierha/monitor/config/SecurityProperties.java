@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package fun.yizhierha.modules.security.config;
+package fun.yizhierha.monitor.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

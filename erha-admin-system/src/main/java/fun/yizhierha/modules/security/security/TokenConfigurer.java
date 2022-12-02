@@ -15,8 +15,8 @@
  */
 package fun.yizhierha.modules.security.security;
 
-import fun.yizhierha.modules.security.config.SecurityProperties;
-import fun.yizhierha.modules.security.service.OnlineUserService;
+import fun.yizhierha.monitor.config.SecurityProperties;
+import fun.yizhierha.monitor.service.OnlineUserService;
 import fun.yizhierha.modules.security.service.UserCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

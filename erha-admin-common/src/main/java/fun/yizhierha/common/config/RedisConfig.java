@@ -79,6 +79,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         ParserConfig.getGlobalInstance().addAccept("fun.yizhierha.modules.quartz.service.dto");
         ParserConfig.getGlobalInstance().addAccept("fun.yizhierha.modules.security.service.dto");
         ParserConfig.getGlobalInstance().addAccept("fun.yizhierha.modules.system.service.dto");
+        // monitor模块
+        ParserConfig.getGlobalInstance().addAccept("fun.yizhierha.monitor.service.dto");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());

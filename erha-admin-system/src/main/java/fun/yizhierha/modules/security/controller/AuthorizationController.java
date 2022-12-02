@@ -11,13 +11,13 @@ import fun.yizhierha.common.utils.RedisUtils;
 import fun.yizhierha.common.utils.StringUtils;
 import fun.yizhierha.modules.security.config.LoginCodeEnum;
 import fun.yizhierha.modules.security.config.LoginProperties;
-import fun.yizhierha.modules.security.config.SecurityProperties;
+import fun.yizhierha.monitor.config.SecurityProperties;
 import fun.yizhierha.modules.security.security.TokenProvider;
-import fun.yizhierha.modules.security.service.OnlineUserService;
 import fun.yizhierha.modules.security.service.dto.CaptchaDTO;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
 import fun.yizhierha.modules.security.service.dto.UserInfoDto;
 import fun.yizhierha.modules.security.vo.AuthUserVo;
+import fun.yizhierha.monitor.service.OnlineUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -84,8 +84,11 @@ public class AuthorizationController {
         }
 
 
+        String username = userDetailsDto.getUsername();
+        String deptName = userDetailsDto.getUser().getDeptName();
+        String nickName = userDetailsDto.getUser().getNickName();
         //保存在线信息
-        onlineUserService.save(userDetailsDto,token,request);
+        onlineUserService.save(deptName,username,nickName,token,request);
 
         return R.<UserInfoDto>ok().setData(userInfoDto);
     }

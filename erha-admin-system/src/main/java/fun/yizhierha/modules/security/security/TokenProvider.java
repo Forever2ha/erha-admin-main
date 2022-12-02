@@ -19,7 +19,7 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import fun.yizhierha.common.utils.RedisUtils;
-import fun.yizhierha.modules.security.config.SecurityProperties;
+import fun.yizhierha.monitor.config.SecurityProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

@@ -32,6 +32,13 @@
             <version>1.0</version>
         </dependency>
 
+        <!--monitor-->
+        <dependency>
+            <groupId>fun.yizhierha</groupId>
+            <artifactId>erha-admin-monitor</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- jwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

@@ -82,7 +82,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
             <#if col.queryType == 'Like'>
                 <#if col.formType == '下拉框[多选]'>
             for (String s : ${col.changeColumnName}) {
-                wrapper.like(TestStudent.COL_${col.allCaps},s);
+                wrapper.like(${className}.COL_${col.allCaps},s);
             }
                     <#else >
             wrapper.like(${className}.COL_${col.allCaps},${col.changeColumnName});

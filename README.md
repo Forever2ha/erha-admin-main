@@ -46,7 +46,7 @@ SpringSecurity+Jwt做登录验证和权限校验(权限控制采用RBAC思想)�
 ## 站点演示
 **体验地址** : 暂未上线
 
-**开发文档** : 暂未上线
+**开发文档** : http://175.24.198.241/
 <img src="./doc/img/login.png">
 <img src="./doc/img/user1.png">
 <img src="./doc/img/user2.png">

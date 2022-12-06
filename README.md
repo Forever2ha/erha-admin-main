@@ -43,6 +43,12 @@ QQ交流群：727793103
 EH-ADMIN是一个基于SpringBoot2与Vue3的前后端分离后台管理系统。Web使用Vue+Arco Design,后端使用SpringBoot+MyBatis-Plus进行开发，使用
 SpringSecurity+Jwt做登录验证和权限校验(权限控制采用RBAC思想)。
 
+**源码地址**  
+
+|平台|前端|后端|
+|--|--|--|  
+|gitee|https://gitee.com/erha_a/erha-admin-web | https://gitee.com/erha_a/erha-admin-main |
+|github|https://github.com/Forever2ha/erha-admin-web  |https://github.com/Forever2ha/erha-admin-main |
 ## 站点演示
 **体验地址** : 暂未上线
 

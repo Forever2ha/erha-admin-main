@@ -83,7 +83,7 @@ public class ${className}Controller{
     @ApiOperation("删除${apiAliasShort}")
     @DeleteMapping
     @PreAuthorize("@eh.check('${changeClassName}:del')")
-    public R delJob(@RequestBody Set<Long> ids){
+    public R del(@RequestBody Set<Long> ids){
         ${changeClassName}Service.remove(ids);
         return R.ok();
     }

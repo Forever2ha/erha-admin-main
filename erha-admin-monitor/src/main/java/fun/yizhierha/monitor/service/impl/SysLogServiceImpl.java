@@ -118,7 +118,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         log.setUsername(username);
         log.setParams(getParameter(method, joinPoint.getArgs()));
         // 记录登录用户，隐藏密码信息
-        if(log.getDescription().equals("用户登录")){
+        if(log.getDescription().equals("登录")){
             JSONObject obj = JSONUtil.parseObj(log.getParams());
             log.setUsername(obj.get("username").toString());
             log.setParams(JSONUtil.toJsonStr(Dict.create().set("username", log.getUsername()).set("password","******")));

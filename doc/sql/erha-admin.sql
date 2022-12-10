@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 02/12/2022 14:58:01
+ Date: 10/12/2022 15:50:57
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `code_column_config`  (
                                        `date_annotation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
                                        PRIMARY KEY (`column_id`) USING BTREE,
                                        INDEX `idx_table_name`(`table_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 647 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 667 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of code_column_config
@@ -108,7 +108,7 @@ INSERT INTO `code_column_config` VALUES (527, 'code_gen_config', 'path', 'varcha
 INSERT INTO `code_column_config` VALUES (528, 'code_gen_config', 'api_path', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '后端Api', NULL);
 INSERT INTO `code_column_config` VALUES (529, 'code_gen_config', 'prefix', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '表前缀', NULL);
 INSERT INTO `code_column_config` VALUES (530, 'code_gen_config', 'api_alias', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '接口名称', NULL);
-INSERT INTO `code_column_config` VALUES (540, 'sys_menu', 'menu_id', 'bigint', NULL, 'auto_increment', b'1', NULL, 'PRI', b'1', b'1', NULL, 'ID', NULL);
+INSERT INTO `code_column_config` VALUES (540, 'sys_menu', 'menu_id', 'bigint', NULL, 'auto_increment', b'1', '', 'PRI', b'1', b'1', NULL, 'ID', NULL);
 INSERT INTO `code_column_config` VALUES (541, 'sys_menu', 'pid', 'bigint', NULL, '', b'1', NULL, 'MUL', b'1', b'0', NULL, '上级菜单ID', NULL);
 INSERT INTO `code_column_config` VALUES (542, 'sys_menu', 'sub_count', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '子菜单数目', NULL);
 INSERT INTO `code_column_config` VALUES (543, 'sys_menu', 'type', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '菜单类型', NULL);
@@ -128,7 +128,43 @@ INSERT INTO `code_column_config` VALUES (556, 'sys_menu', 'create_time', 'dateti
 INSERT INTO `code_column_config` VALUES (557, 'sys_menu', 'update_time', 'datetime', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '更新时间', NULL);
 INSERT INTO `code_column_config` VALUES (629, 'test_student', 'student_id', 'bigint', NULL, 'auto_increment', b'0', NULL, 'PRI', b'0', b'0', NULL, 'id', NULL);
 INSERT INTO `code_column_config` VALUES (630, 'test_student', 'name', 'varchar', NULL, '', b'1', '文本框', 'UNI', b'1', b'1', 'Like', '学生姓名', NULL);
-INSERT INTO `code_column_config` VALUES (631, 'test_student', 'like_food', 'varchar', 'furit', '', b'1', '下拉框[多选]', '', b'1', b'1', 'Like', '水果', NULL);
+INSERT INTO `code_column_config` VALUES (631, 'test_student', 'like_food', 'varchar', 'fruit', '', b'1', '下拉框[多选]', '', b'1', b'1', 'Like', '水果', NULL);
+INSERT INTO `code_column_config` VALUES (632, 'test_student', 'age', 'int', NULL, '', b'1', '文本框', '', b'1', b'1', '=', '年龄', NULL);
+INSERT INTO `code_column_config` VALUES (633, 'test_student', 'clazz_name', 'varchar', 'test_clazz', '', b'1', '下拉框[单选]', '', b'1', b'1', '=', '班级名', NULL);
+INSERT INTO `code_column_config` VALUES (634, 'test_student', 'gender', 'bit', 'gender', '', b'1', '单选框[按钮]', '', b'1', b'1', '', '性别', NULL);
+INSERT INTO `code_column_config` VALUES (635, 'test_student', 'avg_score', 'decimal', NULL, '', b'1', '文本框', '', b'1', b'1', 'Between', '综合评分', NULL);
+INSERT INTO `code_column_config` VALUES (636, 'test_student', 'create_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'1', NULL, '创建时间', '自动创建时间');
+INSERT INTO `code_column_config` VALUES (637, 'test_student', 'update_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'0', 'Between', '更新时间', '自动更新时间');
+INSERT INTO `code_column_config` VALUES (638, 'test_student', 'enabled', 'bit', 'user_status', '', b'1', '开关[仅两个值]', '', b'1', b'1', '=', '状态', NULL);
+INSERT INTO `code_column_config` VALUES (639, 'test_student', 'expire_time', 'datetime', NULL, '', b'1', '日期框', '', b'1', b'1', '>=', '过期时间', NULL);
+INSERT INTO `code_column_config` VALUES (640, 'online_user', 'user_name', 'varchar', NULL, '', b'0', NULL, 'PRI', b'1', b'0', 'Like', '用户名', NULL);
+INSERT INTO `code_column_config` VALUES (641, 'online_user', 'nickName', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '昵称', NULL);
+INSERT INTO `code_column_config` VALUES (642, 'online_user', 'dept', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '岗位', NULL);
+INSERT INTO `code_column_config` VALUES (643, 'online_user', 'browser', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '浏览器', NULL);
+INSERT INTO `code_column_config` VALUES (644, 'online_user', 'ip', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', '=', 'ip', NULL);
+INSERT INTO `code_column_config` VALUES (645, 'online_user', 'address', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '登录地点', NULL);
+INSERT INTO `code_column_config` VALUES (646, 'online_user', 'login_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'0', 'Between', '登录时间', NULL);
+INSERT INTO `code_column_config` VALUES (647, 'sys_log', 'log_id', 'bigint', NULL, 'auto_increment', b'0', NULL, 'PRI', b'0', b'0', NULL, 'ID', NULL);
+INSERT INTO `code_column_config` VALUES (648, 'sys_log', 'description', 'varchar', NULL, '', b'0', '', '', b'1', b'0', 'Like', '描述', NULL);
+INSERT INTO `code_column_config` VALUES (649, 'sys_log', 'log_type', 'varchar', 'tools_log_type', '', b'0', '下拉框[单选]', 'MUL', b'1', b'0', '=', '日志类型', NULL);
+INSERT INTO `code_column_config` VALUES (650, 'sys_log', 'method', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', NULL, '执行方法', NULL);
+INSERT INTO `code_column_config` VALUES (651, 'sys_log', 'params', 'text', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '参数', NULL);
+INSERT INTO `code_column_config` VALUES (652, 'sys_log', 'request_ip', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', '=', 'IP来源', NULL);
+INSERT INTO `code_column_config` VALUES (653, 'sys_log', 'time', 'bigint', NULL, '', b'0', NULL, '', b'1', b'0', 'Between', '耗时', NULL);
+INSERT INTO `code_column_config` VALUES (654, 'sys_log', 'username', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '用户名', NULL);
+INSERT INTO `code_column_config` VALUES (655, 'sys_log', 'address', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', 'IP归属地', NULL);
+INSERT INTO `code_column_config` VALUES (656, 'sys_log', 'browser', 'varchar', NULL, '', b'0', NULL, '', b'1', b'0', 'Like', '浏览器', NULL);
+INSERT INTO `code_column_config` VALUES (657, 'sys_log', 'exception_detail', 'text', NULL, '', b'0', NULL, '', b'1', b'0', NULL, '异常信息', NULL);
+INSERT INTO `code_column_config` VALUES (658, 'sys_log', 'create_time', 'datetime', NULL, '', b'0', NULL, 'MUL', b'1', b'0', 'Between', '创建时间', NULL);
+INSERT INTO `code_column_config` VALUES (659, 'sys_job', 'job_id', 'bigint', NULL, 'auto_increment', b'1', NULL, 'PRI', b'1', b'1', NULL, 'ID', NULL);
+INSERT INTO `code_column_config` VALUES (660, 'sys_job', 'name', 'varchar', NULL, '', b'1', NULL, 'UNI', b'1', b'1', NULL, '岗位名称', NULL);
+INSERT INTO `code_column_config` VALUES (661, 'sys_job', 'enabled', 'bit', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '岗位状态', NULL);
+INSERT INTO `code_column_config` VALUES (662, 'sys_job', 'job_sort', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '排序', NULL);
+INSERT INTO `code_column_config` VALUES (663, 'sys_job', 'create_by', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '创建者', NULL);
+INSERT INTO `code_column_config` VALUES (664, 'sys_job', 'update_by', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '更新者', NULL);
+INSERT INTO `code_column_config` VALUES (665, 'sys_job', 'create_time', 'datetime', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '创建日期', NULL);
+INSERT INTO `code_column_config` VALUES (666, 'sys_job', 'update_time', 'datetime', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '更新时间', NULL);
+
 -- ----------------------------
 -- Table structure for code_gen_config
 -- ----------------------------
@@ -146,13 +182,14 @@ CREATE TABLE `code_gen_config`  (
                                     `api_alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口名称',
                                     PRIMARY KEY (`config_id`) USING BTREE,
                                     INDEX `idx_table_name`(`table_name`(100)) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of code_gen_config
 -- ----------------------------
-INSERT INTO `code_gen_config` VALUES (6, 'sys_user', '一只二哈233333', b'0', 'erha-admin-main', 'fun.yizhierha.systemtest', 'systemtest/user', 'systemtest/user', 'sys', '系统:用户');
-INSERT INTO `code_gen_config` VALUES (9, 'test_student', '二哈', b'1', 'erha-admin-test', 'fun.yizhierha.test', 'test/student', 'test/student', NULL, '测试模块：学生信息');
+INSERT INTO `code_gen_config` VALUES (9, 'test_student', '喵喵喵', b'1', 'erha-admin-tools', 'fun.yizhierha.test', 'test/student', 'test/student', NULL, '测试模块：学生信息');
+INSERT INTO `code_gen_config` VALUES (10, 'online_user', '二哈', b'1', 'erha-admin-monitor', 'fun.yizhierha.monitor', 'monitor/onlineuser', 'monitor/onlineuser', NULL, '系统监控：在线用户');
+INSERT INTO `code_gen_config` VALUES (12, 'sys_log', '二哈', b'1', 'erha-admin-monitor', 'fun.yizhierha.monitor', 'monitor/log', 'monitor/log', NULL, '系统监控：操作日志');
 
 -- ----------------------------
 -- Table structure for mnt_app
@@ -301,7 +338,7 @@ INSERT INTO `sys_dept` VALUES (2, 7, 1, '研发部', 3, b'1', 'admin', 'admin', 
 INSERT INTO `sys_dept` VALUES (5, 7, 0, '运维部', 4, b'1', 'admin', 'admin', '2019-03-25 09:20:44', '2020-05-17 14:27:27');
 INSERT INTO `sys_dept` VALUES (6, 8, 2, '测试部', 6, b'1', 'admin', 'admin2', '2019-03-25 09:52:18', '2022-09-02 16:28:30');
 INSERT INTO `sys_dept` VALUES (7, NULL, 2, '华南分部', 2, b'1', 'admin', 'admin2', '2019-03-25 11:04:50', '2022-11-10 16:52:22');
-INSERT INTO `sys_dept` VALUES (8, NULL, 2, '华北分部', 1, b'1', 'admin', 'admin2', '2019-03-25 11:04:53', '2022-11-04 16:48:52');
+INSERT INTO `sys_dept` VALUES (8, NULL, 2, '华北分部', 1, b'1', 'admin', 'admin2', '2019-03-25 11:04:53', '2022-12-09 22:18:57');
 INSERT INTO `sys_dept` VALUES (15, 8, 1, 'UI部门', 7, b'1', 'admin', 'admin2', '2020-05-13 22:56:53', '2022-09-02 16:43:20');
 INSERT INTO `sys_dept` VALUES (17, 2, 0, '研发一组', 999, b'1', 'admin', 'admin', '2020-08-02 14:49:07', '2020-08-02 14:49:07');
 INSERT INTO `sys_dept` VALUES (18, 6, 1, '测试一组', 999, b'1', 'admin2', 'admin', '2022-09-02 21:18:11', '2022-09-02 21:18:14');
@@ -325,7 +362,7 @@ CREATE TABLE `sys_dict`  (
                              `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
                              `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
                              PRIMARY KEY (`dict_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_dict
@@ -333,9 +370,10 @@ CREATE TABLE `sys_dict`  (
 INSERT INTO `sys_dict` VALUES (1, 'user_status', '用户状态', NULL, 'admin2', '2019-10-27 20:31:36', '2022-09-10 23:46:22');
 INSERT INTO `sys_dict` VALUES (4, 'dept_status', '部门状态', NULL, 'admin2', '2019-10-27 20:31:36', '2022-09-10 23:46:35');
 INSERT INTO `sys_dict` VALUES (5, 'job_status', '岗位状态', NULL, NULL, '2019-10-27 20:31:36', NULL);
-INSERT INTO `sys_dict` VALUES (7, 'furit', '但是擦发222', 'admin2', 'admin2', '2022-09-10 23:44:26', '2022-11-29 22:07:03');
+INSERT INTO `sys_dict` VALUES (7, 'fruit', '但是擦发222', 'admin2', 'admin2', '2022-09-10 23:44:26', '2022-12-04 15:48:47');
 INSERT INTO `sys_dict` VALUES (8, 'gender', '性别', 'admin2', NULL, '2022-11-22 15:39:38', NULL);
 INSERT INTO `sys_dict` VALUES (9, 'test_clazz', '测试班级名', 'admin2', NULL, '2022-11-27 13:34:00', NULL);
+INSERT INTO `sys_dict` VALUES (10, 'tools_log_type', '日志等级', 'admin2', NULL, '2022-12-09 20:40:28', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_detail
@@ -353,7 +391,7 @@ CREATE TABLE `sys_dict_detail`  (
                                     `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
                                     PRIMARY KEY (`detail_id`) USING BTREE,
                                     INDEX `FK5tpkputc6d9nboxojdbgnpmyb`(`dict_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典详情' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典详情' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_dict_detail
@@ -373,6 +411,8 @@ INSERT INTO `sys_dict_detail` VALUES (13, 9, '计科', '1', 0, 'admin2', NULL, '
 INSERT INTO `sys_dict_detail` VALUES (14, 9, '通信', '2', 0, 'admin2', 'admin2', '2022-11-27 13:34:34', '2022-11-27 13:34:41');
 INSERT INTO `sys_dict_detail` VALUES (15, 9, '数科', '3', 0, 'admin2', NULL, '2022-11-27 13:34:56', NULL);
 INSERT INTO `sys_dict_detail` VALUES (16, 9, '生医', '4', 0, 'admin2', NULL, '2022-11-27 13:35:11', NULL);
+INSERT INTO `sys_dict_detail` VALUES (17, 10, '一般', 'INFO', 0, 'admin2', NULL, '2022-12-09 20:40:47', NULL);
+INSERT INTO `sys_dict_detail` VALUES (18, 10, '错误', 'ERROR', 0, 'admin2', NULL, '2022-12-09 20:40:55', NULL);
 
 -- ----------------------------
 -- Table structure for sys_job
@@ -421,13 +461,346 @@ CREATE TABLE `sys_log`  (
                             PRIMARY KEY (`log_id`) USING BTREE,
                             INDEX `log_create_time_index`(`create_time`) USING BTREE,
                             INDEX `inx_log_type`(`log_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 399 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-INSERT INTO `sys_log` VALUES (1, '修改用户', 'INFO', 'me.zhengjie.modules.system.rest.UserController.updateUser()', '{\"gender\":\"男\",\"nickName\":\"测试\",\"roles\":[],\"jobs\":[{\"updateTime\":1589111786000,\"enabled\":true,\"jobSort\":5,\"updateBy\":\"admin\",\"createTime\":1554010783000,\"name\":\"软件测试\",\"id\":12}],\"updateTime\":1599273818000,\"dept\":{\"subCount\":0,\"name\":\"研发部\",\"id\":2},\"isAdmin\":false,\"enabled\":false,\"createBy\":\"admin\",\"phone\":\"19999999999\",\"updateBy\":\"admin\",\"createTime\":1588648549000,\"id\":2,\"email\":\"231@qq.com\",\"username\":\"test\"}', '192.168.56.1', 61, 'admin', '内网IP', 'Chrome 100.0.4896.127', NULL, '2022-05-14 14:46:48');
-INSERT INTO `sys_log` VALUES (2, '修改用户', 'INFO', 'me.zhengjie.modules.system.rest.UserController.updateUser()', '{\"gender\":\"男\",\"nickName\":\"测试\",\"roles\":[],\"jobs\":[{\"updateTime\":1589111786000,\"enabled\":true,\"jobSort\":5,\"updateBy\":\"admin\",\"createTime\":1554010783000,\"name\":\"软件测试\",\"id\":12}],\"updateTime\":1599273818000,\"dept\":{\"subCount\":0,\"name\":\"研发部\",\"id\":2},\"isAdmin\":false,\"enabled\":true,\"createBy\":\"admin\",\"phone\":\"19999999999\",\"updateBy\":\"admin\",\"createTime\":1588648549000,\"id\":2,\"email\":\"231@qq.com\",\"username\":\"test\"}', '192.168.56.1', 41, 'admin', '内网IP', 'Chrome 100.0.4896.127', NULL, '2022-05-14 14:46:54');
+INSERT INTO `sys_log` VALUES (44, '删除操作日志', 'INFO', 'fun.yizhierha.monitor.controller.SysLogController.del()', '[32,43,30,31]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:17:21');
+INSERT INTO `sys_log` VALUES (55, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:16');
+INSERT INTO `sys_log` VALUES (66, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"dept_status\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:23');
+INSERT INTO `sys_log` VALUES (67, '获取部门', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.getDept()', '[{},{\"pageSize\":999,\"currentPage\":1}]', '192.168.56.1', 18, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:23');
+INSERT INTO `sys_log` VALUES (68, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"user_status\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:24');
+INSERT INTO `sys_log` VALUES (69, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:24');
+INSERT INTO `sys_log` VALUES (70, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 23, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:24');
+INSERT INTO `sys_log` VALUES (71, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 11, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:26');
+INSERT INTO `sys_log` VALUES (72, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:26');
+INSERT INTO `sys_log` VALUES (73, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"user_status\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:27');
+INSERT INTO `sys_log` VALUES (74, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:27');
+INSERT INTO `sys_log` VALUES (75, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 21, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:27');
+INSERT INTO `sys_log` VALUES (76, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:30');
+INSERT INTO `sys_log` VALUES (77, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 40, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:47');
+INSERT INTO `sys_log` VALUES (78, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"user_status\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:47');
+INSERT INTO `sys_log` VALUES (79, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 81, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:47');
+INSERT INTO `sys_log` VALUES (80, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"dept_status\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:55');
+INSERT INTO `sys_log` VALUES (81, '获取部门', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.getDept()', '[{},{\"pageSize\":999,\"currentPage\":1}]', '192.168.56.1', 11, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:55');
+INSERT INTO `sys_log` VALUES (82, '修改部门', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.editDept()', '[{\"enabled\":true,\"id\":8}]', '192.168.56.1', 31, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:57');
+INSERT INTO `sys_log` VALUES (83, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"user_status\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:59');
+INSERT INTO `sys_log` VALUES (84, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:59');
+INSERT INTO `sys_log` VALUES (85, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 18, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:18:59');
+INSERT INTO `sys_log` VALUES (86, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{\"deptIds\":[8,18,20,6,24,25,15]},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 20, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:00');
+INSERT INTO `sys_log` VALUES (87, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{\"deptIds\":[7,17,2,5]},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 18, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:01');
+INSERT INTO `sys_log` VALUES (88, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{\"deptIds\":[8,18,20,6,24,25,15]},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 20, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:02');
+INSERT INTO `sys_log` VALUES (89, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{\"deptIds\":[7,17,2,5]},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 15, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:03');
+INSERT INTO `sys_log` VALUES (90, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 16, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:04');
+INSERT INTO `sys_log` VALUES (91, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:19:05');
+INSERT INTO `sys_log` VALUES (92, '部门树', 'INFO', 'fun.yizhierha.modules.system.controller.DeptController.list()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:22:54');
+INSERT INTO `sys_log` VALUES (93, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"user_status\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:22:54');
+INSERT INTO `sys_log` VALUES (94, '用户列表', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.list()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 16, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:22:54');
+INSERT INTO `sys_log` VALUES (95, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"job_status\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:22:57');
+INSERT INTO `sys_log` VALUES (96, '获取岗位', 'INFO', 'fun.yizhierha.modules.system.controller.JobController.getJob()', '[{},{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 12, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:22:57');
+INSERT INTO `sys_log` VALUES (97, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:23:04');
+INSERT INTO `sys_log` VALUES (98, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:33:42');
+INSERT INTO `sys_log` VALUES (99, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:33:43');
+INSERT INTO `sys_log` VALUES (100, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:33:43');
+INSERT INTO `sys_log` VALUES (101, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:34:40');
+INSERT INTO `sys_log` VALUES (102, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:34:40');
+INSERT INTO `sys_log` VALUES (103, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:34:41');
+INSERT INTO `sys_log` VALUES (104, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:36:02');
+INSERT INTO `sys_log` VALUES (105, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:36:42');
+INSERT INTO `sys_log` VALUES (106, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:36:42');
+INSERT INTO `sys_log` VALUES (107, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:36:43');
+INSERT INTO `sys_log` VALUES (108, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:37:05');
+INSERT INTO `sys_log` VALUES (109, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:37:05');
+INSERT INTO `sys_log` VALUES (110, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:37:06');
+INSERT INTO `sys_log` VALUES (111, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:39:39');
+INSERT INTO `sys_log` VALUES (112, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:39:39');
+INSERT INTO `sys_log` VALUES (113, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:39:40');
+INSERT INTO `sys_log` VALUES (114, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:41:52');
+INSERT INTO `sys_log` VALUES (115, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:41:52');
+INSERT INTO `sys_log` VALUES (116, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:41:52');
+INSERT INTO `sys_log` VALUES (117, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:42:32');
+INSERT INTO `sys_log` VALUES (118, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:42:32');
+INSERT INTO `sys_log` VALUES (119, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:42:32');
+INSERT INTO `sys_log` VALUES (120, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:12');
+INSERT INTO `sys_log` VALUES (121, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:12');
+INSERT INTO `sys_log` VALUES (122, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:12');
+INSERT INTO `sys_log` VALUES (123, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:38');
+INSERT INTO `sys_log` VALUES (124, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:38');
+INSERT INTO `sys_log` VALUES (125, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:38');
+INSERT INTO `sys_log` VALUES (126, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:49');
+INSERT INTO `sys_log` VALUES (127, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:49');
+INSERT INTO `sys_log` VALUES (128, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:43:49');
+INSERT INTO `sys_log` VALUES (129, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:01');
+INSERT INTO `sys_log` VALUES (130, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:01');
+INSERT INTO `sys_log` VALUES (131, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:01');
+INSERT INTO `sys_log` VALUES (132, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:24');
+INSERT INTO `sys_log` VALUES (133, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:24');
+INSERT INTO `sys_log` VALUES (134, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:25');
+INSERT INTO `sys_log` VALUES (135, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:40');
+INSERT INTO `sys_log` VALUES (136, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:40');
+INSERT INTO `sys_log` VALUES (137, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:40');
+INSERT INTO `sys_log` VALUES (138, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:51');
+INSERT INTO `sys_log` VALUES (139, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:51');
+INSERT INTO `sys_log` VALUES (140, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:44:52');
+INSERT INTO `sys_log` VALUES (141, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:06');
+INSERT INTO `sys_log` VALUES (142, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:06');
+INSERT INTO `sys_log` VALUES (143, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:06');
+INSERT INTO `sys_log` VALUES (144, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:20');
+INSERT INTO `sys_log` VALUES (145, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:20');
+INSERT INTO `sys_log` VALUES (146, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:45:20');
+INSERT INTO `sys_log` VALUES (147, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:49:00');
+INSERT INTO `sys_log` VALUES (148, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:49:14');
+INSERT INTO `sys_log` VALUES (149, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:49:14');
+INSERT INTO `sys_log` VALUES (150, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:49:14');
+INSERT INTO `sys_log` VALUES (151, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:50:37');
+INSERT INTO `sys_log` VALUES (152, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:50:41');
+INSERT INTO `sys_log` VALUES (153, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:50:41');
+INSERT INTO `sys_log` VALUES (154, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:50:42');
+INSERT INTO `sys_log` VALUES (155, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:51:19');
+INSERT INTO `sys_log` VALUES (156, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:51:25');
+INSERT INTO `sys_log` VALUES (157, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:51:25');
+INSERT INTO `sys_log` VALUES (158, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:51:26');
+INSERT INTO `sys_log` VALUES (159, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:56:59');
+INSERT INTO `sys_log` VALUES (160, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:03');
+INSERT INTO `sys_log` VALUES (161, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:03');
+INSERT INTO `sys_log` VALUES (162, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:04');
+INSERT INTO `sys_log` VALUES (163, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:25');
+INSERT INTO `sys_log` VALUES (164, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:41');
+INSERT INTO `sys_log` VALUES (165, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:47');
+INSERT INTO `sys_log` VALUES (166, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:47');
+INSERT INTO `sys_log` VALUES (167, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:57:47');
+INSERT INTO `sys_log` VALUES (168, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:58:04');
+INSERT INTO `sys_log` VALUES (169, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:58:51');
+INSERT INTO `sys_log` VALUES (170, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:59:26');
+INSERT INTO `sys_log` VALUES (171, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:59:30');
+INSERT INTO `sys_log` VALUES (172, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:59:30');
+INSERT INTO `sys_log` VALUES (173, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:59:31');
+INSERT INTO `sys_log` VALUES (174, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 22:59:45');
+INSERT INTO `sys_log` VALUES (175, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-09 23:02:30');
+INSERT INTO `sys_log` VALUES (176, '获取验证码', 'INFO', 'fun.yizhierha.modules.security.controller.AuthorizationController.getCode()', '', '192.168.56.1', 302, '', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:37');
+INSERT INTO `sys_log` VALUES (177, '获取验证码', 'INFO', 'fun.yizhierha.modules.security.controller.AuthorizationController.getCode()', '', '192.168.56.1', 13, '', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:37');
+INSERT INTO `sys_log` VALUES (178, '获取验证码', 'INFO', 'fun.yizhierha.modules.security.controller.AuthorizationController.getCode()', '', '192.168.56.1', 25, '', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:40');
+INSERT INTO `sys_log` VALUES (179, '登录', 'INFO', 'fun.yizhierha.modules.security.controller.AuthorizationController.login()', '{\"uuid\":\"eh-captcha-code-key-9f3cfa43f2ba4e2bb5b571e1ac8c320b\",\"password\":\"jKukRZwFbuuBm5TizOOx+61dr7TWzTmIRP5cP2sBiMr2PH8jHtILFWiMBUijyZzaOVxqChXu8f/TSTYJXBmr8EmEin9nKoNrp7NZ5U+lZ8isK+Y7zr+OfIJRjFSZCaC71vUR0vDGSo0NXgU50c7NtNVCpG6JkmiiujOdXpC2ff4=\",\"captcha\":\"11\",\"username\":\"admin2\"}', '192.168.56.1', 324, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:42');
+INSERT INTO `sys_log` VALUES (180, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 35, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:42');
+INSERT INTO `sys_log` VALUES (181, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 20, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:42:49');
+INSERT INTO `sys_log` VALUES (182, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:51:09');
+INSERT INTO `sys_log` VALUES (183, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 13, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:51:32');
+INSERT INTO `sys_log` VALUES (184, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 13:54:11');
+INSERT INTO `sys_log` VALUES (185, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:03:51');
+INSERT INTO `sys_log` VALUES (186, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 14, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:06:24');
+INSERT INTO `sys_log` VALUES (187, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:06:24');
+INSERT INTO `sys_log` VALUES (188, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 10, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:07:53');
+INSERT INTO `sys_log` VALUES (189, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:07:53');
+INSERT INTO `sys_log` VALUES (190, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 14, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:08:06');
+INSERT INTO `sys_log` VALUES (191, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:08:06');
+INSERT INTO `sys_log` VALUES (192, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:08:06');
+INSERT INTO `sys_log` VALUES (193, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 28, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:12:24');
+INSERT INTO `sys_log` VALUES (194, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:12:24');
+INSERT INTO `sys_log` VALUES (195, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:14:08');
+INSERT INTO `sys_log` VALUES (196, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:14:09');
+INSERT INTO `sys_log` VALUES (197, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:14:10');
+INSERT INTO `sys_log` VALUES (198, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:14:24');
+INSERT INTO `sys_log` VALUES (199, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:16:15');
+INSERT INTO `sys_log` VALUES (200, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:23:37');
+INSERT INTO `sys_log` VALUES (201, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:23:40');
+INSERT INTO `sys_log` VALUES (202, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:23:40');
+INSERT INTO `sys_log` VALUES (203, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:23:40');
+INSERT INTO `sys_log` VALUES (204, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 10, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:28:35');
+INSERT INTO `sys_log` VALUES (205, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:28:35');
+INSERT INTO `sys_log` VALUES (206, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:28:36');
+INSERT INTO `sys_log` VALUES (207, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:29:37');
+INSERT INTO `sys_log` VALUES (208, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 15, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:29:48');
+INSERT INTO `sys_log` VALUES (209, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:29:48');
+INSERT INTO `sys_log` VALUES (210, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:29:49');
+INSERT INTO `sys_log` VALUES (211, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:36:05');
+INSERT INTO `sys_log` VALUES (212, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:36:15');
+INSERT INTO `sys_log` VALUES (213, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 9, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:36:17');
+INSERT INTO `sys_log` VALUES (214, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:36:17');
+INSERT INTO `sys_log` VALUES (215, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:36:22');
+INSERT INTO `sys_log` VALUES (216, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:37:06');
+INSERT INTO `sys_log` VALUES (217, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:37:42');
+INSERT INTO `sys_log` VALUES (218, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:37:42');
+INSERT INTO `sys_log` VALUES (219, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:37:42');
+INSERT INTO `sys_log` VALUES (220, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:39:21');
+INSERT INTO `sys_log` VALUES (221, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:39:23');
+INSERT INTO `sys_log` VALUES (222, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:39:23');
+INSERT INTO `sys_log` VALUES (223, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:39:24');
+INSERT INTO `sys_log` VALUES (224, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:09');
+INSERT INTO `sys_log` VALUES (225, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:10');
+INSERT INTO `sys_log` VALUES (226, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:11');
+INSERT INTO `sys_log` VALUES (227, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:11');
+INSERT INTO `sys_log` VALUES (228, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:12');
+INSERT INTO `sys_log` VALUES (229, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:41');
+INSERT INTO `sys_log` VALUES (230, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:48');
+INSERT INTO `sys_log` VALUES (231, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:48');
+INSERT INTO `sys_log` VALUES (232, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:42:48');
+INSERT INTO `sys_log` VALUES (233, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:43:11');
+INSERT INTO `sys_log` VALUES (234, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:43:16');
+INSERT INTO `sys_log` VALUES (235, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:43:16');
+INSERT INTO `sys_log` VALUES (236, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:43:17');
+INSERT INTO `sys_log` VALUES (237, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:44:01');
+INSERT INTO `sys_log` VALUES (238, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:44:09');
+INSERT INTO `sys_log` VALUES (239, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 1, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:44:09');
+INSERT INTO `sys_log` VALUES (240, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:44:09');
+INSERT INTO `sys_log` VALUES (241, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:45:14');
+INSERT INTO `sys_log` VALUES (242, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:45:16');
+INSERT INTO `sys_log` VALUES (243, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:45:16');
+INSERT INTO `sys_log` VALUES (244, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:45:16');
+INSERT INTO `sys_log` VALUES (245, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:46:41');
+INSERT INTO `sys_log` VALUES (246, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:20');
+INSERT INTO `sys_log` VALUES (247, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:27');
+INSERT INTO `sys_log` VALUES (248, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:29');
+INSERT INTO `sys_log` VALUES (249, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:29');
+INSERT INTO `sys_log` VALUES (250, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:30');
+INSERT INTO `sys_log` VALUES (251, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:45');
+INSERT INTO `sys_log` VALUES (252, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:46');
+INSERT INTO `sys_log` VALUES (253, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:46');
+INSERT INTO `sys_log` VALUES (254, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:47:47');
+INSERT INTO `sys_log` VALUES (255, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:48:32');
+INSERT INTO `sys_log` VALUES (256, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:48:47');
+INSERT INTO `sys_log` VALUES (257, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:49:09');
+INSERT INTO `sys_log` VALUES (258, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:49:14');
+INSERT INTO `sys_log` VALUES (259, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:49:14');
+INSERT INTO `sys_log` VALUES (260, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:49:14');
+INSERT INTO `sys_log` VALUES (261, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:49:35');
+INSERT INTO `sys_log` VALUES (262, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:50:06');
+INSERT INTO `sys_log` VALUES (263, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:50:10');
+INSERT INTO `sys_log` VALUES (264, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:50:10');
+INSERT INTO `sys_log` VALUES (265, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:50:11');
+INSERT INTO `sys_log` VALUES (266, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:50:41');
+INSERT INTO `sys_log` VALUES (267, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:51:47');
+INSERT INTO `sys_log` VALUES (268, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:51:53');
+INSERT INTO `sys_log` VALUES (269, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:51:57');
+INSERT INTO `sys_log` VALUES (270, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:51:57');
+INSERT INTO `sys_log` VALUES (271, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:51:57');
+INSERT INTO `sys_log` VALUES (272, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:52:12');
+INSERT INTO `sys_log` VALUES (273, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:52:14');
+INSERT INTO `sys_log` VALUES (274, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:52:14');
+INSERT INTO `sys_log` VALUES (275, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:52:14');
+INSERT INTO `sys_log` VALUES (276, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:53:22');
+INSERT INTO `sys_log` VALUES (277, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:53:50');
+INSERT INTO `sys_log` VALUES (278, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:53:54');
+INSERT INTO `sys_log` VALUES (279, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:53:54');
+INSERT INTO `sys_log` VALUES (280, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:53:55');
+INSERT INTO `sys_log` VALUES (281, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:54:09');
+INSERT INTO `sys_log` VALUES (282, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:54:09');
+INSERT INTO `sys_log` VALUES (283, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:54:10');
+INSERT INTO `sys_log` VALUES (284, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:54:59');
+INSERT INTO `sys_log` VALUES (285, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:55:01');
+INSERT INTO `sys_log` VALUES (286, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:55:01');
+INSERT INTO `sys_log` VALUES (287, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:55:01');
+INSERT INTO `sys_log` VALUES (288, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:55:59');
+INSERT INTO `sys_log` VALUES (289, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:57:38');
+INSERT INTO `sys_log` VALUES (290, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:57:55');
+INSERT INTO `sys_log` VALUES (291, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:12');
+INSERT INTO `sys_log` VALUES (292, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:14');
+INSERT INTO `sys_log` VALUES (293, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:14');
+INSERT INTO `sys_log` VALUES (294, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:14');
+INSERT INTO `sys_log` VALUES (295, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:45');
+INSERT INTO `sys_log` VALUES (296, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:49');
+INSERT INTO `sys_log` VALUES (297, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:49');
+INSERT INTO `sys_log` VALUES (298, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 14:59:49');
+INSERT INTO `sys_log` VALUES (299, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:00:06');
+INSERT INTO `sys_log` VALUES (300, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:00:27');
+INSERT INTO `sys_log` VALUES (301, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:01:29');
+INSERT INTO `sys_log` VALUES (302, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:01');
+INSERT INTO `sys_log` VALUES (303, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:11');
+INSERT INTO `sys_log` VALUES (304, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:34');
+INSERT INTO `sys_log` VALUES (305, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:44');
+INSERT INTO `sys_log` VALUES (306, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:44');
+INSERT INTO `sys_log` VALUES (307, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:02:45');
+INSERT INTO `sys_log` VALUES (308, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:08');
+INSERT INTO `sys_log` VALUES (309, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:12');
+INSERT INTO `sys_log` VALUES (310, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:12');
+INSERT INTO `sys_log` VALUES (311, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:12');
+INSERT INTO `sys_log` VALUES (312, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:48');
+INSERT INTO `sys_log` VALUES (313, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:03:59');
+INSERT INTO `sys_log` VALUES (314, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:04:28');
+INSERT INTO `sys_log` VALUES (315, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:04:51');
+INSERT INTO `sys_log` VALUES (316, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:05:35');
+INSERT INTO `sys_log` VALUES (317, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:09:00');
+INSERT INTO `sys_log` VALUES (318, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:09:55');
+INSERT INTO `sys_log` VALUES (319, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:09:55');
+INSERT INTO `sys_log` VALUES (320, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:06');
+INSERT INTO `sys_log` VALUES (321, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:06');
+INSERT INTO `sys_log` VALUES (322, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:07');
+INSERT INTO `sys_log` VALUES (323, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:35');
+INSERT INTO `sys_log` VALUES (324, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:40');
+INSERT INTO `sys_log` VALUES (325, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:10:58');
+INSERT INTO `sys_log` VALUES (326, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:11:22');
+INSERT INTO `sys_log` VALUES (327, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:12:38');
+INSERT INTO `sys_log` VALUES (328, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:12:43');
+INSERT INTO `sys_log` VALUES (329, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:12:43');
+INSERT INTO `sys_log` VALUES (330, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:12:44');
+INSERT INTO `sys_log` VALUES (331, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:13:16');
+INSERT INTO `sys_log` VALUES (332, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:13:31');
+INSERT INTO `sys_log` VALUES (333, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:13:52');
+INSERT INTO `sys_log` VALUES (334, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:13:57');
+INSERT INTO `sys_log` VALUES (335, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:14:07');
+INSERT INTO `sys_log` VALUES (336, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:14:11');
+INSERT INTO `sys_log` VALUES (337, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:15:25');
+INSERT INTO `sys_log` VALUES (338, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:15:31');
+INSERT INTO `sys_log` VALUES (339, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 13, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:18:41');
+INSERT INTO `sys_log` VALUES (340, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:19:02');
+INSERT INTO `sys_log` VALUES (341, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:19:43');
+INSERT INTO `sys_log` VALUES (342, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:20:04');
+INSERT INTO `sys_log` VALUES (343, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:20:46');
+INSERT INTO `sys_log` VALUES (344, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:20:58');
+INSERT INTO `sys_log` VALUES (345, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:23:40');
+INSERT INTO `sys_log` VALUES (346, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:23:44');
+INSERT INTO `sys_log` VALUES (347, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:23:55');
+INSERT INTO `sys_log` VALUES (348, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:24:02');
+INSERT INTO `sys_log` VALUES (349, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:24:47');
+INSERT INTO `sys_log` VALUES (350, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:25:02');
+INSERT INTO `sys_log` VALUES (351, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:26:30');
+INSERT INTO `sys_log` VALUES (352, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:26:34');
+INSERT INTO `sys_log` VALUES (353, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 15, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:30:09');
+INSERT INTO `sys_log` VALUES (354, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:30:09');
+INSERT INTO `sys_log` VALUES (355, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:30:10');
+INSERT INTO `sys_log` VALUES (356, '查询表信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTables()', '[{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 21, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:32:55');
+INSERT INTO `sys_log` VALUES (357, '查询表信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTables()', '[{\"pageSize\":10,\"currentPage\":3}]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:32:56');
+INSERT INTO `sys_log` VALUES (358, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', 'sys_job', '192.168.56.1', 17, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:04');
+INSERT INTO `sys_log` VALUES (359, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', NULL, '192.168.56.1', 14, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:04');
+INSERT INTO `sys_log` VALUES (360, '查询表的字段信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableColumns()', 'sys_job', '192.168.56.1', 76, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:04');
+INSERT INTO `sys_log` VALUES (361, '获取字典', 'INFO', 'fun.yizhierha.modules.system.controller.DictController.list()', '[{},{\"pageSize\":9999,\"currentPage\":1}]', '192.168.56.1', 19, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:05');
+INSERT INTO `sys_log` VALUES (362, '查询表信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTables()', '[{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 14, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:13');
+INSERT INTO `sys_log` VALUES (363, '查询表信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTables()', '[{\"pageSize\":10,\"currentPage\":3}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:17');
+INSERT INTO `sys_log` VALUES (364, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', 'sys_log', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:20');
+INSERT INTO `sys_log` VALUES (365, '查询表的字段信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableColumns()', 'sys_log', '192.168.56.1', 7, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:20');
+INSERT INTO `sys_log` VALUES (366, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', NULL, '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:20');
+INSERT INTO `sys_log` VALUES (367, '获取字典', 'INFO', 'fun.yizhierha.modules.system.controller.DictController.list()', '[{},{\"pageSize\":9999,\"currentPage\":1}]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:20');
+INSERT INTO `sys_log` VALUES (368, '修改表的字段信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.updateTableColumns()', '[{\"formType\":\"下拉框[单选]\",\"id\":649}]', '192.168.56.1', 30, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:37');
+INSERT INTO `sys_log` VALUES (369, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', 'sys_log', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:38');
+INSERT INTO `sys_log` VALUES (370, '查看最近表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTableGenConfig()', NULL, '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:38');
+INSERT INTO `sys_log` VALUES (371, '修改或保存表生成配置的信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.editOrSaveTableGenConfig()', '{\"author\":\"二哈\",\"moduleName\":\"erha-admin-monitor\",\"apiAlias\":\"系统监控：操作日志\",\"pack\":\"fun.yizhierha.monitor\",\"cover\":true,\"path\":\"monitor/log\",\"configId\":12,\"apiPath\":\"monitor/log\"}', '192.168.56.1', 19, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:38');
+INSERT INTO `sys_log` VALUES (372, '预览代码', 'INFO', 'fun.yizhierha.tools.generate.controller.GenerateController.preview()', 'sys_log', '192.168.56.1', 306, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:33:41');
+INSERT INTO `sys_log` VALUES (373, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:34:09');
+INSERT INTO `sys_log` VALUES (374, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:35:20');
+INSERT INTO `sys_log` VALUES (375, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:35:20');
+INSERT INTO `sys_log` VALUES (376, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:35:21');
+INSERT INTO `sys_log` VALUES (377, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 90, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:36:59');
+INSERT INTO `sys_log` VALUES (378, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 2, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:36:59');
+INSERT INTO `sys_log` VALUES (379, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 18, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:36:59');
+INSERT INTO `sys_log` VALUES (380, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"dept_status\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:37:19');
+INSERT INTO `sys_log` VALUES (381, '获取部门', 'ERROR', 'fun.yizhierha.modules.system.controller.DeptController.getDept()', '[{},{\"pageSize\":999,\"currentPage\":1}]', '192.168.56.1', 14, 'admin2', '内网IP', 'Chrome 108', 'java.lang.ArithmeticException: / by zero\r\n	at fun.yizhierha.modules.system.controller.DeptController.getDept(DeptController.java:53)\r\n	at fun.yizhierha.modules.system.controller.DeptController$$FastClassBySpringCGLIB$$db1d5a47.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)\r\n	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:64)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)\r\n	at fun.yizhierha.monitor.aspect.LogAspect.logAround(LogAspect.java:70)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)\r\n	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:61)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)\r\n	at fun.yizhierha.modules.system.controller.DeptController$$EnhancerBySpringCGLIB$$5960a0ba.getDept(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)\r\n	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:124)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)\r\n	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)\r\n	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at fun.yizhierha.modules.security.security.TokenFilter.doFilter(TokenFilter.java:66)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)\r\n	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\r\n	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)\r\n	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)\r\n	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)\r\n	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)\r\n	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)\r\n	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)\r\n	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\r\n	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:750)\r\n', '2022-12-10 15:37:19');
+INSERT INTO `sys_log` VALUES (382, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:37:21');
+INSERT INTO `sys_log` VALUES (383, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 17, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:39:21');
+INSERT INTO `sys_log` VALUES (384, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:42:30');
+INSERT INTO `sys_log` VALUES (385, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:43:18');
+INSERT INTO `sys_log` VALUES (386, '获取当前角色的菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.retrieve()', '', '192.168.56.1', 19, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:43:28');
+INSERT INTO `sys_log` VALUES (387, '获取当前用户信息', 'INFO', 'fun.yizhierha.modules.system.controller.UserController.info()', '', '192.168.56.1', 0, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:43:28');
+INSERT INTO `sys_log` VALUES (388, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 4, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:43:29');
+INSERT INTO `sys_log` VALUES (389, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:44:08');
+INSERT INTO `sys_log` VALUES (390, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 5, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:45:39');
+INSERT INTO `sys_log` VALUES (391, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 3, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:46:59');
+INSERT INTO `sys_log` VALUES (392, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 22, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:24');
+INSERT INTO `sys_log` VALUES (393, '获取菜单', 'INFO', 'fun.yizhierha.modules.system.controller.MenuController.list()', '[{},{\"pageSize\":999,\"currentPage\":1}]', '192.168.56.1', 29, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:27');
+INSERT INTO `sys_log` VALUES (394, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 6, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:30');
+INSERT INTO `sys_log` VALUES (395, '删除操作日志', 'INFO', 'fun.yizhierha.monitor.controller.SysLogController.del()', '[48,49,50,51,52,53,54,45,46,47]', '192.168.56.1', 17, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:38');
+INSERT INTO `sys_log` VALUES (396, '删除操作日志', 'INFO', 'fun.yizhierha.monitor.controller.SysLogController.del()', '[64,65,56,57,58,59,60,61,62,63]', '192.168.56.1', 8, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:44');
+INSERT INTO `sys_log` VALUES (397, '查询表信息', 'INFO', 'fun.yizhierha.tools.generate.controller.TableController.listTables()', '[{\"pageSize\":10,\"currentPage\":1}]', '192.168.56.1', 25, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:49:56');
+INSERT INTO `sys_log` VALUES (398, '字典详情列表', 'INFO', 'fun.yizhierha.modules.system.controller.DictDetailController.list()', '[\"tools_log_type\",{}]', '192.168.56.1', 12, 'admin2', '内网IP', 'Chrome 108', NULL, '2022-12-10 15:50:41');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -455,7 +828,7 @@ CREATE TABLE `sys_menu`  (
                              PRIMARY KEY (`menu_id`) USING BTREE,
                              UNIQUE INDEX `uniq_title`(`title`) USING BTREE,
                              INDEX `inx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 178 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 190 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -488,9 +861,11 @@ INSERT INTO `sys_menu` VALUES (143, 130, 0, 2, '删除菜单', NULL, NULL, 0, NU
 INSERT INTO `sys_menu` VALUES (146, 117, 0, 1, '任务调度', 'Quartz', 'menu.system.quartz', 7, 'icon-schedule', NULL, b'0', b'0', b'0', 'quartz:list', 'admin2', 'admin2', '2022-10-13 22:47:44', '2022-10-13 22:52:21');
 INSERT INTO `sys_menu` VALUES (147, NULL, 1, 0, '系统工具', 'Tools', 'menu.tools', 5, 'icon-tool', NULL, b'0', b'0', b'0', NULL, 'admin2', 'admin2', '2022-11-05 14:24:10', '2022-12-02 11:59:44');
 INSERT INTO `sys_menu` VALUES (148, 147, 0, 1, '代码生成', 'Generate', 'menu.tools.generate', 0, 'icon-code', NULL, b'0', b'0', b'0', NULL, 'admin2', NULL, '2022-11-05 14:25:33', NULL);
-INSERT INTO `sys_menu` VALUES (173, NULL, 1, 0, '系统监控', 'Monitor', 'menu.monitor', 1, 'icon-computer', NULL, b'0', b'0', b'0', NULL, 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:59:44');
+INSERT INTO `sys_menu` VALUES (173, NULL, 2, 0, '系统监控', 'Monitor', 'menu.monitor', 1, 'icon-computer', NULL, b'0', b'0', b'0', NULL, 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:59:44');
 INSERT INTO `sys_menu` VALUES (174, 173, 3, 1, '在线用户', 'Onlineuser', 'menu.monitor.onlineuser', 0, 'icon-user-group', NULL, b'0', b'0', b'0', 'onlineUser:list', 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:58:10');
 INSERT INTO `sys_menu` VALUES (177, 174, 0, 2, '强制退出', NULL, NULL, 0, NULL, NULL, b'0', b'0', b'0', 'onlineUser:del', 'SYSTEM', 'admin2', '2022-12-02 10:41:50', '2022-12-02 11:59:12');
+INSERT INTO `sys_menu` VALUES (186, 173, 3, 1, '操作日志', 'Log', 'menu.monitor.log', 0, 'icon-archive', NULL, b'0', b'0', b'0', 'sysLog:list', 'SYSTEM', 'admin2', '2022-12-09 20:47:13', '2022-12-09 20:55:27');
+INSERT INTO `sys_menu` VALUES (189, 186, 0, 2, '删除操作日志', NULL, NULL, 0, NULL, NULL, b'0', b'0', b'0', 'sysLog:del', 'SYSTEM', NULL, '2022-12-09 20:47:13', NULL);
 
 -- ----------------------------
 -- Table structure for sys_quartz_job
@@ -694,7 +1069,7 @@ CREATE TABLE `sys_roles_menus`  (
                                     `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                     PRIMARY KEY (`id`) USING BTREE,
                                     INDEX `FKcngg2qadojhi3a651a5adkvbq`(`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1350 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色菜单关联' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1690 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色菜单关联' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_roles_menus
@@ -708,59 +1083,61 @@ INSERT INTO `sys_roles_menus` VALUES (132, 9, 554);
 INSERT INTO `sys_roles_menus` VALUES (133, 9, 555);
 INSERT INTO `sys_roles_menus` VALUES (134, 9, 556);
 INSERT INTO `sys_roles_menus` VALUES (117, 9, 557);
-INSERT INTO `sys_roles_menus` VALUES (117, 2, 1254);
-INSERT INTO `sys_roles_menus` VALUES (126, 2, 1255);
-INSERT INTO `sys_roles_menus` VALUES (132, 2, 1256);
-INSERT INTO `sys_roles_menus` VALUES (138, 2, 1257);
-INSERT INTO `sys_roles_menus` VALUES (129, 2, 1258);
-INSERT INTO `sys_roles_menus` VALUES (128, 2, 1259);
-INSERT INTO `sys_roles_menus` VALUES (135, 2, 1260);
-INSERT INTO `sys_roles_menus` VALUES (118, 2, 1261);
-INSERT INTO `sys_roles_menus` VALUES (130, 2, 1262);
-INSERT INTO `sys_roles_menus` VALUES (141, 2, 1263);
-INSERT INTO `sys_roles_menus` VALUES (173, 2, 1264);
-INSERT INTO `sys_roles_menus` VALUES (174, 2, 1265);
-INSERT INTO `sys_roles_menus` VALUES (177, 2, 1266);
-INSERT INTO `sys_roles_menus` VALUES (128, 1, 1310);
-INSERT INTO `sys_roles_menus` VALUES (129, 1, 1311);
-INSERT INTO `sys_roles_menus` VALUES (130, 1, 1312);
-INSERT INTO `sys_roles_menus` VALUES (132, 1, 1313);
-INSERT INTO `sys_roles_menus` VALUES (133, 1, 1314);
-INSERT INTO `sys_roles_menus` VALUES (134, 1, 1315);
-INSERT INTO `sys_roles_menus` VALUES (135, 1, 1316);
-INSERT INTO `sys_roles_menus` VALUES (136, 1, 1317);
-INSERT INTO `sys_roles_menus` VALUES (137, 1, 1318);
-INSERT INTO `sys_roles_menus` VALUES (138, 1, 1319);
-INSERT INTO `sys_roles_menus` VALUES (139, 1, 1320);
-INSERT INTO `sys_roles_menus` VALUES (140, 1, 1321);
-INSERT INTO `sys_roles_menus` VALUES (141, 1, 1322);
-INSERT INTO `sys_roles_menus` VALUES (142, 1, 1323);
-INSERT INTO `sys_roles_menus` VALUES (143, 1, 1324);
-INSERT INTO `sys_roles_menus` VALUES (146, 1, 1325);
-INSERT INTO `sys_roles_menus` VALUES (147, 1, 1326);
-INSERT INTO `sys_roles_menus` VALUES (148, 1, 1327);
-INSERT INTO `sys_roles_menus` VALUES (153, 1, 1328);
-INSERT INTO `sys_roles_menus` VALUES (154, 1, 1329);
-INSERT INTO `sys_roles_menus` VALUES (155, 1, 1330);
-INSERT INTO `sys_roles_menus` VALUES (156, 1, 1331);
-INSERT INTO `sys_roles_menus` VALUES (157, 1, 1332);
-INSERT INTO `sys_roles_menus` VALUES (159, 1, 1333);
-INSERT INTO `sys_roles_menus` VALUES (160, 1, 1334);
-INSERT INTO `sys_roles_menus` VALUES (161, 1, 1335);
-INSERT INTO `sys_roles_menus` VALUES (162, 1, 1336);
-INSERT INTO `sys_roles_menus` VALUES (173, 1, 1337);
-INSERT INTO `sys_roles_menus` VALUES (174, 1, 1338);
-INSERT INTO `sys_roles_menus` VALUES (177, 1, 1339);
-INSERT INTO `sys_roles_menus` VALUES (117, 1, 1340);
-INSERT INTO `sys_roles_menus` VALUES (118, 1, 1341);
-INSERT INTO `sys_roles_menus` VALUES (119, 1, 1342);
-INSERT INTO `sys_roles_menus` VALUES (120, 1, 1343);
-INSERT INTO `sys_roles_menus` VALUES (121, 1, 1344);
-INSERT INTO `sys_roles_menus` VALUES (122, 1, 1345);
-INSERT INTO `sys_roles_menus` VALUES (123, 1, 1346);
-INSERT INTO `sys_roles_menus` VALUES (124, 1, 1347);
-INSERT INTO `sys_roles_menus` VALUES (125, 1, 1348);
-INSERT INTO `sys_roles_menus` VALUES (126, 1, 1349);
+INSERT INTO `sys_roles_menus` VALUES (117, 2, 1506);
+INSERT INTO `sys_roles_menus` VALUES (126, 2, 1507);
+INSERT INTO `sys_roles_menus` VALUES (132, 2, 1508);
+INSERT INTO `sys_roles_menus` VALUES (138, 2, 1509);
+INSERT INTO `sys_roles_menus` VALUES (129, 2, 1510);
+INSERT INTO `sys_roles_menus` VALUES (128, 2, 1511);
+INSERT INTO `sys_roles_menus` VALUES (135, 2, 1512);
+INSERT INTO `sys_roles_menus` VALUES (118, 2, 1513);
+INSERT INTO `sys_roles_menus` VALUES (130, 2, 1514);
+INSERT INTO `sys_roles_menus` VALUES (141, 2, 1515);
+INSERT INTO `sys_roles_menus` VALUES (173, 2, 1516);
+INSERT INTO `sys_roles_menus` VALUES (174, 2, 1517);
+INSERT INTO `sys_roles_menus` VALUES (177, 2, 1518);
+INSERT INTO `sys_roles_menus` VALUES (128, 1, 1648);
+INSERT INTO `sys_roles_menus` VALUES (129, 1, 1649);
+INSERT INTO `sys_roles_menus` VALUES (130, 1, 1650);
+INSERT INTO `sys_roles_menus` VALUES (132, 1, 1651);
+INSERT INTO `sys_roles_menus` VALUES (133, 1, 1652);
+INSERT INTO `sys_roles_menus` VALUES (134, 1, 1653);
+INSERT INTO `sys_roles_menus` VALUES (135, 1, 1654);
+INSERT INTO `sys_roles_menus` VALUES (136, 1, 1655);
+INSERT INTO `sys_roles_menus` VALUES (137, 1, 1656);
+INSERT INTO `sys_roles_menus` VALUES (138, 1, 1657);
+INSERT INTO `sys_roles_menus` VALUES (139, 1, 1658);
+INSERT INTO `sys_roles_menus` VALUES (140, 1, 1659);
+INSERT INTO `sys_roles_menus` VALUES (141, 1, 1660);
+INSERT INTO `sys_roles_menus` VALUES (142, 1, 1661);
+INSERT INTO `sys_roles_menus` VALUES (143, 1, 1662);
+INSERT INTO `sys_roles_menus` VALUES (146, 1, 1663);
+INSERT INTO `sys_roles_menus` VALUES (147, 1, 1664);
+INSERT INTO `sys_roles_menus` VALUES (148, 1, 1665);
+INSERT INTO `sys_roles_menus` VALUES (153, 1, 1666);
+INSERT INTO `sys_roles_menus` VALUES (154, 1, 1667);
+INSERT INTO `sys_roles_menus` VALUES (155, 1, 1668);
+INSERT INTO `sys_roles_menus` VALUES (156, 1, 1669);
+INSERT INTO `sys_roles_menus` VALUES (157, 1, 1670);
+INSERT INTO `sys_roles_menus` VALUES (159, 1, 1671);
+INSERT INTO `sys_roles_menus` VALUES (160, 1, 1672);
+INSERT INTO `sys_roles_menus` VALUES (161, 1, 1673);
+INSERT INTO `sys_roles_menus` VALUES (162, 1, 1674);
+INSERT INTO `sys_roles_menus` VALUES (173, 1, 1675);
+INSERT INTO `sys_roles_menus` VALUES (174, 1, 1676);
+INSERT INTO `sys_roles_menus` VALUES (177, 1, 1677);
+INSERT INTO `sys_roles_menus` VALUES (117, 1, 1678);
+INSERT INTO `sys_roles_menus` VALUES (118, 1, 1679);
+INSERT INTO `sys_roles_menus` VALUES (119, 1, 1680);
+INSERT INTO `sys_roles_menus` VALUES (120, 1, 1681);
+INSERT INTO `sys_roles_menus` VALUES (121, 1, 1682);
+INSERT INTO `sys_roles_menus` VALUES (122, 1, 1683);
+INSERT INTO `sys_roles_menus` VALUES (186, 1, 1684);
+INSERT INTO `sys_roles_menus` VALUES (123, 1, 1685);
+INSERT INTO `sys_roles_menus` VALUES (124, 1, 1686);
+INSERT INTO `sys_roles_menus` VALUES (125, 1, 1687);
+INSERT INTO `sys_roles_menus` VALUES (189, 1, 1688);
+INSERT INTO `sys_roles_menus` VALUES (126, 1, 1689);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -798,13 +1175,13 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 25, 'admin', '测试2333', '女', '18260974475', '11111111@qq.com', 'avatar-2022051402392086.png', 'C:\\ehadmin\\avatar\\avatar-2022051402392086.png', '$2a$10$9i.C984Nw5N.LW9n7/fdmu84MB8jA.Y2wzICyAUG1vBvcGFWFbS9G', b'1', b'1', NULL, 'admin2', '2022-05-31 16:38:31', '2018-08-23 09:11:56', '2022-11-30 22:50:28', 1);
+INSERT INTO `sys_user` VALUES (1, 25, 'admin', '啊倒萨', '男', '18260974475', '11111111@qq.com', 'avatar-2022051402392086.png', 'C:\\ehadmin\\avatar\\avatar-2022051402392086.png', '$2a$10$9i.C984Nw5N.LW9n7/fdmu84MB8jA.Y2wzICyAUG1vBvcGFWFbS9G', b'1', b'1', NULL, 'admin2', '2022-05-31 16:38:31', '2018-08-23 09:11:56', '2022-12-09 22:16:23', 1);
 INSERT INTO `sys_user` VALUES (2, 24, 'test', '测试2333', '男', '19991169991', '231@qq.com', NULL, NULL, '$2a$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'0', b'1', 'admin', 'admin2', NULL, '2020-05-05 11:15:49', '2022-11-30 22:26:04', 2);
 INSERT INTO `sys_user` VALUES (3, 22, 'admin2', '大飒sad', '男', '17342320974', 'ads@qq.com', 'bc3-20221105011712921.jpg', 'C:\\ehadmin\\avatar\\bc3-20221105011712921.jpg', '$2a$10$Kt4jtUA1K8/328xYtRQ0ye8i6/C8I1Z7zN9c1sP/Rc7IGZAAsT/j6', b'1', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:44:22', '2022-11-30 22:26:04', 1);
 INSERT INTO `sys_user` VALUES (4, 8, '小红', '汪汪汪', '男', '17342320971', 'ads2@qq.com', NULL, NULL, '$2a$10$ucE5qufBEcpnhwMqzNNnuuZZWYzrsKyIa0xRrAxlvdWKjc26gmP0i', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:47:51', '2022-10-22 13:07:45', 2);
 INSERT INTO `sys_user` VALUES (6, 6, '小蓝', '小蓝dsaasdafasf', '女', '17342320977', 'asd@q.swa', NULL, NULL, '$2a$10$vauz0kyCWTQrpzX5w9MkpOa2RjjBtVYkRb1FR9cBnmkjvG/7Qxyd2', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:50:42', '2022-11-25 20:06:30', 2);
 INSERT INTO `sys_user` VALUES (7, 22, '小蓝2', '小蓝23333333', '男', '17222320977', 'as2d@q.swa', NULL, NULL, '$2a$10$Tc4q0bQzZa/cyME44KKkH.sDNtJvILDJ8awWzeB.7F84biZBQb2pa', b'0', b'1', 'admin', 'admin2', NULL, '2022-08-03 20:51:10', '2022-10-22 13:07:41', 2);
-INSERT INTO `sys_user` VALUES (9, 2, 'sd', 'sadfg', '男', '17342326666', '2@q.a', NULL, NULL, '$2a$10$yvvSI.ZLIw0f5uad58fJsOIKdzatRw34BieTd7YQO12o/AgmUodmq', b'0', b'1', 'admin2', 'admin2', NULL, '2022-08-05 10:05:24', '2022-09-25 23:22:14', 2);
+INSERT INTO `sys_user` VALUES (9, 2, 'sd', 'sadfg', '男', '17342326666', '2@q.a', 'bc2-20221203043756890.jpg', 'C:\\ehadmin\\avatar\\bc2-20221203043756890.jpg', '$2a$10$yvvSI.ZLIw0f5uad58fJsOIKdzatRw34BieTd7YQO12o/AgmUodmq', b'0', b'1', 'admin2', 'admin2', NULL, '2022-08-05 10:05:24', '2022-09-25 23:22:14', 2);
 INSERT INTO `sys_user` VALUES (10, 2, 'sdd', 'sadfg', '男', '17342326661', '2@q.aa', NULL, NULL, '$2a$10$odxYPGfCe5qrkCEVnto/CucFDmxFmjkhIfBsDbAUL8l4ZCXagPuWW', b'0', b'1', 'admin2', 'admin2', NULL, '2022-08-05 10:05:36', '2022-08-29 20:41:10', 9);
 INSERT INTO `sys_user` VALUES (11, 2, 'asd', 'dsa', '男', '17342320005', '1@q.w', NULL, NULL, '$2a$10$yFXx0Nm1kFTcZlbGXsrzDuFgB2w7uFnB8XLc3D3WOMMHIxktSHDH6', b'0', b'1', 'admin2', 'admin2', NULL, '2022-08-05 14:00:25', '2022-08-27 16:19:36', 2);
 INSERT INTO `sys_user` VALUES (12, 15, 'sddd', 'sadfg', '男', '17342326662', '2@q.aaa', NULL, NULL, '$2a$10$pGcBavFZUCBUjtMR0u1SHOUzTRNh7EyVUIcYtoux.jydWbNfauj/q', b'0', b'1', 'admin2', 'admin2', NULL, '2022-08-05 10:05:50', '2022-08-15 15:58:07', 1);
@@ -872,6 +1249,31 @@ INSERT INTO `sys_users_roles` VALUES (2, 2, 39);
 INSERT INTO `sys_users_roles` VALUES (13, 2, 40);
 INSERT INTO `sys_users_roles` VALUES (9, 2, 41);
 INSERT INTO `sys_users_roles` VALUES (9, 9, 42);
+
+-- ----------------------------
+-- Table structure for test_student
+-- ----------------------------
+DROP TABLE IF EXISTS `test_student`;
+CREATE TABLE `test_student`  (
+                                 `student_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                 `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生姓名',
+                                 `like_food` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '喜欢吃的水果',
+                                 `age` int(11) NOT NULL COMMENT '年龄',
+                                 `clazz_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级名',
+                                 `gender` bit(1) NOT NULL COMMENT '性别(1:男，0:女)',
+                                 `avg_score` decimal(65, 30) NOT NULL COMMENT '综合评分',
+                                 `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+                                 `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                 `enabled` bit(1) NOT NULL COMMENT '状态',
+                                 `expire_time` datetime(0) NOT NULL COMMENT '账号过期时间',
+                                 PRIMARY KEY (`student_id`) USING BTREE,
+                                 UNIQUE INDEX `name`(`name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '测试用的学生表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of test_student
+-- ----------------------------
+INSERT INTO `test_student` VALUES (8, '喵喵喵', '[苹果, 香蕉]', 123, '数科', b'0', 95.600000000000000000000000000000, '2022-12-04 16:09:36', NULL, b'1', '2022-12-30 16:09:25');
 
 -- ----------------------------
 -- Table structure for tool_alipay_config

@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -46,18 +47,21 @@ UserController {
     SysDeptService sysDeptService;
 
     @ApiOperation(value = "获取当前用户信息")
+    @Log("获取当前用户信息")
     @GetMapping("/info")
     public R<UserDetailsDto> info() {
         return R.<UserDetailsDto>ok().setData((UserDetailsDto) SecurityUtils.getCurrentUser());
     }
 
     @ApiOperation(value = "修改当前用户头像")
+    @Log("修改当前用户头像")
     @PostMapping("/updateAvatar")
     public R<Map<String,String>> updateAvatar(@RequestParam MultipartFile avatar){
         return R.<Map<String,String>>ok().setData(sysUserService.updateAvatar(avatar));
     }
 
     @ApiOperation(value = "修改当前用户信息")
+    @Log("修改当前用户信息")
     @PutMapping("/update")
     public R updateNowUser(@RequestBody @Validated UpdateNowUserVo nowUserVo,BindingResult bindingResult){
 
@@ -83,6 +87,7 @@ UserController {
     }
 
     @ApiOperation("切换当前角色")
+    @Log("切换当前角色")
     @PostMapping("/switchRoles")
     public R switchRoles(@RequestBody Map<String,Object> param){
         Object roleName = param.get("name");
@@ -101,6 +106,7 @@ UserController {
     }
 
     @ApiOperation("用户列表")
+    @Log("用户列表")
     @GetMapping()
     @PreAuthorize("@eh.check('user:list')")
     public R<PageUtils<SummaryUserDto>> list(RetrieveUserVo retrieveUserVo, Query.PageVo pageVo){
@@ -134,6 +140,7 @@ UserController {
     @PostMapping
     @PreAuthorize("@eh.check('user:add')")
     @ApiOperation("新增用户")
+    @Log("新增用户")
     public R createUser(@Validated @RequestBody CreateUserVo createUserVo){
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
         if (!checkLevel(createUserVo.getRoleIds(),currentUser)){
@@ -149,6 +156,7 @@ UserController {
     @PutMapping
     @PreAuthorize("@eh.check('user:edit')")
     @ApiOperation("修改用户")
+    @Log("修改用户")
     public R<List<BaseErrDto>> editUser(@Validated @RequestBody ValidList<UpdateUserVo> updateUserVoList, BindingResult bindingResult){
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
 
@@ -241,6 +249,7 @@ UserController {
     @DeleteMapping
     @PreAuthorize("@eh.check('user:del')")
     @ApiOperation("删除用户")
+    @Log("删除用户")
     public R deleteUser(@RequestBody Set<Long> userIds){
         sysUserService.removeByIds(userIds);
         return R.ok();
@@ -249,6 +258,7 @@ UserController {
     @GetMapping("/download")
     @PreAuthorize("@eh.check('user:list')")
     @ApiOperation("导出数据")
+    @Log("导出数据")
     public void download(HttpServletResponse response) throws IOException {
         sysUserService.download(response);
     }

@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.R;
@@ -31,6 +32,7 @@ public class RoleMenuController {
     @GetMapping("/menuIds")
     @PreAuthorize("@eh.check('role:list')")
     @ApiOperation("根据角色id查询菜单id")
+    @Log("根据角色id查询菜单id")
     public R<List<Long>> getMenuIdsByRoleId(@Param("roleId") Long roleId){
         if (roleId == null){
             return R.error(
@@ -48,6 +50,7 @@ public class RoleMenuController {
     @PutMapping
     @PreAuthorize("@eh.check('role:edit')")
     @ApiOperation("修改角色菜单")
+    @Log("修改角色菜单")
     public R editRoleMenu(@RequestBody @Validated UpdateRoleMenuVo updateRoleMenuVo, BindingResult bindingResult){
         List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (!errDtos.isEmpty()){

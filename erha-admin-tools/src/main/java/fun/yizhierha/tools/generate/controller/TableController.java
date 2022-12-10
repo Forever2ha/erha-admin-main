@@ -2,6 +2,7 @@ package fun.yizhierha.tools.generate.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.annotation.rest.AnonymousAccess;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
@@ -34,6 +35,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:edit')")
     @ApiOperation("修改或保存表生成配置的信息")
+    @Log("修改或保存表生成配置的信息")
     @PutMapping("/genConfig")
     public R<List<BaseErrDto>> editOrSaveTableGenConfig(@RequestBody UpdateOrSaveCodeGenConfigVo updateOrSaveCodeGenConfigVo){
         codeGenConfigService.saveOrUpdate(updateOrSaveCodeGenConfigVo);
@@ -43,6 +45,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("查看最近表生成配置的信息")
+    @Log("查看最近表生成配置的信息")
     @GetMapping("/genConfig")
     public R listTableGenConfig(@Param("tableName") String tableName){
         if (tableName !=  null){
@@ -54,6 +57,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("查询表信息")
+    @Log("查询表信息")
     @GetMapping
     public R<PageUtils<TableInfo>> listTables(@Param("tableName") String tableName, Query.PageVo pageVo){
         if (tableName == null) tableName = "";
@@ -63,6 +67,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("查询表的字段信息")
+    @Log("查询表的字段信息")
     @GetMapping("/columns")
     public R<List<CodeColumnConfig>> listTableColumns(@Param("table_name") String tableName){
         if (StringUtils.isBlank(tableName)){
@@ -73,6 +78,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:edit')")
     @ApiOperation("修改表的字段信息")
+    @Log("修改表的字段信息")
     @PutMapping("/columns")
     public R<List<BaseErrDto>> updateTableColumns(@RequestBody @Validated ValidList<UpdateTableColVo> updateTableColVoValidList,
                                 BindingResult bindingResult){
@@ -87,6 +93,7 @@ public class TableController {
 
     @PreAuthorize("@eh.check('generate:edit')")
     @ApiOperation("同步表的字段信息")
+    @Log("同步表的字段信息")
     @PutMapping("/columns/sync/{tableName}")
     public R syncTableColumns(@PathVariable String tableName){
         tableService.syncTableColumns(tableName);

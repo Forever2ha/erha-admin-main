@@ -1,5 +1,6 @@
 package ${package}.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.ValidUtils;
@@ -35,6 +36,7 @@ public class ${className}Controller{
     private final ${className}Service ${changeClassName}Service;
 
     @ApiOperation("获取${apiAliasShort}")
+    @Log("获取${apiAliasShort}")
     @GetMapping
     @PreAuthorize("@eh.check('${changeClassName}:list')")
     public R<PageUtils<${className}>> list(Retrieve${className}Vo retrieve${className}Vo, Query.PageVo pageVo){
@@ -43,6 +45,7 @@ public class ${className}Controller{
     }
 
     @ApiOperation("新增${apiAliasShort}")
+    @Log("新增${apiAliasShort}")
     @PostMapping
     @PreAuthorize("@eh.check('${changeClassName}:add')")
     public R<List<BaseErrDto>> add(@Validated @RequestBody Create${className}Vo create${className}Vo,
@@ -58,6 +61,7 @@ public class ${className}Controller{
     }
 
     @ApiOperation("修改${apiAliasShort}")
+    @Log("修改${apiAliasShort}")
     @PutMapping
     @PreAuthorize("@eh.check('${changeClassName}:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<Update${className}Vo> update${className}List,
@@ -81,6 +85,7 @@ public class ${className}Controller{
     }
 
     @ApiOperation("删除${apiAliasShort}")
+    @Log("删除${apiAliasShort}")
     @DeleteMapping
     @PreAuthorize("@eh.check('${changeClassName}:del')")
     public R del(@RequestBody Set<Long> ids){
@@ -89,6 +94,7 @@ public class ${className}Controller{
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('${changeClassName}:list')")
     public void download(HttpServletResponse response){

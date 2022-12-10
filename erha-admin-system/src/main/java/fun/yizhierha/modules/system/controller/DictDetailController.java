@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -32,6 +33,7 @@ public class DictDetailController {
     SysDictDetailService sysDictDetailService;
 
     @ApiOperation("字典详情列表")
+    @Log("字典详情列表")
     @GetMapping()
     public R list(@Param("dictName") String dictName, @Param("dictId") Long dictId, Query.PageVo pageVo){
         if (dictId != null){
@@ -44,6 +46,7 @@ public class DictDetailController {
     }
 
     @ApiOperation("添加字典详情")
+    @Log("添加字典详情")
     @PostMapping
     @PreAuthorize("@eh.check('dictDetail:add')")
     public R<List<BaseErrDto>> addDictDetail(@Validated @RequestBody CreateDictDetailVo createDictDetailVo, BindingResult bindingResult){
@@ -60,6 +63,7 @@ public class DictDetailController {
     }
 
     @ApiOperation("修改字典详情")
+    @Log("修改字典详情")
     @PutMapping
     @PreAuthorize("@eh.check('dictDetail:edit')")
     public R<List<BaseErrDto>> editDictDetail(@Validated @RequestBody ValidList<UpdateDictDetailVo> updateDictDetailVos,
@@ -83,6 +87,7 @@ public class DictDetailController {
     }
 
     @ApiOperation("删除字典详情")
+    @Log("删除字典详情")
     @DeleteMapping
     @PreAuthorize("@eh.check('dictDetail:del')")
     public R delDictDetail(@RequestBody Set<Long> dictDetailIds){

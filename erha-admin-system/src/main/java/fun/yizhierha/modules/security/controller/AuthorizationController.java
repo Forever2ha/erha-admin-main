@@ -2,6 +2,7 @@ package fun.yizhierha.modules.security.controller;
 
 import cn.hutool.core.util.IdUtil;
 import com.wf.captcha.base.Captcha;
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.annotation.rest.AnonymousGetMapping;
 import fun.yizhierha.common.annotation.rest.AnonymousPostMapping;
 import fun.yizhierha.common.config.RsaEncryptConfig;
@@ -50,6 +51,7 @@ public class AuthorizationController {
     private final RsaEncryptConfig rsaEncryptConfig;
 
     @ApiOperation("登录")
+    @Log("登录")
     @AnonymousPostMapping("/login")
     public R<UserInfoDto> login(@Validated @RequestBody AuthUserVo authUserVo, HttpServletRequest request) throws Exception {
         String password = EncryptUtils.rsaDecryptByPrivateKey(rsaEncryptConfig.getPrivateKey(),authUserVo.getPassword());
@@ -94,6 +96,7 @@ public class AuthorizationController {
     }
 
     @ApiOperation("登出")
+    @Log("登出")
     @AnonymousPostMapping("/logout")
     public R logout(HttpServletRequest request){
         onlineUserService.logout(tokenProvider.getToken(request));
@@ -103,6 +106,7 @@ public class AuthorizationController {
 
 
     @ApiOperation("获取验证码")
+    @Log("获取验证码")
     @AnonymousGetMapping("/code")
     public R<CaptchaDTO> getCode(){
         //获取运算的结果

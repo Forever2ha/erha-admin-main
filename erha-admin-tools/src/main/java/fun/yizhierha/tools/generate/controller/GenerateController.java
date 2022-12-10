@@ -1,6 +1,7 @@
 package fun.yizhierha.tools.generate.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.annotation.rest.AnonymousAccess;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
@@ -46,6 +47,7 @@ public class GenerateController {
     @GetMapping("/preview")
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("预览代码")
+    @Log("预览代码")
     public R preview(@Param("tableName") String tableName){
         if (StringUtils.isBlank(tableName)) return R.error("表名不能为空！");
         return R.ok().setData(generateService.preview(tableName));
@@ -54,6 +56,7 @@ public class GenerateController {
     @GetMapping("/download")
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("预览代码")
+    @Log("预览代码")
     public void download(@Param("tableName") String tableName,HttpServletResponse response,HttpServletRequest request){
         generateService.download(tableName,request,response);
     }
@@ -61,6 +64,7 @@ public class GenerateController {
     @GetMapping
     @PreAuthorize("@eh.check('generate:list')")
     @ApiOperation("生成代码")
+    @Log("生成代码")
     public R generate(@Param("tableName") String tableName){
         generateService.generate(tableName);
         return R.ok();

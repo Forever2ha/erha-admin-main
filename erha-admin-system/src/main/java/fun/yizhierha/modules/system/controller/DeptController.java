@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -32,6 +33,7 @@ public class DeptController {
     SysDeptService sysDeptService;
 
     @ApiOperation("部门树")
+    @Log("部门树")
     @GetMapping("/listTree")
     @PreAuthorize("@eh.check('dept:list')")
     public R<List<Object>> list(){
@@ -40,6 +42,7 @@ public class DeptController {
     }
 
     @ApiOperation("获取部门")
+    @Log("获取部门")
     @GetMapping
     @PreAuthorize("@eh.check('dept:list')")
     public R<PageUtils<SummaryDeptDto>> getDept(RetrieveDeptVo retrieveDeptVo, Query.PageVo pageVo){
@@ -49,6 +52,7 @@ public class DeptController {
     }
 
     @ApiOperation("添加部门")
+    @Log("添加部门")
     @PostMapping
     @PreAuthorize("@eh.check('dept:add')")
     public R<List<BaseErrDto>> addDept(@RequestBody @Validated CreateDeptVo createDeptVo, BindingResult bindingResult){
@@ -64,6 +68,7 @@ public class DeptController {
     }
 
     @ApiOperation("修改部门")
+    @Log("修改部门")
     @PutMapping
     @PreAuthorize("@eh.check('dept:edit')")
     public R<List<BaseErrDto>> editDept(@RequestBody @Validated ValidList<UpdateDeptVo> updateDeptVos,BindingResult bindingResult){
@@ -80,6 +85,7 @@ public class DeptController {
     }
 
     @ApiOperation("删除部门")
+    @Log("删除部门")
     @DeleteMapping
     @PreAuthorize("@eh.check('dept:del')")
     public R deleteDept(@RequestBody Set<Long> deptIds){
@@ -88,12 +94,14 @@ public class DeptController {
     }
 
     @ApiOperation("全部部门")
+    @Log("全部部门")
     @GetMapping("/all")
     public R<List<SysDept>> getAll(){
         return R.<List<SysDept>>ok().setData(sysDeptService.list());
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('dept:list')")
     public void download(HttpServletResponse response){

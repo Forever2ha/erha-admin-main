@@ -1,5 +1,6 @@
 package fun.yizhierha.monitor.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.ValidUtils;
@@ -31,6 +32,7 @@ public class OnlineUserController{
     private final OnlineUserService onlineUserService;
 
     @ApiOperation("获取在线用户")
+    @Log("获取在线用户")
     @GetMapping
     @PreAuthorize("@eh.check('onlineUser:list')")
     public R<PageUtils<OnlineUserDto>> list(RetrieveOnlineUserVo retrieveOnlineUserVo, Query.PageVo pageVo){
@@ -39,6 +41,7 @@ public class OnlineUserController{
     }
 
     @ApiOperation("删除在线用户")
+    @Log("删除在线用户")
     @DeleteMapping
     @PreAuthorize("@eh.check('onlineUser:del')")
     public R delJob(@RequestBody Set<String> usernames){
@@ -47,6 +50,7 @@ public class OnlineUserController{
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('onlineUser:list')")
     public void download(HttpServletResponse response){

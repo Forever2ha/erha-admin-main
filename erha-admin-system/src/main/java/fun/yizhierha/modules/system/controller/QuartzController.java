@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -33,6 +34,7 @@ public class QuartzController {
     SysQuartzJobService sysQuartzJobService;
 
     @ApiOperation("任务列表")
+    @Log("任务列表")
     @GetMapping()
     @PreAuthorize("@eh.check('quartz:list')")
     public R<PageUtils<SummaryQuartzJobDto>> list(RetrieveQuartzJobVo retrieveQuartzJobVo, Query.PageVo pageVo){
@@ -41,6 +43,7 @@ public class QuartzController {
     }
 
     @ApiOperation("添加一个任务")
+    @Log("添加一个任务")
     @PostMapping
     @PreAuthorize("@eh.check('quartz:add')")
     public R<List<BaseErrDto>> addQuartzJob(@Validated @RequestBody CreateQuartzJobVo createQuartzJobVo,
@@ -57,6 +60,7 @@ public class QuartzController {
     }
 
     @ApiOperation("修改定时任务")
+    @Log("修改定时任务")
     @PutMapping
     @PreAuthorize("@eh.check('quartz:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateQuartzJobVo> updateQuartzJobList, BindingResult bindingResult){
@@ -80,6 +84,7 @@ public class QuartzController {
     }
 
     @ApiOperation("删除定时任务")
+    @Log("删除定时任务")
     @DeleteMapping
     @PreAuthorize("@eh.check('quartz:del')")
     public R delJob(@RequestBody Set<Long> jobIds){
@@ -88,6 +93,7 @@ public class QuartzController {
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('quartz:list')")
     public void download(HttpServletResponse response){
@@ -95,6 +101,7 @@ public class QuartzController {
     }
 
     @ApiOperation("切换任务运行状态")
+    @Log("切换任务运行状态")
     @PutMapping("/switch")
     @PreAuthorize("@eh.check('quartz:edit')")
     public R switchStatus(@RequestBody Map<String,Long> params){

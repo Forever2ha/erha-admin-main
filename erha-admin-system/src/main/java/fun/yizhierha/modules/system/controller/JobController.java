@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -33,6 +34,7 @@ public class JobController {
     SysJobService sysJobService;
 
     @ApiOperation("岗位列表")
+    @Log("岗位列表")
     @GetMapping("/all")
     @PreAuthorize("@eh.check('job:list')")
     public R<List<SysJob>> list(){
@@ -40,6 +42,7 @@ public class JobController {
     }
 
     @ApiOperation("获取岗位")
+    @Log("获取岗位")
     @GetMapping
     @PreAuthorize("@eh.check('job:list')")
     public R<PageUtils<SummaryJobDto>> getJob(RetrieveJobVo retrieveJobVo, Query.PageVo pageVo){
@@ -48,6 +51,7 @@ public class JobController {
     }
 
     @ApiOperation("添加岗位")
+    @Log("添加岗位")
     @PostMapping
     @PreAuthorize("@eh.check('job:add')")
     public R<List<BaseErrDto>> addJob(@RequestBody @Validated CreateJobVo createJobVo, BindingResult bindingResult){
@@ -62,6 +66,7 @@ public class JobController {
     }
 
     @ApiOperation("修改部门")
+    @Log("修改部门")
     @PutMapping
     @PreAuthorize("@eh.check('job:edit')")
     public R<List<BaseErrDto>> editJob(@RequestBody @Validated ValidList<UpdateJobVo> updateJobVoValidList,BindingResult bindingResult){
@@ -82,6 +87,7 @@ public class JobController {
     }
 
     @ApiOperation("删除岗位")
+    @Log("删除岗位")
     @DeleteMapping
     @PreAuthorize("@eh.check('job:del')")
     public R delJob(@RequestBody Set<Long> jobIds){
@@ -90,6 +96,7 @@ public class JobController {
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('job:list')")
     public void download(HttpServletResponse response){

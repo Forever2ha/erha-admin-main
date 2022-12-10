@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -32,6 +33,7 @@ public class DictController {
     SysDictService sysDictService;
 
     @ApiOperation("获取字典")
+    @Log("获取字典")
     @GetMapping
     @PreAuthorize("@eh.check('dict:list')")
     public R<PageUtils<DictDto>> list(RetrieveDictVo retrieveDictVo, Query.PageVo pageVo){
@@ -39,6 +41,7 @@ public class DictController {
     }
 
     @ApiOperation("添加字典")
+    @Log("添加字典")
     @PostMapping
     @PreAuthorize("@eh.check('dict:add')")
     public R<List<BaseErrDto>> addDict(@Validated @RequestBody CreateDictVo createDictVo, BindingResult bindingResult){
@@ -53,6 +56,7 @@ public class DictController {
     }
 
     @ApiOperation("修改字典")
+    @Log("修改字典")
     @PutMapping
     @PreAuthorize("@eh.check('dict:edit')")
     public R<List<BaseErrDto>> editDict(@Validated @RequestBody ValidList<UpdateDictVo> updateDictVos,BindingResult bindingResult){
@@ -76,6 +80,7 @@ public class DictController {
 
 
     @ApiOperation("删除字典")
+    @Log("删除字典")
     @DeleteMapping
     @PreAuthorize("@eh.check('dict:del')")
     public R delDict(@RequestBody Set<Long> dictIds){
@@ -84,6 +89,7 @@ public class DictController {
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('dict:list')")
     public void download(HttpServletResponse response){

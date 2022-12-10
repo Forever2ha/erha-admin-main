@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -32,6 +33,7 @@ public class MenuController {
     SysMenuService sysMenuService;
 
     @ApiOperation("获取当前角色的菜单")
+    @Log("获取当前角色的菜单")
     @GetMapping("/nowUser")
     public R<List<MenuDto>> retrieve(){
         List<MenuDto> menuDto = sysMenuService.listMenu(((UserDetailsDto) SecurityUtils.getCurrentUser()));
@@ -39,6 +41,7 @@ public class MenuController {
     }
 
     @ApiOperation("获取菜单")
+    @Log("获取菜单")
     @GetMapping
     @PreAuthorize("@eh.check('menu:list')")
     public R<PageUtils<SummaryMenuDto>> list(RetrieveMenuVo retrieveMenuVo, Query.PageVo pageVo){
@@ -46,6 +49,7 @@ public class MenuController {
     }
 
     @ApiOperation("添加菜单")
+    @Log("添加菜单")
     @PostMapping
     @PreAuthorize("@eh.check('menu:add')")
     public R<List<BaseErrDto>> addMenu(@Validated @RequestBody CreateMenuVo createMenuVo, BindingResult bindingResult){
@@ -60,6 +64,7 @@ public class MenuController {
     }
 
     @ApiOperation("修改菜单")
+    @Log("修改菜单")
     @PutMapping
     @PreAuthorize("@eh.check('menu:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateMenuVo> updateMenuVoList,BindingResult bindingResult){
@@ -82,6 +87,7 @@ public class MenuController {
     }
 
     @ApiOperation("删除菜单")
+    @Log("删除菜单")
     @DeleteMapping
     @PreAuthorize("@eh.check('menu:del')")
     public R delDict(@RequestBody Set<Long> menuIds){
@@ -90,6 +96,7 @@ public class MenuController {
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('menu:list')")
     public void download(HttpServletResponse response){
@@ -97,6 +104,7 @@ public class MenuController {
     }
 
     @ApiOperation("代码生成自动生成菜单")
+    @Log("代码生成自动生成菜单")
     @PostMapping("/generate/{tableName}")
     @PreAuthorize("@eh.check('menu:edit')")
     public R generateMenu(@PathVariable String tableName){

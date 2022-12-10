@@ -1,6 +1,7 @@
 package fun.yizhierha.modules.system.controller;
 
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
 import fun.yizhierha.common.utils.R;
@@ -27,6 +28,7 @@ public class QuartzLogController {
     SysQuartzLogService sysQuartzLogService;
 
     @ApiOperation("任务日志列表")
+    @Log("任务日志列表")
     @GetMapping
     @PreAuthorize("@eh.check('quartzLog:list')")
     public R<PageUtils<SysQuartzLog>> list(RetrieveQuartzLogVo retrieveQuartzLogVo, Query.PageVo pageVo){
@@ -35,6 +37,7 @@ public class QuartzLogController {
 
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('quartzLog:list')")
     public void download(HttpServletResponse response){

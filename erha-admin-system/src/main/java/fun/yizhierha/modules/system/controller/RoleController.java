@@ -1,5 +1,6 @@
 package fun.yizhierha.modules.system.controller;
 
+import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
@@ -34,6 +35,7 @@ public class RoleController {
     SysRoleService sysRoleService;
 
     @ApiOperation("角色列表")
+    @Log("角色列表")
     @GetMapping
     @PreAuthorize("@eh.check('role:list')")
     public R<PageUtils<SummaryRoleDto>> list(RetrieveRoleVo retrieveRoleVo, Query.PageVo pageVo){
@@ -42,6 +44,7 @@ public class RoleController {
     }
 
     @ApiOperation("全部角色")
+    @Log("全部角色")
     @GetMapping("/all")
     @PreAuthorize("@eh.check('role:list')")
     public R<PageUtils<SysRole>> listAll(){
@@ -51,6 +54,7 @@ public class RoleController {
     }
 
     @ApiOperation("添加角色")
+    @Log("添加角色")
     @PostMapping
     @PreAuthorize("@eh.check('role:add')")
     public R<List<BaseErrDto>> addRole(@RequestBody @Validated CreateRoleVo createRoleVo, BindingResult bindingResult){
@@ -83,6 +87,7 @@ public class RoleController {
     }
 
     @ApiOperation("修改角色")
+    @Log("修改角色")
     @PutMapping
     @PreAuthorize("@eh.check('role:edit')")
     public R<List<BaseErrDto>> editRole(@RequestBody @Validated ValidList<UpdateRoleVo> updateRoleVos,BindingResult bindingResult){
@@ -136,6 +141,7 @@ public class RoleController {
     }
 
     @ApiOperation("删除角色")
+    @Log("删除角色")
     @DeleteMapping
     @PreAuthorize("@eh.check('role:del')")
     public R deleteRole(@RequestBody Set<Long> roleIds){
@@ -144,6 +150,7 @@ public class RoleController {
     }
 
     @ApiOperation("导出数据")
+    @Log("导出数据")
     @GetMapping("/download")
     @PreAuthorize("@eh.check('role:list')")
     public void download(HttpServletResponse response){

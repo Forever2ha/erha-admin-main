@@ -42,10 +42,16 @@
         <hibernate-validator>6.1.7.Final</hibernate-validator>
         <lombok-mapstruct-binding>0.2.0</lombok-mapstruct-binding>
         <knife4j-spring-boot-starter>3.0.3</knife4j-spring-boot-starter>
+        <oshi.version>6.4.0</oshi.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.oshi</groupId>
+                <artifactId>oshi-core</artifactId>
+                <version>${oshi.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>

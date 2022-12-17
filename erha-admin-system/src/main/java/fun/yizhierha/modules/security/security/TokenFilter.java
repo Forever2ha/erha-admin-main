@@ -55,7 +55,7 @@ public class TokenFilter extends GenericFilterBean {
                     logger.debug("token存在问题->"+e.getMessage());
                     servletResponse.setCharacterEncoding("UTF-8");
                     servletResponse.setContentType("application/json");
-                    servletResponse.getWriter().println(JSON.toJSONString(R.error(Client_Error_BadRequest.getCode(), "token有误！")));
+                    servletResponse.getWriter().println(JSON.toJSONString(R.error(Client_Error_Token_ExpiredOrNotExist.getCode(), "token有误！")));
                     servletResponse.getWriter().flush();
                     return;
                 }

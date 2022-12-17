@@ -3,6 +3,7 @@ package fun.yizhierha.common.exception.handler;
 import com.alibaba.fastjson.JSONException;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.utils.R;
+import fun.yizhierha.common.utils.ValidUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -91,6 +92,6 @@ public class GlobalExceptionHandler {
         log.error("出现未知异常:{},异常类型:{}",t.getMessage(),t.getClass());
         t.printStackTrace();
         return R.error(Internal_Error_Unknown.getCode()
-                ,Internal_Error_Unknown.getMsg()).setData(t.getMessage());
+                ,Internal_Error_Unknown.getMsg()).setData(ValidUtils.getStackTrace(t));
     }
 }

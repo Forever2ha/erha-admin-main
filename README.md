@@ -119,7 +119,6 @@ yarn dev
 
 - 感谢 [eladmin](https://github.com/elunez/eladmin) 提供的项目结构，数据库等
 - 感谢 [Arco Design Pro](https://arco.design/vue/docs/pro/start) 提供的后台开发模板
-- 感谢 [JetBrains](https://www.jetbrains.com/) 提供的非商业开源软件开发授权
 
 ## 项目捐赠
 项目的发展离不开你的支持，请作者喝杯咖啡吧☕

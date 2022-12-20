@@ -38,7 +38,7 @@ public class OraProjectController{
     @ApiOperation("获取项目管理")
     @Log("获取项目管理")
     @GetMapping
-    @PreAuthorize("@eh.check('oraProject:list')")
+    @PreAuthorize("@eh.check('operation:oraProject:list')")
     public R<PageUtils<OraProject>> list(RetrieveOraProjectVo retrieveOraProjectVo, Query.PageVo pageVo){
         PageUtils<OraProject> res = oraProjectService.list(retrieveOraProjectVo,pageVo);
         return R.<PageUtils<OraProject>>ok().setData(res);
@@ -47,7 +47,7 @@ public class OraProjectController{
     @ApiOperation("新增项目管理")
     @Log("新增项目管理")
     @PostMapping
-    @PreAuthorize("@eh.check('oraProject:add')")
+    @PreAuthorize("@eh.check('operation:oraProject:add')")
     public R<List<BaseErrDto>> add(@Validated @RequestBody CreateOraProjectVo createOraProjectVo,
         BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
@@ -63,7 +63,7 @@ public class OraProjectController{
     @ApiOperation("修改项目管理")
     @Log("修改项目管理")
     @PutMapping
-    @PreAuthorize("@eh.check('oraProject:edit')")
+    @PreAuthorize("@eh.check('operation:oraProject:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<UpdateOraProjectVo> updateOraProjectList,
                     BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateOraProjectList, bindingResult);
@@ -87,7 +87,7 @@ public class OraProjectController{
     @ApiOperation("删除项目管理")
     @Log("删除项目管理")
     @DeleteMapping
-    @PreAuthorize("@eh.check('oraProject:del')")
+    @PreAuthorize("@eh.check('operation:oraProject:del')")
     public R del(@RequestBody Set<Long> ids){
         oraProjectService.remove(ids);
         return R.ok();
@@ -96,7 +96,7 @@ public class OraProjectController{
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('oraProject:list')")
+    @PreAuthorize("@eh.check('operation:oraProject:list')")
     public void download(HttpServletResponse response){
         oraProjectService.download(response);
     }

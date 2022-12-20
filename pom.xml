@@ -14,6 +14,7 @@
         <module>erha-admin-system</module>
         <module>erha-admin-tools</module>
         <module>erha-admin-monitor</module>
+        <module>erha-admin-operation</module>
     </modules>
 
     <name>ERHA-ADMIN 后台管理</name>

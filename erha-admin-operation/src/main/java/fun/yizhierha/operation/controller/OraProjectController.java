@@ -29,7 +29,7 @@ import java.util.Set;
 **/
 @Api(tags = "运维管理:项目管理")
 @RestController
-@RequestMapping("/api/api/operation/project")
+@RequestMapping("/api/operation/project")
 @RequiredArgsConstructor
 public class OraProjectController{
 

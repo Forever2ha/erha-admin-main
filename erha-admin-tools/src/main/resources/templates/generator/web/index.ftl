@@ -791,6 +791,11 @@
   // endregion ↑-------------------------------- 钩子 --------------------------------↑
 </script>
 
+<script lang="ts">
+  export default {
+    name: '${apiPathS?cap_first}',
+  };
+</script>
 <style scoped>
   .container {
     height: 100%;

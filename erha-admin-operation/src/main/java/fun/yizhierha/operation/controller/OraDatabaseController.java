@@ -29,7 +29,7 @@ import java.util.Set;
 **/
 @Api(tags = "运维管理:部署管理")
 @RestController
-@RequestMapping("/api/operation/datebase")
+@RequestMapping("/api/operation/database")
 @RequiredArgsConstructor
 public class OraDatabaseController{
 

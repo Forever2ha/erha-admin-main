@@ -36,7 +36,7 @@ public class JobController {
     @ApiOperation("岗位列表")
     @Log("岗位列表")
     @GetMapping("/all")
-    @PreAuthorize("@eh.check('job:list')")
+    @PreAuthorize("@eh.check('system:job:list')")
     public R<List<SysJob>> list(){
         return R.<List<SysJob>>ok().setData(sysJobService.list(new QueryWrapper<SysJob>().eq(SysJob.COL_ENABLED,true)));
     }
@@ -44,7 +44,7 @@ public class JobController {
     @ApiOperation("获取岗位")
     @Log("获取岗位")
     @GetMapping
-    @PreAuthorize("@eh.check('job:list')")
+    @PreAuthorize("@eh.check('system:job:list')")
     public R<PageUtils<SummaryJobDto>> getJob(RetrieveJobVo retrieveJobVo, Query.PageVo pageVo){
         PageUtils<SummaryJobDto> res = sysJobService.listJob(retrieveJobVo,pageVo);
         return R.<PageUtils<SummaryJobDto>>ok().setData(res);
@@ -53,7 +53,7 @@ public class JobController {
     @ApiOperation("添加岗位")
     @Log("添加岗位")
     @PostMapping
-    @PreAuthorize("@eh.check('job:add')")
+    @PreAuthorize("@eh.check('system:job:add')")
     public R<List<BaseErrDto>> addJob(@RequestBody @Validated CreateJobVo createJobVo, BindingResult bindingResult){
         List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtos.isEmpty() ){
@@ -68,7 +68,7 @@ public class JobController {
     @ApiOperation("修改部门")
     @Log("修改部门")
     @PutMapping
-    @PreAuthorize("@eh.check('job:edit')")
+    @PreAuthorize("@eh.check('system:job:edit')")
     public R<List<BaseErrDto>> editJob(@RequestBody @Validated ValidList<UpdateJobVo> updateJobVoValidList,BindingResult bindingResult){
         List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(updateJobVoValidList, bindingResult);
         if (errDtos.isEmpty()){
@@ -89,7 +89,7 @@ public class JobController {
     @ApiOperation("删除岗位")
     @Log("删除岗位")
     @DeleteMapping
-    @PreAuthorize("@eh.check('job:del')")
+    @PreAuthorize("@eh.check('system:job:del')")
     public R delJob(@RequestBody Set<Long> jobIds){
         sysJobService.removeJob(jobIds);
         return R.ok();
@@ -98,7 +98,7 @@ public class JobController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('job:list')")
+    @PreAuthorize("@eh.check('system:job:list')")
     public void download(HttpServletResponse response){
         sysJobService.download(response);
     }

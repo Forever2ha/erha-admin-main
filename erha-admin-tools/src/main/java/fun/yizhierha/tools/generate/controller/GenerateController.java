@@ -45,7 +45,7 @@ public class GenerateController {
     CodeColumnConfigService codeColumnConfigService;
 
     @GetMapping("/preview")
-    @PreAuthorize("@eh.check('generate:list')")
+    @PreAuthorize("@eh.check('tools:generate:list')")
     @ApiOperation("预览代码")
     @Log("预览代码")
     public R preview(@Param("tableName") String tableName){
@@ -54,7 +54,7 @@ public class GenerateController {
     }
 
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('generate:list')")
+    @PreAuthorize("@eh.check('tools:generate:list')")
     @ApiOperation("预览代码")
     @Log("预览代码")
     public void download(@Param("tableName") String tableName,HttpServletResponse response,HttpServletRequest request){
@@ -62,7 +62,7 @@ public class GenerateController {
     }
 
     @GetMapping
-    @PreAuthorize("@eh.check('generate:list')")
+    @PreAuthorize("@eh.check('tools:generate:list')")
     @ApiOperation("生成代码")
     @Log("生成代码")
     public R generate(@Param("tableName") String tableName){

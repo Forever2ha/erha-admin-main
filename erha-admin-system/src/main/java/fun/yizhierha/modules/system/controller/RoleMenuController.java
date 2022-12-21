@@ -30,7 +30,7 @@ public class RoleMenuController {
     SysRolesMenusService sysRolesMenusService;
 
     @GetMapping("/menuIds")
-    @PreAuthorize("@eh.check('role:list')")
+    @PreAuthorize("@eh.check('system:role:list')")
     @ApiOperation("根据角色id查询菜单id")
     @Log("根据角色id查询菜单id")
     public R<List<Long>> getMenuIdsByRoleId(@Param("roleId") Long roleId){
@@ -48,7 +48,7 @@ public class RoleMenuController {
     }
 
     @PutMapping
-    @PreAuthorize("@eh.check('role:edit')")
+    @PreAuthorize("@eh.check('system:role:edit')")
     @ApiOperation("修改角色菜单")
     @Log("修改角色菜单")
     public R editRoleMenu(@RequestBody @Validated UpdateRoleMenuVo updateRoleMenuVo, BindingResult bindingResult){

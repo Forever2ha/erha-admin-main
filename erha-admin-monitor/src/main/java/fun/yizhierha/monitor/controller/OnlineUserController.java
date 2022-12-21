@@ -34,7 +34,7 @@ public class OnlineUserController{
     @ApiOperation("获取在线用户")
     @Log("获取在线用户")
     @GetMapping
-    @PreAuthorize("@eh.check('onlineUser:list')")
+    @PreAuthorize("@eh.check('monitor:onlineUser:list')")
     public R<PageUtils<OnlineUserDto>> list(RetrieveOnlineUserVo retrieveOnlineUserVo, Query.PageVo pageVo){
         PageUtils<OnlineUserDto> res = onlineUserService.list(retrieveOnlineUserVo,pageVo);
         return R.<PageUtils<OnlineUserDto>>ok().setData(res);
@@ -43,7 +43,7 @@ public class OnlineUserController{
     @ApiOperation("删除在线用户")
     @Log("删除在线用户")
     @DeleteMapping
-    @PreAuthorize("@eh.check('onlineUser:del')")
+    @PreAuthorize("@eh.check('monitor:onlineUser:del')")
     public R delJob(@RequestBody Set<String> usernames){
         onlineUserService.removeIfExist(usernames);
         return R.ok();
@@ -52,7 +52,7 @@ public class OnlineUserController{
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('onlineUser:list')")
+    @PreAuthorize("@eh.check('monitor:onlineUser:list')")
     public void download(HttpServletResponse response){
         onlineUserService.download(response);
     }

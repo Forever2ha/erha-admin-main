@@ -43,7 +43,7 @@ public class MenuController {
     @ApiOperation("获取菜单")
     @Log("获取菜单")
     @GetMapping
-    @PreAuthorize("@eh.check('menu:list')")
+    @PreAuthorize("@eh.check('system:menu:list')")
     public R<PageUtils<SummaryMenuDto>> list(RetrieveMenuVo retrieveMenuVo, Query.PageVo pageVo){
         return R.<PageUtils<SummaryMenuDto>>ok().setData(sysMenuService.listTree(retrieveMenuVo,pageVo));
     }
@@ -51,7 +51,7 @@ public class MenuController {
     @ApiOperation("添加菜单")
     @Log("添加菜单")
     @PostMapping
-    @PreAuthorize("@eh.check('menu:add')")
+    @PreAuthorize("@eh.check('system:menu:add')")
     public R<List<BaseErrDto>> addMenu(@Validated @RequestBody CreateMenuVo createMenuVo, BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtoList.isEmpty()){
@@ -66,7 +66,7 @@ public class MenuController {
     @ApiOperation("修改菜单")
     @Log("修改菜单")
     @PutMapping
-    @PreAuthorize("@eh.check('menu:edit')")
+    @PreAuthorize("@eh.check('system:menu:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateMenuVo> updateMenuVoList,BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateMenuVoList, bindingResult);
         if (errDtoList.isEmpty()) {
@@ -89,7 +89,7 @@ public class MenuController {
     @ApiOperation("删除菜单")
     @Log("删除菜单")
     @DeleteMapping
-    @PreAuthorize("@eh.check('menu:del')")
+    @PreAuthorize("@eh.check('system:menu:del')")
     public R delDict(@RequestBody Set<Long> menuIds){
         sysMenuService.removeMenu(menuIds);
         return R.ok();
@@ -98,7 +98,7 @@ public class MenuController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('menu:list')")
+    @PreAuthorize("@eh.check('system:menu:list')")
     public void download(HttpServletResponse response){
         sysMenuService.download(response);
     }
@@ -106,7 +106,7 @@ public class MenuController {
     @ApiOperation("代码生成自动生成菜单")
     @Log("代码生成自动生成菜单")
     @PostMapping("/generate/{tableName}")
-    @PreAuthorize("@eh.check('menu:edit')")
+    @PreAuthorize("@eh.check('system:menu:edit')")
     public R generateMenu(@PathVariable String tableName){
         sysMenuService.generateMenu(tableName);
         return R.ok();

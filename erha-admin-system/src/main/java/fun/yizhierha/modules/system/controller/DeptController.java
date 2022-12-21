@@ -44,7 +44,7 @@ public class DeptController {
     @ApiOperation("获取部门")
     @Log("获取部门")
     @GetMapping
-    @PreAuthorize("@eh.check('dept:list')")
+    @PreAuthorize("@eh.check('system:dept:list')")
     public R<PageUtils<SummaryDeptDto>> getDept(RetrieveDeptVo retrieveDeptVo, Query.PageVo pageVo){
 
         PageUtils<SummaryDeptDto> pageUtils = sysDeptService.listDept(retrieveDeptVo,pageVo);
@@ -54,7 +54,7 @@ public class DeptController {
     @ApiOperation("添加部门")
     @Log("添加部门")
     @PostMapping
-    @PreAuthorize("@eh.check('dept:add')")
+    @PreAuthorize("@eh.check('system:dept:add')")
     public R<List<BaseErrDto>> addDept(@RequestBody @Validated CreateDeptVo createDeptVo, BindingResult bindingResult){
         List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtos.isEmpty()){
@@ -70,7 +70,7 @@ public class DeptController {
     @ApiOperation("修改部门")
     @Log("修改部门")
     @PutMapping
-    @PreAuthorize("@eh.check('dept:edit')")
+    @PreAuthorize("@eh.check('system:dept:edit')")
     public R<List<BaseErrDto>> editDept(@RequestBody @Validated ValidList<UpdateDeptVo> updateDeptVos,BindingResult bindingResult){
         List<BaseErrDto> errDtos = ValidUtils.getBaseErrDtoByBindingRes(updateDeptVos, bindingResult);
 
@@ -87,7 +87,7 @@ public class DeptController {
     @ApiOperation("删除部门")
     @Log("删除部门")
     @DeleteMapping
-    @PreAuthorize("@eh.check('dept:del')")
+    @PreAuthorize("@eh.check('system:dept:del')")
     public R deleteDept(@RequestBody Set<Long> deptIds){
         sysDeptService.removeByIds(deptIds);
         return  R.ok();
@@ -103,7 +103,7 @@ public class DeptController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('dept:list')")
+    @PreAuthorize("@eh.check('system:dept:list')")
     public void download(HttpServletResponse response){
         sysDeptService.download(response);
     }

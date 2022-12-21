@@ -38,7 +38,7 @@ public class ${className}Controller{
     @ApiOperation("获取${apiAliasShort}")
     @Log("获取${apiAliasShort}")
     @GetMapping
-    @PreAuthorize("@eh.check('${changeClassName}:list')")
+    @PreAuthorize("@eh.check('${apiPathF}:${apiPathS}:list')")
     public R<PageUtils<${className}>> list(Retrieve${className}Vo retrieve${className}Vo, Query.PageVo pageVo){
         PageUtils<${className}> res = ${changeClassName}Service.list(retrieve${className}Vo,pageVo);
         return R.<PageUtils<${className}>>ok().setData(res);
@@ -47,7 +47,7 @@ public class ${className}Controller{
     @ApiOperation("新增${apiAliasShort}")
     @Log("新增${apiAliasShort}")
     @PostMapping
-    @PreAuthorize("@eh.check('${changeClassName}:add')")
+    @PreAuthorize("@eh.check('${apiPathF}:${apiPathS}:add')")
     public R<List<BaseErrDto>> add(@Validated @RequestBody Create${className}Vo create${className}Vo,
         BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
@@ -63,7 +63,7 @@ public class ${className}Controller{
     @ApiOperation("修改${apiAliasShort}")
     @Log("修改${apiAliasShort}")
     @PutMapping
-    @PreAuthorize("@eh.check('${changeClassName}:edit')")
+    @PreAuthorize("@eh.check('${apiPathF}:${apiPathS}:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<Update${className}Vo> update${className}List,
                     BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(update${className}List, bindingResult);
@@ -87,7 +87,7 @@ public class ${className}Controller{
     @ApiOperation("删除${apiAliasShort}")
     @Log("删除${apiAliasShort}")
     @DeleteMapping
-    @PreAuthorize("@eh.check('${changeClassName}:del')")
+    @PreAuthorize("@eh.check('${apiPathF}:${apiPathS}:del')")
     public R del(@RequestBody Set<Long> ids){
         ${changeClassName}Service.remove(ids);
         return R.ok();
@@ -96,7 +96,7 @@ public class ${className}Controller{
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('${changeClassName}:list')")
+    @PreAuthorize("@eh.check('${apiPathF}:${apiPathS}:list')")
     public void download(HttpServletResponse response){
         ${changeClassName}Service.download(response);
     }

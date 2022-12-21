@@ -30,7 +30,7 @@ public class QuartzLogController {
     @ApiOperation("任务日志列表")
     @Log("任务日志列表")
     @GetMapping
-    @PreAuthorize("@eh.check('quartzLog:list')")
+    @PreAuthorize("@eh.check('system:quartzLog:list')")
     public R<PageUtils<SysQuartzLog>> list(RetrieveQuartzLogVo retrieveQuartzLogVo, Query.PageVo pageVo){
         return R.<PageUtils<SysQuartzLog>>ok().setData(sysQuartzLogService.listQuartzLog(retrieveQuartzLogVo,pageVo));
     }
@@ -39,7 +39,7 @@ public class QuartzLogController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('quartzLog:list')")
+    @PreAuthorize("@eh.check('system:quartzLog:list')")
     public void download(HttpServletResponse response){
         sysQuartzLogService.download(response);
     }

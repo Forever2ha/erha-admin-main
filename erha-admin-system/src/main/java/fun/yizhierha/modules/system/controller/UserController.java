@@ -108,7 +108,7 @@ UserController {
     @ApiOperation("用户列表")
     @Log("用户列表")
     @GetMapping()
-    @PreAuthorize("@eh.check('user:list')")
+    @PreAuthorize("@eh.check('system:user:list')")
     public R<PageUtils<SummaryUserDto>> list(RetrieveUserVo retrieveUserVo, Query.PageVo pageVo){
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
         Set<Long> scope = currentUser.getDataScope();
@@ -138,7 +138,7 @@ UserController {
     }
 
     @PostMapping
-    @PreAuthorize("@eh.check('user:add')")
+    @PreAuthorize("@eh.check('system:user:add')")
     @ApiOperation("新增用户")
     @Log("新增用户")
     public R createUser(@Validated @RequestBody CreateUserVo createUserVo){
@@ -154,7 +154,7 @@ UserController {
     }
 
     @PutMapping
-    @PreAuthorize("@eh.check('user:edit')")
+    @PreAuthorize("@eh.check('system:user:edit')")
     @ApiOperation("修改用户")
     @Log("修改用户")
     public R<List<BaseErrDto>> editUser(@Validated @RequestBody ValidList<UpdateUserVo> updateUserVoList, BindingResult bindingResult){
@@ -247,7 +247,7 @@ UserController {
 
 
     @DeleteMapping
-    @PreAuthorize("@eh.check('user:del')")
+    @PreAuthorize("@eh.check('system:user:del')")
     @ApiOperation("删除用户")
     @Log("删除用户")
     public R deleteUser(@RequestBody Set<Long> userIds){
@@ -256,7 +256,7 @@ UserController {
     }
 
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('user:list')")
+    @PreAuthorize("@eh.check('system:user:list')")
     @ApiOperation("导出数据")
     @Log("导出数据")
     public void download(HttpServletResponse response) throws IOException {

@@ -327,7 +327,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             menu.setTitle(zhNames[1]+ (!isNull ? "[存在同名，但pid不匹配,请修改]" : ""));
             menu.setName(StringUtils.capitalize(enNames[1]));
             menu.setLocale("menu."+enNames[0]+ "." + enNames[1]);
-            menu.setPermission(className+":list");
+            menu.setPermission(enNames[0]+ ":" + enNames[1]+":list");
             menu.setOrder(0);
             menu.setIcon("icon-thumb-up-fill");
             menu.setIFrame(false);
@@ -357,7 +357,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             addButton.setIFrame(false);
             addButton.setCache(false);
             addButton.setHidden(false);
-            addButton.setPermission(className+":add");
+            addButton.setPermission(enNames[0]+ ":" + enNames[1]+":add");
             addButton.setCreateBy("SYSTEM");
             addButton.setCreateTime(new Date());
             this.save(addButton);
@@ -375,7 +375,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             editButton.setIFrame(false);
             editButton.setCache(false);
             editButton.setHidden(false);
-            editButton.setPermission(className+":edit");
+            editButton.setPermission(enNames[0]+ ":" + enNames[1]+":edit");
             editButton.setCreateBy("SYSTEM");
             editButton.setCreateTime(new Date());
             this.save(editButton);
@@ -394,7 +394,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             delButton.setIFrame(false);
             delButton.setCache(false);
             delButton.setHidden(false);
-            delButton.setPermission(className+":del");
+            delButton.setPermission(enNames[0]+ ":" + enNames[1]+":del");
             delButton.setCreateBy("SYSTEM");
             delButton.setCreateTime(new Date());
             this.save(delButton);

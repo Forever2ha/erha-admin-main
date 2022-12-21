@@ -35,7 +35,7 @@ public class DictController {
     @ApiOperation("获取字典")
     @Log("获取字典")
     @GetMapping
-    @PreAuthorize("@eh.check('dict:list')")
+    @PreAuthorize("@eh.check('system:dict:list')")
     public R<PageUtils<DictDto>> list(RetrieveDictVo retrieveDictVo, Query.PageVo pageVo){
         return R.<PageUtils<DictDto>>ok().setData(sysDictService.listDict(retrieveDictVo,pageVo));
     }
@@ -43,7 +43,7 @@ public class DictController {
     @ApiOperation("添加字典")
     @Log("添加字典")
     @PostMapping
-    @PreAuthorize("@eh.check('dict:add')")
+    @PreAuthorize("@eh.check('system:dict:add')")
     public R<List<BaseErrDto>> addDict(@Validated @RequestBody CreateDictVo createDictVo, BindingResult bindingResult){
         List<BaseErrDto> baseErrDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (baseErrDtoList.isEmpty()) {
@@ -58,7 +58,7 @@ public class DictController {
     @ApiOperation("修改字典")
     @Log("修改字典")
     @PutMapping
-    @PreAuthorize("@eh.check('dict:edit')")
+    @PreAuthorize("@eh.check('system:dict:edit')")
     public R<List<BaseErrDto>> editDict(@Validated @RequestBody ValidList<UpdateDictVo> updateDictVos,BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateDictVos, bindingResult);
         if (errDtoList.isEmpty()) {
@@ -82,7 +82,7 @@ public class DictController {
     @ApiOperation("删除字典")
     @Log("删除字典")
     @DeleteMapping
-    @PreAuthorize("@eh.check('dict:del')")
+    @PreAuthorize("@eh.check('system:dict:del')")
     public R delDict(@RequestBody Set<Long> dictIds){
         sysDictService.removeDict(dictIds);
         return R.ok();
@@ -91,7 +91,7 @@ public class DictController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('dict:list')")
+    @PreAuthorize("@eh.check('system:dict:list')")
     public void download(HttpServletResponse response){
         sysDictService.download(response);
     }

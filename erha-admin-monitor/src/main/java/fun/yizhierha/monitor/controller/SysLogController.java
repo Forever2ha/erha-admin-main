@@ -29,7 +29,7 @@ public class SysLogController{
 
     @ApiOperation("获取操作日志")
     @GetMapping
-    @PreAuthorize("@eh.check('sysLog:list')")
+    @PreAuthorize("@eh.check('monitor:sysLog:list')")
     public R<PageUtils<SysLog>> list(RetrieveSysLogVo retrieveSysLogVo, Query.PageVo pageVo){
         PageUtils<SysLog> res = sysLogService.list(retrieveSysLogVo,pageVo);
         return R.<PageUtils<SysLog>>ok().setData(res);
@@ -38,7 +38,7 @@ public class SysLogController{
     @ApiOperation("删除操作日志")
     @Log("删除操作日志")
     @DeleteMapping
-    @PreAuthorize("@eh.check('sysLog:del')")
+    @PreAuthorize("@eh.check('monitor:sysLog:del')")
     public R del(@RequestBody Set<Long> ids){
         sysLogService.remove(ids);
         return R.ok();
@@ -47,7 +47,7 @@ public class SysLogController{
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('sysLog:list')")
+    @PreAuthorize("@eh.check('monitor:sysLog:list')")
     public void download(HttpServletResponse response){
         sysLogService.download(response);
     }

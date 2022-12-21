@@ -48,7 +48,7 @@ public class DictDetailController {
     @ApiOperation("添加字典详情")
     @Log("添加字典详情")
     @PostMapping
-    @PreAuthorize("@eh.check('dictDetail:add')")
+    @PreAuthorize("@eh.check('system:dictDetail:add')")
     public R<List<BaseErrDto>> addDictDetail(@Validated @RequestBody CreateDictDetailVo createDictDetailVo, BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(bindingResult);
         if (errDtoList.isEmpty()) {
@@ -65,7 +65,7 @@ public class DictDetailController {
     @ApiOperation("修改字典详情")
     @Log("修改字典详情")
     @PutMapping
-    @PreAuthorize("@eh.check('dictDetail:edit')")
+    @PreAuthorize("@eh.check('system:dictDetail:edit')")
     public R<List<BaseErrDto>> editDictDetail(@Validated @RequestBody ValidList<UpdateDictDetailVo> updateDictDetailVos,
                                               BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateDictDetailVos, bindingResult);
@@ -89,7 +89,7 @@ public class DictDetailController {
     @ApiOperation("删除字典详情")
     @Log("删除字典详情")
     @DeleteMapping
-    @PreAuthorize("@eh.check('dictDetail:del')")
+    @PreAuthorize("@eh.check('system:dictDetail:del')")
     public R delDictDetail(@RequestBody Set<Long> dictDetailIds){
         sysDictDetailService.removeDictDetail(dictDetailIds);
         return R.ok();

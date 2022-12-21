@@ -37,7 +37,7 @@ public class RoleController {
     @ApiOperation("角色列表")
     @Log("角色列表")
     @GetMapping
-    @PreAuthorize("@eh.check('role:list')")
+    @PreAuthorize("@eh.check('system:role:list')")
     public R<PageUtils<SummaryRoleDto>> list(RetrieveRoleVo retrieveRoleVo, Query.PageVo pageVo){
         return R.<PageUtils<SummaryRoleDto>>ok().setData(sysRoleService.list(retrieveRoleVo,pageVo));
 
@@ -46,7 +46,7 @@ public class RoleController {
     @ApiOperation("全部角色")
     @Log("全部角色")
     @GetMapping("/all")
-    @PreAuthorize("@eh.check('role:list')")
+    @PreAuthorize("@eh.check('system:role:list')")
     public R<PageUtils<SysRole>> listAll(){
         List<SysRole> list = sysRoleService.list();
         PageUtils<SysRole> pageUtils = new PageUtils<SysRole>(list,list.size(),9999,1);
@@ -56,7 +56,7 @@ public class RoleController {
     @ApiOperation("添加角色")
     @Log("添加角色")
     @PostMapping
-    @PreAuthorize("@eh.check('role:add')")
+    @PreAuthorize("@eh.check('system:role:add')")
     public R<List<BaseErrDto>> addRole(@RequestBody @Validated CreateRoleVo createRoleVo, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return R.<List<BaseErrDto>>error().setData(ValidUtils.getBaseErrDtoByBindingRes(bindingResult));
@@ -89,7 +89,7 @@ public class RoleController {
     @ApiOperation("修改角色")
     @Log("修改角色")
     @PutMapping
-    @PreAuthorize("@eh.check('role:edit')")
+    @PreAuthorize("@eh.check('system:role:edit')")
     public R<List<BaseErrDto>> editRole(@RequestBody @Validated ValidList<UpdateRoleVo> updateRoleVos,BindingResult bindingResult){
         UserDetailsDto currentUser = (UserDetailsDto) SecurityUtils.getCurrentUser();
 
@@ -143,7 +143,7 @@ public class RoleController {
     @ApiOperation("删除角色")
     @Log("删除角色")
     @DeleteMapping
-    @PreAuthorize("@eh.check('role:del')")
+    @PreAuthorize("@eh.check('system:role:del')")
     public R deleteRole(@RequestBody Set<Long> roleIds){
         sysRoleService.removeByIds(roleIds);
         return R.ok();
@@ -152,7 +152,7 @@ public class RoleController {
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('role:list')")
+    @PreAuthorize("@eh.check('system:role:list')")
     public void download(HttpServletResponse response){
         sysRoleService.download(response);
     }

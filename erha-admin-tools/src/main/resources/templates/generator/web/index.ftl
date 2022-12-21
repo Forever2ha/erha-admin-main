@@ -164,10 +164,10 @@
         <a-divider style="margin-top: 0" />
 </#if>
         <CrudOperation
-          :add-permission="['${changeClassName}:add']"
-          :edit-permission="['${changeClassName}:edit']"
-          :del-permission="['${changeClassName}:del']"
-          :download-permission="['${changeClassName}:list']"
+          :add-permission="['${apiPathF}:${apiPathS}:add']"
+          :edit-permission="['${apiPathF}:${apiPathS}:edit']"
+          :del-permission="['${apiPathF}:${apiPathS}:del']"
+          :download-permission="['${apiPathF}:${apiPathS}:list']"
           style="margin-bottom: 12px"
         >
           <template #addForm>

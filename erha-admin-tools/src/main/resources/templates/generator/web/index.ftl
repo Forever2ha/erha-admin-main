@@ -58,6 +58,7 @@
             <a-select
               v-model="crud.options.query.${col.changeColumnName}"
               placeholder="输入${col.remark}搜索"
+              allow-search
               <#if col.formType == '下拉框[多选]' >
               multiple</#if>
             >
@@ -134,6 +135,7 @@
                       <a-select
                         v-model="crud.options.query.${col.changeColumnName}"
                         placeholder="输入${col.remark}搜索"
+                        allow-search
                         <#if col.formType == '下拉框[多选]' >
                         multiple</#if>
                       >
@@ -217,6 +219,7 @@
                   <a-select
                     v-model="crud.options.form.${col.changeColumnName}"
                     placeholder="请选择"
+                    allow-search
                   >
                     <a-option
                       v-for="s in dict.${col.dictName}"
@@ -226,7 +229,7 @@
                     >
                   </a-select>
                     <#elseif col.formType == '下拉框[多选]'>
-                  <a-select v-model="crud.options.form.${col.changeColumnName}" placeholder="请选择" multiple>
+                  <a-select v-model="crud.options.form.${col.changeColumnName}" placeholder="请选择" allow-search multiple>
                     <a-option
                       v-for="s in dict.${col.dictName}"
                       :key="s.detailId"
@@ -456,6 +459,7 @@
               <a-select
                 v-model="crud.options.form[record.id].${col.changeColumnName}"
                 :default-value="record.${col.changeColumnName} ? '1' : '0'"
+                allow-search
               >
                 <a-option
                   v-for="s in dict.${col.dictName}.map((di) => {
@@ -518,6 +522,7 @@
                 <a-select
                   v-model="crud.options.form[record.id].${col.changeColumnName}"
                   :default-value="record.${col.changeColumnName}"
+                  allow-search
                   multiple
                   :disabled="true"
                 >
@@ -537,6 +542,7 @@
               <a-select
                 v-model="crud.options.form[record.id].${col.changeColumnName}"
                 :default-value="record.${col.changeColumnName}"
+                allow-search
                 multiple
               >
                 <a-option
@@ -791,6 +797,11 @@
   // endregion ↑-------------------------------- 钩子 --------------------------------↑
 </script>
 
+<script lang="ts">
+  export default {
+    name: '${apiPathS?cap_first}',
+  };
+</script>
 <style scoped>
   .container {
     height: 100%;

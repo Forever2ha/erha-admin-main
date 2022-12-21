@@ -8,6 +8,7 @@ import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
+import fun.yizhierha.common.utils.SecurityUtils;
 import fun.yizhierha.common.utils.ValidList;
 import fun.yizhierha.common.utils.file.ExcelUtils;
 import fun.yizhierha.operation.domain.OraProject;
@@ -17,6 +18,7 @@ import fun.yizhierha.operation.domain.vo.RetrieveOraProjectVo;
 import fun.yizhierha.operation.mapper.OraProjectMapper;
 import fun.yizhierha.operation.service.mapstruct.OraProjectMapstruct;
 import fun.yizhierha.operation.service.OraProjectService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,6 +62,9 @@ public class OraProjectServiceImpl extends ServiceImpl<OraProjectMapper, OraProj
     @Override
     public synchronized void save(CreateOraProjectVo createOraProjectVo) {
         // 1.字段为UNI，需要不重复
+        UserDetails currentUser = SecurityUtils.getCurrentUser();
+        createOraProjectVo.setCreateBy(currentUser.getUsername());
+
         // 2.映射数据
         OraProject oraProject = oraProjectMapstruct.toOraProject(createOraProjectVo);
         oraProject.setCreateTime(new Timestamp(new Date().getTime()));
@@ -75,7 +80,8 @@ public class OraProjectServiceImpl extends ServiceImpl<OraProjectMapper, OraProj
         for (UpdateOraProjectVo updateOraProjectVo : updateOraProjectVoList) {
             Long id = updateOraProjectVo.getId();
             // 1.字段为UNI，需要不重复
-
+            UserDetails currentUser = SecurityUtils.getCurrentUser();
+            updateOraProjectVo.setUpdateBy(currentUser.getUsername());
             OraProject oraProject = oraProjectMapstruct.toOraProject(updateOraProjectVo);
             oraProject.setUpdateTime(new Timestamp(new Date().getTime()));
 

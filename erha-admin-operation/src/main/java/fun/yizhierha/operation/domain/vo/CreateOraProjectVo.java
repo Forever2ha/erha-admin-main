@@ -6,7 +6,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
-public class CreateOraProjectVo{
+public class CreateOraProjectVo {
 
     @ApiModelProperty(value = "项目名称")
     private String pname;
@@ -25,5 +25,8 @@ public class CreateOraProjectVo{
 
     @ApiModelProperty(value = "状态")
     private Boolean enabled;
+    @ApiModelProperty(value = "创建者")
+    private String createBy;
+
 
 }

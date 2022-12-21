@@ -29,5 +29,6 @@ public class UpdateOraProjectVo extends UpdateVo{
 
     @ApiModelProperty(value = "状态")
     private Boolean enabled;
-
+    @ApiModelProperty(value = "更新者")
+    private String updateBy;
 }

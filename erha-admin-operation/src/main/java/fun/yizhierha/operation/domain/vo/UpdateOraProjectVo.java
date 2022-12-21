@@ -27,7 +27,7 @@ public class UpdateOraProjectVo extends UpdateVo{
     @ApiModelProperty(value = "实际结束日期")
     private Timestamp actuFinishDate;
 
-    @ApiModelProperty(value = "状态：1启用、0禁用")
+    @ApiModelProperty(value = "状态")
     private Boolean enabled;
 
 }

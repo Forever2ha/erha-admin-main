@@ -52,6 +52,8 @@ public class OraProjectServiceImpl extends ServiceImpl<OraProjectMapper, OraProj
         }
         if (enabled != null){
             wrapper.eq(OraProject.COL_ENABLED,enabled);
+        }else {
+            wrapper.eq(OraProject.COL_ENABLED, true);
         }
 
 

@@ -35,7 +35,7 @@ public class DeptController {
     @ApiOperation("部门树")
     @Log("部门树")
     @GetMapping("/listTree")
-    @PreAuthorize("@eh.check('dept:list')")
+    @PreAuthorize("@eh.check('system:dept:list')")
     public R<List<Object>> list(){
         List<Object> res = sysDeptService.listForTree();
         return R.<List<Object>>ok().setData(res);

@@ -747,8 +747,8 @@
       </#if>
       </#list>
   };
-  </#if>
   <#break >
+  </#if>
 </#list>
 
 <#list columns as col>

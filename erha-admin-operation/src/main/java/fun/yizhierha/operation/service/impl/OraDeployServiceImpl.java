@@ -131,7 +131,8 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
             sendMsg("部署信息不存在", MsgType.ERROR);
             throw new BadRequestException("部署信息不存在");
         }
-        OraApp app = deploy.getAppId();
+        // TODO: 2023/1/6  更新方法实体类 待写
+        OraApp app = null;//deploy.getAppId();
         if (app == null) {
             sendMsg("包对应应用信息不存在", MsgType.ERROR);
             throw new BadRequestException("包对应应用信息不存在");
@@ -141,7 +142,8 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         String uploadPath = app.getUploadPath();
         StringBuilder sb = new StringBuilder();
         String msg;
-        Set<OraServer> deploys = deploy.getServers();
+        // TODO: 2023/1/6  更新方法实体类 待写
+        Set<OraServer> deploys = null;//deploy.getServers();
         for (OraServer deployDTO : deploys) {
             String ip = deployDTO.getIp();
             ExecuteShellUtil executeShellUtil = getExecuteShellUtil(ip);

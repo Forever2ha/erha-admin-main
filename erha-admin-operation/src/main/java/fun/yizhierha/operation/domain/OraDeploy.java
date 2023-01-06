@@ -31,7 +31,7 @@ public class OraDeploy implements Serializable{
     @TableField(value = "app_id")
     @ApiModelProperty(value = "应用编号")
     @ExcelExport("应用编号")
-    private OraApp appId;
+    private Long appId;
 
     @TableField(value = "create_by")
     @ApiModelProperty(value = "创建者")

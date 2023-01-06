@@ -25,6 +25,7 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,7 +84,23 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static final String VIDEO = "视频";
     public static final String OTHER = "其他";
 
+    /**
+     * 得到文件路径
+     *
+     * @return {@link String}
+     */
+    public static String getFileDir() {
+        return System.getProperty("user.dir")+FILE_SEPARATOR+"file"+FILE_SEPARATOR;
+    }
 
+    /**
+     * 得到视频存储路径
+     *
+     * @return {@link String}
+     */
+    public static  String getVideoDir(){
+        return System.getProperty("user.dir")+FILE_SEPARATOR+"video"+FILE_SEPARATOR;
+    }
     /**
      * MultipartFile转File
      */
@@ -153,7 +170,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     /**
      * inputStream 转 File
      */
-    static File inputStreamToFile(InputStream ins, String name){
+    static File inputStreamToFile(InputStream ins, String name) {
         File file = new File(SYS_TEM_DIR + name);
         if (file.exists()) {
             return file;
@@ -238,7 +255,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static boolean check(File file1, File file2) {
         String img1Md5 = getMd5(file1);
         String img2Md5 = getMd5(file2);
-        if(img1Md5 != null){
+        if (img1Md5 != null) {
             return img1Md5.equals(img2Md5);
         }
         return false;

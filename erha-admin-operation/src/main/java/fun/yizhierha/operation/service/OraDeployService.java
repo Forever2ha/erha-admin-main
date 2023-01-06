@@ -6,6 +6,7 @@ import fun.yizhierha.common.utils.Query;
 import fun.yizhierha.common.utils.ValidList;
 import com.baomidou.mybatisplus.extension.service.IService;
 import fun.yizhierha.operation.domain.OraDeploy;
+import fun.yizhierha.operation.domain.OraDeployHistory;
 import fun.yizhierha.operation.domain.vo.CreateOraDeployVo;
 import fun.yizhierha.operation.domain.vo.UpdateOraDeployVo;
 import fun.yizhierha.operation.domain.vo.RetrieveOraDeployVo;
@@ -30,4 +31,13 @@ public interface OraDeployService extends IService<OraDeploy>{
 
     void download(HttpServletResponse response);
 
+    void deploy(String dir, Long id, Long projectid);
+
+    String serverReduction(OraDeployHistory resources);
+
+    String serverStatus(OraDeploy resources);
+
+    String startServer(OraDeploy resources);
+
+    String stopServer(OraDeploy resources);
 }

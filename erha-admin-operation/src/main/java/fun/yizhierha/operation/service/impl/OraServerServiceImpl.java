@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.yizhierha.common.base.BaseErrDto;
-import fun.yizhierha.common.exception.BadRequestException;
-import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
 import fun.yizhierha.common.utils.SecurityUtils;
@@ -95,6 +93,14 @@ public class OraServerServiceImpl extends ServiceImpl<OraServerMapper, OraServer
     @Override
     public void download(HttpServletResponse response) {
         ExcelUtils.export(response,"服务器信息表",this.list(), OraServer.class);
+    }
+
+    @Override
+    public OraServer findByIp(String ip) {
+        QueryWrapper<OraServer> wrapper = new QueryWrapper<>();
+        wrapper.eq(OraServer.COL_IP, ip);
+        OraServer list = this.getOne(wrapper);
+        return list;
     }
 
 }

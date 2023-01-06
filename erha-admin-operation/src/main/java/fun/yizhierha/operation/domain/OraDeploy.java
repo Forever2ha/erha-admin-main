@@ -1,6 +1,5 @@
 package fun.yizhierha.operation.domain;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -53,10 +52,6 @@ public class OraDeploy implements Serializable{
     @ApiModelProperty(value = "更新时间")
     @ExcelExport("更新时间")
     private Timestamp updateTime;
-
-    private OraProject project;
-
-    private Set<OraServer> servers;
 
 
 

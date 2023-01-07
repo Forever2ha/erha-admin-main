@@ -123,7 +123,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico").permitAll()
                 // 文件
                 .antMatchers("/api/avatar/**").permitAll()
-                .antMatchers("/api/file/**").permitAll()
                 // 阿里巴巴 druid
                 .antMatchers("/druid/**").permitAll()
                 // 放行OPTIONS请求

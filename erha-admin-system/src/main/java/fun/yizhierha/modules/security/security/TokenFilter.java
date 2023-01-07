@@ -75,7 +75,10 @@ public class TokenFilter extends GenericFilterBean {
     private String resolveToken(HttpServletRequest request, ServletResponse response) {
         String header = request.getHeader(securityProperties.getHeader());
 
-        if (StringUtils.isBlank(header)) return "";
+        if (StringUtils.isBlank(header)) {
+            header = request.getParameter("token");
+            if (StringUtils.isBlank(header))return "";
+        };
         //todo 这里有个诡异的问题
 
         /*logger.warn(header.startsWith(securityProperties.getTokenStartWith()));

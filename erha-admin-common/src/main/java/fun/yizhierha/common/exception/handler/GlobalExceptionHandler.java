@@ -2,6 +2,8 @@ package fun.yizhierha.common.exception.handler;
 
 import com.alibaba.fastjson.JSONException;
 import fun.yizhierha.common.exception.BadRequestException;
+import fun.yizhierha.common.exception.BizCodeEnum;
+import fun.yizhierha.common.exception.InternalServerException;
 import fun.yizhierha.common.utils.R;
 import fun.yizhierha.common.utils.ValidUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,11 @@ import static fun.yizhierha.common.exception.BizCodeEnum.*;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(InternalServerException.class)
+    public R handleInternalServerException(InternalServerException e){
+        return R.error(Internal_Error_Business.getCode(), Internal_Error_Business.getMsg()+":"+e.getMessage());
+    }
 
     //数据校验格式错误异常处理
     @ExceptionHandler(MethodArgumentNotValidException.class)

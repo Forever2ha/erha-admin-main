@@ -84,6 +84,10 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static final String OTHER = "其他";
 
 
+    public static void uploadQiniu(){
+
+    }
+
     /**
      * MultipartFile转File
      */

@@ -25,6 +25,7 @@ public enum BizCodeEnum {
     // 50
     Internal_Error_Unknown(50000,"服务器未知异常"),
     Internal_Error_Redis_ConnFail(50001,"redis连接失败"),
+    Internal_Error_Business(50002,"业务逻辑出现问题"),
     // 20
     Ok_(20000,"请求成功"),
     // 40

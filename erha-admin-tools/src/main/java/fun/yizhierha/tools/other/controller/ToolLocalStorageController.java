@@ -39,7 +39,7 @@ public class ToolLocalStorageController{
     @ApiOperation("获取存储")
     @Log("获取存储")
     @GetMapping
-    @PreAuthorize("@eh.check('tools:storage:list')")
+    @PreAuthorize("@eh.check('tools:storage:local:list')")
     public R<PageUtils<ToolLocalStorage>> list(RetrieveToolLocalStorageVo retrieveToolLocalStorageVo, Query.PageVo pageVo){
         PageUtils<ToolLocalStorage> res = toolLocalStorageService.list(retrieveToolLocalStorageVo,pageVo);
         return R.<PageUtils<ToolLocalStorage>>ok().setData(res);
@@ -48,7 +48,7 @@ public class ToolLocalStorageController{
     @ApiOperation("新增存储")
     @Log("新增存储")
     @PostMapping
-    @PreAuthorize("@eh.check('tools:storage:add')")
+    @PreAuthorize("@eh.check('tools:storage:local:add')")
     public R<List<BaseErrDto>> add(@RequestParam("name")String name, @RequestParam("file")MultipartFile file){
         if (name == null) {
             return R.<List<BaseErrDto>>error(
@@ -65,7 +65,7 @@ public class ToolLocalStorageController{
     @ApiOperation("修改存储")
     @Log("修改存储")
     @PutMapping
-    @PreAuthorize("@eh.check('tools:storage:edit')")
+    @PreAuthorize("@eh.check('tools:storage:local:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<UpdateToolLocalStorageVo> updateToolLocalStorageList,
                     BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateToolLocalStorageList, bindingResult);
@@ -89,7 +89,7 @@ public class ToolLocalStorageController{
     @ApiOperation("删除存储")
     @Log("删除存储")
     @DeleteMapping
-    @PreAuthorize("@eh.check('tools:storage:del')")
+    @PreAuthorize("@eh.check('tools:storage:local:del')")
     public R del(@RequestBody Set<Long> ids){
         toolLocalStorageService.remove(ids);
         return R.ok();
@@ -98,7 +98,7 @@ public class ToolLocalStorageController{
     @ApiOperation("导出数据")
     @Log("导出数据")
     @GetMapping("/download")
-    @PreAuthorize("@eh.check('tools:storage:list')")
+    @PreAuthorize("@eh.check('tools:storage:local:list')")
     public void download(HttpServletResponse response){
         toolLocalStorageService.download(response);
     }

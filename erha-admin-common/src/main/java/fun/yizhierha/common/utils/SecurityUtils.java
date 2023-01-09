@@ -16,7 +16,7 @@ public class SecurityUtils {
         return userDetailsService.loadUserByUsername(getCurrentUsername());
     }
 
-    private static String getCurrentUsername() {
+    public static String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null){
             throw new BadRequestException(HttpStatus.UNAUTHORIZED.value(),"未授权！");

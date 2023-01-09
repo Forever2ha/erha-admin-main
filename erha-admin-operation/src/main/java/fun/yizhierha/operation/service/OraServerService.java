@@ -30,4 +30,5 @@ public interface OraServerService extends IService<OraServer>{
 
     void download(HttpServletResponse response);
 
+    OraServer findByIp(String ip);
 }

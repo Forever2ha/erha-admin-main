@@ -170,7 +170,6 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
             sendMsg("部署信息不存在", MsgType.ERROR);
             throw new BadRequestException("部署信息不存在");
         }
-        // TODO: 2023/1/6  更新方法实体类 待写
         OraApp app = deploy.getApp();//deploy.getAppId();
         if (app == null) {
             sendMsg("包对应应用信息不存在", MsgType.ERROR);
@@ -181,7 +180,6 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         String uploadPath = app.getUploadPath();
         StringBuilder sb = new StringBuilder();
         String msg;
-        // TODO: 2023/1/6  更新方法实体类 待写
         List<OraServer> deploys = deploy.getServer();//deploy.getServers();
         for (OraServer deployDTO : deploys) {
             String ip = deployDTO.getIp();
@@ -206,14 +204,17 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
                 stopApp(port, executeShellUtil);
                 sendMsg("备份原来应用", MsgType.INFO);
                 //备份应用
-                backupApp(executeShellUtil, ip, app.getDeployPath() + FileUtil.FILE_SEPARATOR, app.getName(), app.getBackupPath() + FileUtil.FILE_SEPARATOR, id, projectid);
+                File file = new File(dir);
+                backupApp(file.getName(),executeShellUtil, ip, app.getDeployPath() + FileUtil.FILE_SEPARATOR+file.getName(), app.getName(), app.getBackupPath() + FileUtil.FILE_SEPARATOR, id, projectid);
             }
             sendMsg("部署应用", MsgType.INFO);
             //部署文件,并启动应用
             String deployScript = app.getDeployScript();
-            executeShellUtil.executeServer(deployScript);
-            sleep(3);
             sendMsg("应用部署中，请耐心等待部署结果，或者稍后手动查看部署状态", MsgType.INFO);
+            executeShellUtil.execute(deployScript);
+            sleep(3);
+            sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看启动状态", MsgType.INFO);
+            executeShellUtil.executeServer(app.getStartScript());
             int i = 0;
             boolean result = false;
             // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
@@ -256,13 +257,15 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         }
     }
 
-    private void backupApp(ExecuteShellUtil executeShellUtil, String ip, String fileSavePath, String appName, String backupPath, Long id, Long projectid) {
-        String deployDate = DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN);
+    private void backupApp(String filename, ExecuteShellUtil executeShellUtil, String ip, String fileSavePath, String appName, String backupPath, Long id, Long projectid) {
+        Date date = new Date();
+        String deployDate = DateUtil.format(date, DatePattern.PURE_DATETIME_PATTERN);
         StringBuilder sb = new StringBuilder();
         backupPath += appName + FileUtil.FILE_SEPARATOR + deployDate + "\n";
         sb.append("mkdir -p ").append(backupPath);
-        sb.append("mv -f ").append(fileSavePath);
-        sb.append(appName).append(" ").append(backupPath);
+        sb.append("cp ").append(fileSavePath);
+        sb.append(" ").append(backupPath);
+        //.append(appName)
         log.info("备份应用脚本:" + sb.toString());
         executeShellUtil.execute(sb.toString());
         //还原信息入库
@@ -271,8 +274,9 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         deployHistory.setDeployUser(SecurityUtils.getCurrentUsername());
         deployHistory.setIp(ip);
         deployHistory.setDeployId(id);
-        deployHistory.setDeployDate(DateUtil.date().toTimestamp());
+        deployHistory.setDeployDate(DateUtil.date(date).toTimestamp());
         deployHistory.setProjectId(projectid);
+        deployHistory.setFileName(filename);
         oraDeployHistoryService.save(deployHistory);
     }
 
@@ -321,7 +325,53 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
 
     @Override
     public String serverReduction(OraDeployHistory resources) {
-        return null;
+        Long deployId = resources.getDeployId();
+        OraDeploy deployInfo = this.getById(deployId);
+        String deployDate = DateUtil.format(resources.getDeployDate(), DatePattern.PURE_DATETIME_PATTERN);
+        OraApp app = deployInfo.getApp();
+        if (app == null) {
+            sendMsg("应用信息不存在：" + resources.getAppName(), MsgType.ERROR);
+            throw new BadRequestException("应用信息不存在：" + resources.getAppName());
+        }
+        String backupPath = app.getBackupPath()+FileUtil.FILE_SEPARATOR;
+        backupPath += resources.getAppName() + FileUtil.FILE_SEPARATOR + deployDate;
+        //这个是服务器部署路径
+        String deployPath = app.getDeployPath();
+        String ip = resources.getIp();
+        ExecuteShellUtil executeShellUtil = getExecuteShellUtil(ip);
+        String msg;
+
+        msg = String.format("登陆到服务器:%s", ip);
+        log.info(msg);
+        sendMsg(msg, MsgType.INFO);
+        sendMsg("停止原来应用", MsgType.INFO);
+        //停止应用
+        stopApp(app.getPort(), executeShellUtil);
+        //删除原来应用
+        sendMsg("删除应用", MsgType.INFO);
+        executeShellUtil.execute("rm -rf " + deployPath + FileUtil.FILE_SEPARATOR + resources.getFileName());
+        //还原应用
+        sendMsg("还原应用", MsgType.INFO);
+        executeShellUtil.execute("cp -r " + backupPath + "/. " + deployPath);
+        sendMsg("启动应用", MsgType.INFO);
+        executeShellUtil.executeServer(app.getStartScript());
+        sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看启动状态", MsgType.INFO);
+        int i  = 0;
+        boolean result = false;
+        // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
+        while (i++ < count){
+            result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+            if(result){
+                break;
+            }
+            // 休眠6秒
+            sleep(6);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("服务器:").append(ip).append("<br>应用:").append(resources.getAppName());
+        sendResultMsg(result, sb);
+        executeShellUtil.close();
+        return "";
     }
 
     @Override

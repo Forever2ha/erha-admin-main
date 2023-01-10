@@ -93,7 +93,6 @@ public class ExecuteShellUtil {
             printWriter = new PrintWriter(channel.getOutputStream());
             printWriter.println(command);
             printWriter.println("exit");
-            printWriter.println("exit");
             printWriter.flush();
             input = new BufferedReader(new InputStreamReader(channel.getInputStream()));
             log.info("The remote command is: ");

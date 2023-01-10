@@ -55,7 +55,10 @@ public class OraDeployHistory implements Serializable{
     @ApiModelProperty(value = "项目ID")
     @ExcelExport("项目ID")
     private Long projectId;
-
+    @TableField(value = "file_name")
+    @ApiModelProperty(value = "文件名称")
+    @ExcelExport("文件名称")
+    private String fileName;
     private static final long serialVersionUID = 1L;
 
     public static final String COL_HISTORY_ID = "history_id";
@@ -71,5 +74,5 @@ public class OraDeployHistory implements Serializable{
     public static final String COL_DEPLOY_ID = "deploy_id";
 
     public static final String COL_PROJECT_ID = "project_id";
-
+    public static final String FILE_NAME = "file_name";
 }

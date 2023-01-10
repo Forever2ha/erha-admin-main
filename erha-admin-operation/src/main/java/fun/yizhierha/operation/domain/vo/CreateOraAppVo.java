@@ -32,4 +32,5 @@ public class CreateOraAppVo {
     private Long projectId;
     @ApiModelProperty(value = "创建者")
     private String createBy;
+
 }

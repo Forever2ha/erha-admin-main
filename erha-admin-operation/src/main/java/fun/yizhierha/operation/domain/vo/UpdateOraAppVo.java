@@ -35,4 +35,5 @@ public class UpdateOraAppVo extends UpdateVo {
     private Long projectId;
     @ApiModelProperty("更新者")
     private String updateBy;
+
 }

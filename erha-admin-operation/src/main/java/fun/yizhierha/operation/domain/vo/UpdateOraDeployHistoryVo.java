@@ -29,5 +29,6 @@ public class UpdateOraDeployHistoryVo extends UpdateVo{
 
     @ApiModelProperty(value = "项目ID")
     private Long projectId;
-
+    @ApiModelProperty(value = "文件名称")
+    private String fileName;
 }

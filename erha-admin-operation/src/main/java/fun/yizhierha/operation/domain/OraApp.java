@@ -86,6 +86,7 @@ public class OraApp implements Serializable{
     @ExcelExport("项目ID")
     private Long projectId;
 
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_APP_ID = "app_id";
@@ -113,5 +114,6 @@ public class OraApp implements Serializable{
     public static final String COL_UPDATE_TIME = "update_time";
 
     public static final String COL_PROJECT_ID = "project_id";
+
 
 }

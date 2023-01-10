@@ -27,4 +27,6 @@ public class CreateOraDeployHistoryVo {
     private Long projectId;
 //    @ApiModelProperty(value = "创建者")
 //    private String createBy;
+@ApiModelProperty(value = "文件名称")
+private String fileName;
 }

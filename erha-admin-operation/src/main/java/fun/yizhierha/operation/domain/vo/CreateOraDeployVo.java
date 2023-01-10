@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class CreateOraDeployVo {
@@ -19,7 +20,7 @@ public class CreateOraDeployVo {
     private Long projectId;
     @NotNull(message = "新增时[服务器]不能为空")
     @ApiModelProperty(value = "服务器")
-    private Long serverId;
+    private List<Long> serverId;
     @ApiModelProperty(value = "创建者")
     private String createBy;
 }

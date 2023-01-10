@@ -10,4 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
 **/
 @Mapper
 public interface OraServerMapper extends BaseMapper<OraServer>{
+    public OraServer findByIp(String ip);
 }

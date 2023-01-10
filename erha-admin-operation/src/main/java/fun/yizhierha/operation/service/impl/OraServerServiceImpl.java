@@ -97,10 +97,8 @@ public class OraServerServiceImpl extends ServiceImpl<OraServerMapper, OraServer
 
     @Override
     public OraServer findByIp(String ip) {
-        QueryWrapper<OraServer> wrapper = new QueryWrapper<>();
-        wrapper.eq(OraServer.COL_IP, ip);
-        OraServer list = this.getOne(wrapper);
-        return list;
+        OraServer byIp = getBaseMapper().findByIp(ip);
+        return byIp;
     }
 
 }

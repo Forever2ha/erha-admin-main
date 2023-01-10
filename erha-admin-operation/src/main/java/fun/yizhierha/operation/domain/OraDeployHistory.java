@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 @TableName(value = "ora_deploy_history")
 public class OraDeployHistory implements Serializable{
 
-    @TableId(value = "history_id", type = IdType.INPUT)
+    @TableId(value = "history_id", type = IdType.AUTO)
     @ApiModelProperty(value = "ID")
     @ExcelExport("id")
     private Long id;

@@ -76,6 +76,8 @@ public class OraServer implements Serializable{
     @ExcelExport("项目ID")
     private Long projectId;
 
+    private OraProject project;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_SERVER_ID = "server_id";

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,8 +53,10 @@ public class OraDeploy implements Serializable{
     @ApiModelProperty(value = "更新时间")
     @ExcelExport("更新时间")
     private Timestamp updateTime;
-
-
+    @TableField(exist = false)
+    private OraApp app;
+    @TableField(exist = false)
+    private List<OraServer> server;
 
     private static final long serialVersionUID = 1L;
 
@@ -69,8 +72,8 @@ public class OraDeploy implements Serializable{
 
     public static final String COL_UPDATE_TIME = "update_time";
 
-    public static final String COL_PROJECT_ID = "project_id";
+//    public static final String COL_PROJECT_ID = "project_id";
 
-    public static final String COL_SERVER_ID = "server_id";
+//    public static final String COL_SERVER_ID = "server_id";
 
 }

@@ -25,7 +25,7 @@ public interface OraDeployService extends IService<OraDeploy>{
 
     void save(CreateOraDeployVo createOraDeployVo);
 
-    void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList);
+    void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList,List<UpdateOraDeployVo> updatebeforOraDeployList);
 
     void remove(Set<Long> ids);
 

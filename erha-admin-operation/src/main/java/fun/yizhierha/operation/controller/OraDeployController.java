@@ -71,10 +71,10 @@ public class OraDeployController{
     @PutMapping
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<UpdateOraDeployVo> updateOraDeployList,
-                    BindingResult bindingResult){
+                    BindingResult bindingResult,List<UpdateOraDeployVo> updatebeforOraDeployList){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateOraDeployList, bindingResult);
         if (errDtoList.isEmpty()) {
-            oraDeployService.edit(updateOraDeployList,errDtoList);
+            oraDeployService.edit(updateOraDeployList,errDtoList,updatebeforOraDeployList);
             if (errDtoList.isEmpty()){
                 return R.ok();
             }else {
@@ -110,18 +110,22 @@ public class OraDeployController{
     @Log("上传文件部署")
     @ApiOperation(value = "上传文件部署")
     @PostMapping(value = "/upload")
-    @PreAuthorize("@el.check('operation:oraDeploy:edit')")
+    @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R uploadDeploy(@RequestBody MultipartFile file, HttpServletRequest request)throws Exception{
         Long id = Long.valueOf(request.getParameter("id"));
         Long projectid = Long.valueOf(request.getParameter("projectid"));
         String fileName = "";
         if(file != null){
             fileName = file.getOriginalFilename();
-            File deployFile = new File(FileUtil.getFileDir()+ DateUtil.date() +fileName);
+            File dir = new File(FileUtil.getFileDir());
+            File deployFile = new File(FileUtil.getFileDir()+fileName);
+            if (!dir.exists()&&!dir.isDirectory()) {
+                dir.mkdirs();
+            }
             FileUtil.del(deployFile);
             file.transferTo(deployFile);
             //文件下一步要根据文件名字来
-            oraDeployService.deploy(FileUtil.getFileDir()+ DateUtil.date() +fileName ,id,projectid);
+            oraDeployService.deploy(FileUtil.getFileDir() +fileName ,id,projectid);
         }else{
             System.out.println("没有找到相对应的文件");
         }
@@ -134,7 +138,7 @@ public class OraDeployController{
     @Log("系统还原")
     @ApiOperation(value = "系统还原")
     @PostMapping(value = "/serverReduction")
-    @PreAuthorize("@el.check('operation:oraDeploy:edit')")
+    @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R serverReduction(@Validated @RequestBody OraDeployHistory resources){
         String result = oraDeployService.serverReduction(resources);
         return R.ok().setData(result);
@@ -142,7 +146,7 @@ public class OraDeployController{
     @Log("服务运行状态")
     @ApiOperation(value = "服务运行状态")
     @PostMapping(value = "/serverStatus")
-    @PreAuthorize("@el.check('operation:oraDeploy:edit')")
+    @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R serverStatus(@Validated @RequestBody OraDeploy resources){
         String result = oraDeployService.serverStatus(resources);
         return R.ok().setData(result);
@@ -150,7 +154,7 @@ public class OraDeployController{
     @Log("启动服务")
     @ApiOperation(value = "启动服务")
     @PostMapping(value = "/startServer")
-    @PreAuthorize("@el.check('operation:oraDeploy:edit')")
+    @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R startServer(@Validated @RequestBody OraDeploy resources){
         String result = oraDeployService.startServer(resources);
         return R.ok().setData(result);
@@ -158,7 +162,7 @@ public class OraDeployController{
     @Log("停止服务")
     @ApiOperation(value = "停止服务")
     @PostMapping(value = "/stopServer")
-    @PreAuthorize("@el.check('operation:oraDeploy:edit')")
+    @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R stopServer(@Validated @RequestBody OraDeploy resources){
         String result = oraDeployService.stopServer(resources);
         return R.ok().setData(result);

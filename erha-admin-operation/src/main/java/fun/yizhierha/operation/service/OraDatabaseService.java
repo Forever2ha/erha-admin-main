@@ -9,6 +9,7 @@ import fun.yizhierha.operation.domain.OraDatabase;
 import fun.yizhierha.operation.domain.vo.CreateOraDatabaseVo;
 import fun.yizhierha.operation.domain.vo.UpdateOraDatabaseVo;
 import fun.yizhierha.operation.domain.vo.RetrieveOraDatabaseVo;
+import net.sf.jsqlparser.schema.Database;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -30,4 +31,5 @@ public interface OraDatabaseService extends IService<OraDatabase>{
 
     void download(HttpServletResponse response);
 
+    Object testConnection(OraDatabase resources);
 }

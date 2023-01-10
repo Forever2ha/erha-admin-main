@@ -18,6 +18,8 @@ import fun.yizhierha.operation.domain.vo.RetrieveOraDatabaseVo;
 import fun.yizhierha.operation.mapper.OraDatabaseMapper;
 import fun.yizhierha.operation.service.mapstruct.OraDatabaseMapstruct;
 import fun.yizhierha.operation.service.OraDatabaseService;
+import fun.yizhierha.operation.util.SqlUtils;
+import net.sf.jsqlparser.schema.Database;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -103,6 +105,16 @@ public class OraDatabaseServiceImpl extends ServiceImpl<OraDatabaseMapper, OraDa
     @Override
     public void download(HttpServletResponse response) {
         ExcelUtils.export(response,"部署管理信息表",this.list(), OraDatabase.class);
+    }
+
+    @Override
+    public Object testConnection(OraDatabase resources) {
+        try {
+            return SqlUtils.testConnection(resources.getJdbcUrl(), resources.getUserName(), resources.getPwd());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
     }
 
 }

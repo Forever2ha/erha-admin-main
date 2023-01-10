@@ -376,17 +376,85 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
 
     @Override
     public String serverStatus(OraDeploy resources) {
-        return null;
+         resources = this.getById(resources.getId());
+        List<OraServer> serverDeploys = resources.getServer();
+        OraApp app = resources.getApp();
+        for (OraServer serverDeploy : serverDeploys) {
+            StringBuilder sb = new StringBuilder();
+            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(serverDeploy.getIp());
+            sb.append("服务器:").append(serverDeploy.getName()).append("<br>应用:").append(app.getName());
+            boolean result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+            if (result) {
+                sb.append("<br>正在运行");
+                sendMsg(sb.toString(), MsgType.INFO);
+            } else {
+                sb.append("<br>已停止!");
+                sendMsg(sb.toString(), MsgType.ERROR);
+            }
+            log.info(sb.toString());
+            executeShellUtil.close();
+        }
+        return "执行完毕";
     }
 
     @Override
     public String startServer(OraDeploy resources) {
-        return null;
+        resources = this.getById(resources.getId());
+        List<OraServer> server = resources.getServer();
+        OraApp app = resources.getApp();
+        for (OraServer deploy : server) {
+            StringBuilder sb = new StringBuilder();
+            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(deploy.getIp());
+            //为了防止重复启动，这里先停止应用
+            stopApp(app.getPort(), executeShellUtil);
+            sb.append("服务器:").append(deploy.getName()).append("<br>应用:").append(app.getName());
+            sendMsg("下发启动命令", MsgType.INFO);
+            executeShellUtil.executeServer(app.getStartScript());
+            sleep(3);
+            sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看运行状态", MsgType.INFO);
+            int i  = 0;
+            boolean result = false;
+            // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
+            while (i++ < count){
+                result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+                if(result){
+                    break;
+                }
+                // 休眠6秒
+                sleep(6);
+            }
+            sendResultMsg(result, sb);
+            log.info(sb.toString());
+            executeShellUtil.close();
+        }
+        return "执行完毕";
     }
 
     @Override
     public String stopServer(OraDeploy resources) {
-        return null;
+        resources = this.getById(resources.getId());
+        List<OraServer> server = resources.getServer();
+        OraApp app = resources.getApp();
+        for (OraServer deploy : server) {
+            StringBuilder sb = new StringBuilder();
+            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(deploy.getIp());
+            sb.append("服务器:").append(deploy.getName()).append("<br>应用:").append(app.getName());
+            sendMsg("下发停止命令", MsgType.INFO);
+            //停止应用
+            stopApp(app.getPort(), executeShellUtil);
+            sleep(1);
+            boolean result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+            if (result) {
+                sb.append("<br>关闭失败!");
+                sendMsg(sb.toString(), MsgType.ERROR);
+            } else {
+                sb.append("<br>关闭成功!");
+                sendMsg(sb.toString(), MsgType.INFO);
+            }
+            log.info(sb.toString());
+            executeShellUtil.close();
+        }
+        return "执行完毕";
     }
 
 }

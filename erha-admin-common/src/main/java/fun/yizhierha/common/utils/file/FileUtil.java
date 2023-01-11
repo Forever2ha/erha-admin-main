@@ -93,9 +93,6 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         return System.getProperty("user.dir")+FILE_SEPARATOR+"file"+FILE_SEPARATOR;
     }
 
-    public static void uploadQiniu(){
-
-    }
 
     /**
      * 得到视频存储路径

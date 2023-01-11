@@ -75,7 +75,7 @@ public class OraServer implements Serializable{
     @ApiModelProperty(value = "项目ID")
     @ExcelExport("项目ID")
     private Long projectId;
-
+    @TableField(exist = false)
     private OraProject project;
 
     private static final long serialVersionUID = 1L;

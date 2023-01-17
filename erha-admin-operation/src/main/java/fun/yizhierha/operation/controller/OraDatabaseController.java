@@ -114,19 +114,18 @@ public class OraDatabaseController {
 
     @Log("测试数据库链接")
     @ApiOperation(value = "测试数据库链接")
-    @PostMapping("/testConnect")
+    @PostMapping("/testConnect/{dbId}")
     @PreAuthorize("@eh.check('operation:oraDatabase:testConnect')")
-    public R testConnect(@Validated @RequestBody OraDatabase resources) {
-        return R.ok().setData(oraDatabaseService.testConnection(resources));
+    public R<Boolean> testConnect(@PathVariable Long dbId) {
+        return R.<Boolean>ok().setData(oraDatabaseService.testConnection(dbId));
     }
 
     @Log("执行SQL脚本")
     @ApiOperation(value = "执行SQL脚本")
-    @PostMapping(value = "/upload")
+    @PostMapping(value = "/upload/{dbId}")
     @PreAuthorize("@eh.check('operation:oraDatabase:add')")
-    public R uploadDatabase(@RequestBody MultipartFile file, HttpServletRequest request) throws Exception {
-        String id = request.getParameter("id");
-        OraDatabase database = oraDatabaseService.getById(id);
+    public R uploadDatabase(@RequestBody MultipartFile file, HttpServletRequest request,@PathVariable Long dbId) throws Exception {
+        OraDatabase database = oraDatabaseService.getById(dbId);
         String fileName;
         if (database != null) {
             fileName = file.getOriginalFilename();

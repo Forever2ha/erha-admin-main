@@ -28,6 +28,4 @@ public class CreateOraDatabaseVo{
     @ApiModelProperty(value = "类型")
     private String typeDatabese;
 
-    @ApiModelProperty(value = "创建者")
-    private String createBy;
 }

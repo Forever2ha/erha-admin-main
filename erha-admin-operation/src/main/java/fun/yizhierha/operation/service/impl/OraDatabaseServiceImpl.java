@@ -65,10 +65,10 @@ public class OraDatabaseServiceImpl extends ServiceImpl<OraDatabaseMapper, OraDa
     public synchronized void save(CreateOraDatabaseVo createOraDatabaseVo) {
         // 1.字段为UNI，需要不重复
         UserDetails currentUser = SecurityUtils.getCurrentUser();
-        createOraDatabaseVo.setCreateBy(currentUser.getUsername());
         // 2.映射数据
         OraDatabase oraDatabase = oraDatabaseMapstruct.toOraDatabase(createOraDatabaseVo);
         oraDatabase.setCreateTime(new Timestamp(new Date().getTime()));
+        oraDatabase.setCreateBy(currentUser.getUsername());
         // 3.保存    
         this.save(oraDatabase);
     }
@@ -104,8 +104,11 @@ public class OraDatabaseServiceImpl extends ServiceImpl<OraDatabaseMapper, OraDa
     }
 
     @Override
-    public Object testConnection(OraDatabase resources) {
+    public Boolean testConnection(Long dbId) {
         try {
+            if (dbId == null) return false;
+            OraDatabase resources = this.getById(dbId);
+            if (resources == null) return false;
             return SqlUtils.testConnection(resources.getJdbcUrl(), resources.getUserName(), resources.getPwd());
         } catch (Exception e) {
             log.error(e.getMessage());

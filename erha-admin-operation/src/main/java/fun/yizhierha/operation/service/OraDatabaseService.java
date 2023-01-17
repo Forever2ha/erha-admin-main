@@ -31,5 +31,5 @@ public interface OraDatabaseService extends IService<OraDatabase>{
 
     void download(HttpServletResponse response);
 
-    Object testConnection(OraDatabase resources);
+    Boolean testConnection(Long dbId);
 }

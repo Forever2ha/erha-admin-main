@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.*;
 import java.util.List;
 
@@ -138,7 +139,7 @@ public class SqlUtils {
      * @param connection /
      * @param sqlList    /
      */
-    public static void batchExecute(Connection connection, List<String> sqlList) {
+    public static void batchExecute(Connection connection, List<String> sqlList) throws SQLException {
         Statement st = null;
         try {
             st = connection.createStatement();
@@ -152,6 +153,7 @@ public class SqlUtils {
             st.executeBatch();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            throw throwables;
         } finally {
             CloseUtil.close(st);
         }
@@ -168,7 +170,7 @@ public class SqlUtils {
         List<String> sqlList = Lists.newArrayList();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new FileInputStream(sqlFile), StandardCharsets.UTF_8))) {
+                Files.newInputStream(sqlFile.toPath()), StandardCharsets.UTF_8))) {
             String tmp;
             while ((tmp = reader.readLine()) != null) {
                 log.info("line:{}", tmp);

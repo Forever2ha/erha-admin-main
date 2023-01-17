@@ -31,8 +31,6 @@ public class UpdateOraAppVo extends UpdateVo {
     @ApiModelProperty(value = "部署脚本")
     private String deployScript;
 
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
     @ApiModelProperty("更新者")
     private String updateBy;
 

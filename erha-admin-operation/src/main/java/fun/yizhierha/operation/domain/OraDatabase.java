@@ -66,11 +66,6 @@ public class OraDatabase implements Serializable{
     @ExcelExport("更新时间")
     private Timestamp updateTime;
 
-    @TableField(value = "project_id")
-    @ApiModelProperty(value = "项目ID")
-    @ExcelExport("项目ID")
-    private Long projectId;
-
     @TableField(value = "type_databese")
     @ApiModelProperty(value = "类型")
     @ExcelExport("类型")
@@ -95,8 +90,6 @@ public class OraDatabase implements Serializable{
     public static final String COL_CREATE_TIME = "create_time";
 
     public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_PROJECT_ID = "project_id";
 
     public static final String COL_TYPE_DATABESE = "type_databese";
 

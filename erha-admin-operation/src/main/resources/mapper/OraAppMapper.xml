@@ -16,7 +16,6 @@
     <result column="update_by" property="updateBy" />
     <result column="create_time" property="createTime" />
     <result column="update_time" property="updateTime" />
-    <result column="project_id" property="projectId" />
   </resultMap>
   <sql id="Base_Column_List">
         `app_id`,
@@ -31,6 +30,5 @@
         `update_by`,
         `create_time`,
         `update_time`,
-        `project_id`
   </sql>
 </mapper>

@@ -71,12 +71,6 @@ public class OraServer implements Serializable{
     @ExcelExport("更新时间")
     private Timestamp updateTime;
 
-    @TableField(value = "project_id")
-    @ApiModelProperty(value = "项目ID")
-    @ExcelExport("项目ID")
-    private Long projectId;
-    @TableField(exist = false)
-    private OraProject project;
 
     private static final long serialVersionUID = 1L;
 
@@ -99,7 +93,5 @@ public class OraServer implements Serializable{
     public static final String COL_CREATE_TIME = "create_time";
 
     public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_PROJECT_ID = "project_id";
 
 }

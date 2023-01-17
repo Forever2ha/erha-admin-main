@@ -16,11 +16,14 @@ import fun.yizhierha.operation.domain.vo.RetrieveOraServerVo;
 import fun.yizhierha.operation.mapper.OraServerMapper;
 import fun.yizhierha.operation.service.mapstruct.OraServerMapstruct;
 import fun.yizhierha.operation.service.OraServerService;
+import fun.yizhierha.operation.util.ExecuteShellUtil;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 import javax.servlet.http.HttpServletResponse;
@@ -39,15 +42,10 @@ public class OraServerServiceImpl extends ServiceImpl<OraServerMapper, OraServer
     public PageUtils<OraServer> list(RetrieveOraServerVo retrieveOraServerVo, Query.PageVo pageVo) {
         QueryWrapper<OraServer> wrapper = new QueryWrapper<>();
         String name = retrieveOraServerVo.getName();
-        Long projectId = retrieveOraServerVo.getProjectId();
 
         if (name != null){
             wrapper.like(OraServer.COL_NAME,name);
         }
-        if (projectId != null){
-            wrapper.eq(OraServer.COL_PROJECT_ID,projectId);
-        }
-
 
         IPage<OraServer> iPage = baseMapper.selectPage(new Query<OraServer>().getPage(pageVo), wrapper);
         return new PageUtils<>(iPage);
@@ -99,6 +97,19 @@ public class OraServerServiceImpl extends ServiceImpl<OraServerMapper, OraServer
     public OraServer findByIp(String ip) {
         OraServer byIp = getBaseMapper().findByIp(ip);
         return byIp;
+    }
+
+    @Override
+    public Boolean testConnect(CreateOraServerVo vo) {
+        ExecuteShellUtil shellUtil = null;
+        try{
+            shellUtil = new ExecuteShellUtil(vo.getIp(), vo.getAccount(), vo.getPassword(), vo.getPort());
+            return shellUtil.execute("ls") == 0;
+        }catch (Exception e){
+            return false;
+        }finally {
+            if (shellUtil != null) shellUtil.close();
+        }
     }
 
 }

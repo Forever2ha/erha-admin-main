@@ -10,7 +10,6 @@
     <result column="deploy_user" property="deployUser" />
     <result column="ip" property="ip" />
     <result column="deploy_id" property="deployId" />
-    <result column="project_id" property="projectId" />
   </resultMap>
   <sql id="Base_Column_List">
         `history_id`,
@@ -19,6 +18,5 @@
         `deploy_user`,
         `ip`,
         `deploy_id`,
-        `project_id`
   </sql>
 </mapper>

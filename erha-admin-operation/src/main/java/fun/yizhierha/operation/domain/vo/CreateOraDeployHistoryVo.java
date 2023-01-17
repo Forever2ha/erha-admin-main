@@ -23,8 +23,6 @@ public class CreateOraDeployHistoryVo {
     @ApiModelProperty(value = "部署编号")
     private Long deployId;
 
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
 //    @ApiModelProperty(value = "创建者")
 //    private String createBy;
 @ApiModelProperty(value = "文件名称")

@@ -29,6 +29,8 @@ import fun.yizhierha.operation.websocket.MsgType;
 import fun.yizhierha.operation.websocket.SocketMsg;
 import fun.yizhierha.operation.websocket.WebSocketServer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,42 +55,35 @@ import javax.servlet.http.HttpServletResponse;
 public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy> implements OraDeployService {
 
     private final OraDeployMapstruct oraDeployMapstruct;
-    private final OraServerService serverDeployService;
-    private final OraDeployServerService oraDeployServerService;
-    private final OraDeployHistoryService oraDeployHistoryService;
+
+    private static final SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
+    private static final String FILE_SEPARATOR = "/";
+
+    @Autowired
+    OraServerService serverDeployService;
+    @Autowired
+    OraDeployServerService oraDeployServerService;
+    @Autowired
+    OraDeployHistoryService oraDeployHistoryService;
     private final Integer count = 30;
 
     @Override
     public PageUtils<OraDeploy> list(RetrieveOraDeployVo retrieveOraDeployVo, Query.PageVo pageVo) {
-        QueryWrapper<OraDeploy> wrapper = new QueryWrapper<>();
-        Long appId = retrieveOraDeployVo.getAppId();
-        Long projectId = retrieveOraDeployVo.getProjectId();
-        Long serverId = retrieveOraDeployVo.getServerId();
 
-        if (appId != null) {
-            wrapper.like(OraDeploy.COL_APP_ID, appId);
-        }
-//        if (projectId != null){
-//            wrapper.eq(OraDeploy.COL_PROJECT_ID,projectId);
-//        }
-//        if (serverId != null){
-//            wrapper.eq(OraDeploy.COL_SERVER_ID,serverId);
-//        }
+        IPage<OraDeploy> iPage = baseMapper.selectByRtVo(new Query<OraDeploy>().getPage(pageVo), retrieveOraDeployVo);
 
-
-        IPage<OraDeploy> iPage = baseMapper.selectPage(new Query<OraDeploy>().getPage(pageVo), wrapper);
         return new PageUtils<>(iPage);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public synchronized void save(CreateOraDeployVo createOraDeployVo) {
         // 1.字段为UNI，需要不重复
         UserDetails currentUser = SecurityUtils.getCurrentUser();
-        createOraDeployVo.setCreateBy(currentUser.getUsername());
         // 2.映射数据
         OraDeploy oraDeploy = oraDeployMapstruct.toOraDeploy(createOraDeployVo);
         oraDeploy.setCreateTime(new Timestamp(new Date().getTime()));
-
+        oraDeploy.setCreateBy(currentUser.getUsername());
         // 3.保存
         this.save(oraDeploy);
         QueryWrapper<OraDeploy> wrapper = new QueryWrapper<>();
@@ -97,12 +93,11 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
             wrapper.like(OraDeploy.COL_APP_ID, appId);
         }
         wrapper.orderBy(true, false, "create_time");
-        OraDeploy one = this.getOne(wrapper);
+        OraDeploy one = this.list(wrapper).get(0);
         List<OraDeployServer> saves = new ArrayList<>();
         for (int i = 0; i < createOraDeployVo.getServerId().size(); i++) {
             OraDeployServer oraDeployServer = new OraDeployServer();
             oraDeployServer.setDeployId(one.getId());
-            oraDeployServer.setProjectId(createOraDeployVo.getProjectId());
             oraDeployServer.setServerId(createOraDeployVo.getServerId().get(i));
             saves.add(oraDeployServer);
         }
@@ -112,41 +107,44 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public synchronized void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList, List<UpdateOraDeployVo> updatebeforOraDeployList) {
+    public synchronized void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList) {
         List<OraDeploy> toUpdateOraDeployList = new ArrayList<>();
-        List<OraDeployServer> saveserver = new ArrayList<>();
+        List<OraDeployServer> toSaveDeployServerList = new ArrayList<>();
+        List<Long> toDelDeployServerIdList = new ArrayList<>();
         for (UpdateOraDeployVo updateOraDeployVo : updateOraDeployVoList) {
             Long id = updateOraDeployVo.getId();
+            List<Long> serverIdList = updateOraDeployVo.getServerId();
             // 1.字段为UNI，需要不重复
             UserDetails currentUser = SecurityUtils.getCurrentUser();
-            updateOraDeployVo.setUpdateBy(currentUser.getUsername());
-            OraDeploy oraDeploy = oraDeployMapstruct.toOraDeploy(updateOraDeployVo);
-            oraDeploy.setUpdateTime(new Timestamp(new Date().getTime()));
-            toUpdateOraDeployList.add(oraDeploy);
 
-            for (int i = 0; i < updateOraDeployVo.getServerId().size(); i++) {
-                OraDeployServer oraDeployServer = new OraDeployServer();
-                oraDeployServer.setDeployId(id);
-                oraDeployServer.setProjectId(updateOraDeployVo.getProjectId());
-                oraDeployServer.setServerId(updateOraDeployVo.getServerId().get(i));
-                saveserver.add(oraDeployServer);
-            }
-
-        }
-        List<OraDeployServer> savesbeforerver = new ArrayList<>();
-        for (UpdateOraDeployVo updateOraDeployVo : updateOraDeployVoList) {
-            for (int i = 0; i < updateOraDeployVo.getServerId().size(); i++) {
-                OraDeployServer oraDeployServer = new OraDeployServer();
-                oraDeployServer.setDeployId(updateOraDeployVo.getId());
-                oraDeployServer.setProjectId(updateOraDeployVo.getProjectId());
-                oraDeployServer.setServerId(updateOraDeployVo.getServerId().get(i));
-                savesbeforerver.add(oraDeployServer);
+            if (serverIdList != null && !serverIdList.isEmpty()){
+                toDelDeployServerIdList.add(id);
+                for (int i = 0; i < updateOraDeployVo.getServerId().size(); i++) {
+                    OraDeployServer oraDeployServer = new OraDeployServer();
+                    oraDeployServer.setDeployId(id);
+                    oraDeployServer.setServerId(updateOraDeployVo.getServerId().get(i));
+                    toSaveDeployServerList.add(oraDeployServer);
+                }
+                OraDeploy oraDeploy = oraDeployMapstruct.toOraDeploy(updateOraDeployVo);
+                oraDeploy.setUpdateTime(new Timestamp(new Date().getTime()));
+                oraDeploy.setUpdateBy(currentUser.getUsername());
+                toUpdateOraDeployList.add(oraDeploy);
+            }else {
+                BaseErrDto baseErrDto = new BaseErrDto();
+                baseErrDto.setId(id);
+                baseErrDto.setErrorVal("[]");
+                baseErrDto.setErrorField("serverId");
+                baseErrDto.setErrorMsg("服务器至少有一个！");
+                errDtoList.add(baseErrDto);
             }
         }
 
         // 2.更新
-        this.updateBatchById(toUpdateOraDeployList);
-        oraDeployServerService.edit(savesbeforerver, saveserver);
+        if(!toDelDeployServerIdList.isEmpty()){
+            this.updateBatchById(toUpdateOraDeployList);
+            oraDeployServerService.remove(new QueryWrapper<OraDeployServer>().in(OraDeployServer.COL_DEPLOY_ID,toDelDeployServerIdList));
+            oraDeployServerService.save(toSaveDeployServerList);
+        }
     }
 
     @Override
@@ -160,17 +158,13 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
     }
 
     @Override
-    public void deploy(String dir, Long id, Long projectid) {
-        deployApp(dir, id, projectid);
+    public void deploy(String dir, Long id) {
+        deployApp(dir, id);
     }
 
-    private void deployApp(String dir, Long id, Long projectid) {
-        OraDeploy deploy = this.getById(id);
-        if (deploy == null) {
-            sendMsg("部署信息不存在", MsgType.ERROR);
-            throw new BadRequestException("部署信息不存在");
-        }
-        OraApp app = deploy.getApp();//deploy.getAppId();
+    private void deployApp(String dir, Long id) {
+        OraDeploy deploy = getDeployById(id);
+        OraApp app = deploy.getApp();
         if (app == null) {
             sendMsg("包对应应用信息不存在", MsgType.ERROR);
             throw new BadRequestException("包对应应用信息不存在");
@@ -195,7 +189,7 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
             ScpClientUtil scpClientUtil = getScpClientUtil(ip);
             log.info(msg);
             sendMsg(msg, MsgType.INFO);
-            msg = String.format("上传文件到服务器:%s<br>目录:%s下，请稍等...", ip, uploadPath);
+            msg = String.format("上传文件到服务器:%s目录:%s下，请稍等...", ip, uploadPath);
             sendMsg(msg, MsgType.INFO);
             scpClientUtil.putFile(dir, uploadPath);
             if (flag) {
@@ -205,7 +199,7 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
                 sendMsg("备份原来应用", MsgType.INFO);
                 //备份应用
                 File file = new File(dir);
-                backupApp(file.getName(),executeShellUtil, ip, app.getDeployPath() + FileUtil.FILE_SEPARATOR+file.getName(), app.getName(), app.getBackupPath() + FileUtil.FILE_SEPARATOR, id, projectid);
+                backupApp(file.getName(),executeShellUtil, ip, app.getDeployPath() + FILE_SEPARATOR+file.getName(), app.getName(), app.getBackupPath() + FILE_SEPARATOR, id);
             }
             sendMsg("部署应用", MsgType.INFO);
             //部署文件,并启动应用
@@ -217,29 +211,33 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
             executeShellUtil.executeServer(app.getStartScript());
             int i = 0;
             boolean result = false;
-            // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
-            while (i++ < count) {
-                result = checkIsRunningStatus(port, executeShellUtil);
-                if (result) {
-                    break;
+
+            if (executeShellUtil.getSession().isConnected()){
+                // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
+                while (i++ < count) {
+                    result = checkIsRunningStatus(port, executeShellUtil);
+                    if (result) {
+                        break;
+                    }
+                    // 休眠6秒
+                    sleep(6);
                 }
-                // 休眠6秒
-                sleep(6);
             }
-            sb.append("服务器:").append(deployDTO.getName()).append("<br>应用:").append(app.getName());
+
+            sb.append("服务器:").append(deployDTO.getName()).append("应用:").append(app.getName());
             sendResultMsg(result, sb);
             executeShellUtil.close();
             File file = new File(dir);
-            FileUtil.rename(file, (DateUtil.date() + file.getName()).toString(), true);
+            FileUtil.rename(file, (format.format(new Date()) + file.getName()), true);
         }
     }
 
     private void sendResultMsg(boolean result, StringBuilder sb) {
         if (result) {
-            sb.append("<br>启动成功!");
+            sb.append("启动成功!");
             sendMsg(sb.toString(), MsgType.INFO);
         } else {
-            sb.append("<br>启动失败!");
+            sb.append("启动失败!");
             sendMsg(sb.toString(), MsgType.ERROR);
         }
     }
@@ -257,11 +255,11 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         }
     }
 
-    private void backupApp(String filename, ExecuteShellUtil executeShellUtil, String ip, String fileSavePath, String appName, String backupPath, Long id, Long projectid) {
+    private void backupApp(String filename, ExecuteShellUtil executeShellUtil, String ip, String fileSavePath, String appName, String backupPath, Long id) {
         Date date = new Date();
         String deployDate = DateUtil.format(date, DatePattern.PURE_DATETIME_PATTERN);
         StringBuilder sb = new StringBuilder();
-        backupPath += appName + FileUtil.FILE_SEPARATOR + deployDate + "\n";
+        backupPath += appName + FILE_SEPARATOR + deployDate + "\n";
         sb.append("mkdir -p ").append(backupPath);
         sb.append("cp ").append(fileSavePath);
         sb.append(" ").append(backupPath);
@@ -275,7 +273,6 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         deployHistory.setIp(ip);
         deployHistory.setDeployId(id);
         deployHistory.setDeployDate(DateUtil.date(date).toTimestamp());
-        deployHistory.setProjectId(projectid);
         deployHistory.setFileName(filename);
         oraDeployHistoryService.save(deployHistory);
     }
@@ -303,7 +300,7 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
 
     private boolean checkFile(ExecuteShellUtil executeShellUtil, OraApp appDTO) {
         String result = executeShellUtil.executeForResult("find " + appDTO.getDeployPath() + " -name " + appDTO.getName());
-        return result.indexOf(appDTO.getName()) > 0;
+        return !result.contains("No such file or directory");
     }
 
     private ExecuteShellUtil getExecuteShellUtil(String ip) {
@@ -317,27 +314,29 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
 
     private void sendMsg(String msg, MsgType msgType) {
         try {
-            WebSocketServer.sendInfo(new SocketMsg(msg, msgType), "deploy");
+            WebSocketServer.sendInfo(new SocketMsg(msg, msgType), SecurityUtils.getCurrentUsername());
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
     }
 
     @Override
-    public String serverReduction(OraDeployHistory resources) {
-        Long deployId = resources.getDeployId();
-        OraDeploy deployInfo = this.getById(deployId);
-        String deployDate = DateUtil.format(resources.getDeployDate(), DatePattern.PURE_DATETIME_PATTERN);
+    public String serverReduction(Long deployHisId) {
+        if (deployHisId == null) throw new BadRequestException("deployHisId不能为空！");
+        OraDeployHistory oraDeployHistory = oraDeployHistoryService.getById(deployHisId);
+        if (oraDeployHistory == null) throw new BadRequestException("deployHisId = "+deployHisId+" = null");
+        OraDeploy deployInfo = getDeployById(oraDeployHistory.getDeployId());
+        String deployDate = DateUtil.format(oraDeployHistory.getDeployDate(), DatePattern.PURE_DATETIME_PATTERN);
         OraApp app = deployInfo.getApp();
         if (app == null) {
-            sendMsg("应用信息不存在：" + resources.getAppName(), MsgType.ERROR);
-            throw new BadRequestException("应用信息不存在：" + resources.getAppName());
+            sendMsg("应用信息不存在：" + oraDeployHistory.getAppName(), MsgType.ERROR);
+            throw new BadRequestException("应用信息不存在：" + oraDeployHistory.getAppName());
         }
-        String backupPath = app.getBackupPath()+FileUtil.FILE_SEPARATOR;
-        backupPath += resources.getAppName() + FileUtil.FILE_SEPARATOR + deployDate;
+        String backupPath = app.getBackupPath()+FILE_SEPARATOR;
+        backupPath += oraDeployHistory.getAppName() + FILE_SEPARATOR + deployDate;
         //这个是服务器部署路径
         String deployPath = app.getDeployPath();
-        String ip = resources.getIp();
+        String ip = oraDeployHistory.getIp();
         ExecuteShellUtil executeShellUtil = getExecuteShellUtil(ip);
         String msg;
 
@@ -349,7 +348,7 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         stopApp(app.getPort(), executeShellUtil);
         //删除原来应用
         sendMsg("删除应用", MsgType.INFO);
-        executeShellUtil.execute("rm -rf " + deployPath + FileUtil.FILE_SEPARATOR + resources.getFileName());
+        executeShellUtil.execute("rm -rf " + deployPath + FILE_SEPARATOR + oraDeployHistory.getFileName());
         //还原应用
         sendMsg("还原应用", MsgType.INFO);
         executeShellUtil.execute("cp -r " + backupPath + "/. " + deployPath);
@@ -358,62 +357,7 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
         sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看启动状态", MsgType.INFO);
         int i  = 0;
         boolean result = false;
-        // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
-        while (i++ < count){
-            result = checkIsRunningStatus(app.getPort(), executeShellUtil);
-            if(result){
-                break;
-            }
-            // 休眠6秒
-            sleep(6);
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("服务器:").append(ip).append("<br>应用:").append(resources.getAppName());
-        sendResultMsg(result, sb);
-        executeShellUtil.close();
-        return "";
-    }
-
-    @Override
-    public String serverStatus(OraDeploy resources) {
-         resources = this.getById(resources.getId());
-        List<OraServer> serverDeploys = resources.getServer();
-        OraApp app = resources.getApp();
-        for (OraServer serverDeploy : serverDeploys) {
-            StringBuilder sb = new StringBuilder();
-            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(serverDeploy.getIp());
-            sb.append("服务器:").append(serverDeploy.getName()).append("<br>应用:").append(app.getName());
-            boolean result = checkIsRunningStatus(app.getPort(), executeShellUtil);
-            if (result) {
-                sb.append("<br>正在运行");
-                sendMsg(sb.toString(), MsgType.INFO);
-            } else {
-                sb.append("<br>已停止!");
-                sendMsg(sb.toString(), MsgType.ERROR);
-            }
-            log.info(sb.toString());
-            executeShellUtil.close();
-        }
-        return "执行完毕";
-    }
-
-    @Override
-    public String startServer(OraDeploy resources) {
-        resources = this.getById(resources.getId());
-        List<OraServer> server = resources.getServer();
-        OraApp app = resources.getApp();
-        for (OraServer deploy : server) {
-            StringBuilder sb = new StringBuilder();
-            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(deploy.getIp());
-            //为了防止重复启动，这里先停止应用
-            stopApp(app.getPort(), executeShellUtil);
-            sb.append("服务器:").append(deploy.getName()).append("<br>应用:").append(app.getName());
-            sendMsg("下发启动命令", MsgType.INFO);
-            executeShellUtil.executeServer(app.getStartScript());
-            sleep(3);
-            sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看运行状态", MsgType.INFO);
-            int i  = 0;
-            boolean result = false;
+        if (executeShellUtil.getSession().isConnected()){
             // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
             while (i++ < count){
                 result = checkIsRunningStatus(app.getPort(), executeShellUtil);
@@ -423,6 +367,77 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
                 // 休眠6秒
                 sleep(6);
             }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("服务器:").append(ip).append("应用:").append(oraDeployHistory.getAppName());
+        sendResultMsg(result, sb);
+        executeShellUtil.close();
+        return "";
+    }
+
+    @Override
+    public String serverStatus(Long deployId) {
+        OraDeploy resources = getDeployById(deployId);
+        List<OraServer> serverDeploys = resources.getServer();
+        OraApp app = resources.getApp();
+        for (OraServer serverDeploy : serverDeploys) {
+            StringBuilder sb = new StringBuilder();
+            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(serverDeploy.getIp());
+            sb.append("服务器:").append(serverDeploy.getName()).append("应用:").append(app.getName()).append(" ");
+            boolean result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+            if (result) {
+                sb.append("正在运行");
+                sendMsg(sb.toString(), MsgType.INFO);
+            } else {
+                sb.append("已停止!");
+                sendMsg(sb.toString(), MsgType.ERROR);
+            }
+            log.info(sb.toString());
+            executeShellUtil.close();
+        }
+        return "执行完毕";
+    }
+
+    private OraDeploy getDeployById(Long deployId) {
+        if (deployId == null) throw new BadRequestException("deployId不能为空");
+        OraDeploy resources = this.getById(deployId);
+        if (resources == null) throw new BadRequestException("deployId="+deployId+"不存在");
+        return resources;
+    }
+
+    @Override
+    public String startServer(Long deployId) {
+        OraDeploy resources = getDeployById(deployId);
+        List<OraServer> server = resources.getServer();
+        OraApp app = resources.getApp();
+        for (OraServer deploy : server) {
+            StringBuilder sb = new StringBuilder();
+            ExecuteShellUtil executeShellUtil = getExecuteShellUtil(deploy.getIp());
+            //为了防止重复启动，这里先停止应用
+            stopApp(app.getPort(), executeShellUtil);
+            sb.append("服务器[").append(deploy.getIp()).append("]:").append(deploy.getName()).append(" 应用:").append(app.getName())
+                    .append(" ")
+            ;
+            sendMsg("服务器["+deploy.getIp()+"]开始执行脚本", MsgType.INFO);
+            executeShellUtil.executeServer(app.getStartScript());
+            sendMsg("应用启动中，请耐心等待启动结果，或者稍后手动查看运行状态", MsgType.INFO);
+            int i  = 0;
+            boolean result = false;
+
+            if (executeShellUtil.getSession().isConnected()){
+                // 由于启动应用需要时间，所以需要循环获取状态，如果超过30次，则认为是启动失败
+                while (i++ < count){
+                    result = checkIsRunningStatus(app.getPort(), executeShellUtil);
+                    if(result){
+                        break;
+                    }
+                    // 休眠6秒
+                    sleep(6);
+                }
+            }
+            else {
+                sb.append("原因：服务器连接失败 ");
+            }
             sendResultMsg(result, sb);
             log.info(sb.toString());
             executeShellUtil.close();
@@ -431,24 +446,24 @@ public class OraDeployServiceImpl extends ServiceImpl<OraDeployMapper, OraDeploy
     }
 
     @Override
-    public String stopServer(OraDeploy resources) {
-        resources = this.getById(resources.getId());
+    public String stopServer(Long deployId) {
+        OraDeploy resources = getDeployById(deployId);
         List<OraServer> server = resources.getServer();
         OraApp app = resources.getApp();
         for (OraServer deploy : server) {
             StringBuilder sb = new StringBuilder();
             ExecuteShellUtil executeShellUtil = getExecuteShellUtil(deploy.getIp());
-            sb.append("服务器:").append(deploy.getName()).append("<br>应用:").append(app.getName());
+            sb.append("服务器:").append(deploy.getName()).append("应用:").append(app.getName()).append(" ");
             sendMsg("下发停止命令", MsgType.INFO);
             //停止应用
             stopApp(app.getPort(), executeShellUtil);
             sleep(1);
             boolean result = checkIsRunningStatus(app.getPort(), executeShellUtil);
             if (result) {
-                sb.append("<br>关闭失败!");
+                sb.append("关闭失败!");
                 sendMsg(sb.toString(), MsgType.ERROR);
             } else {
-                sb.append("<br>关闭成功!");
+                sb.append("关闭成功!");
                 sendMsg(sb.toString(), MsgType.INFO);
             }
             log.info(sb.toString());

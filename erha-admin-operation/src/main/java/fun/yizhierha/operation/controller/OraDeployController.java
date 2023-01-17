@@ -71,10 +71,10 @@ public class OraDeployController{
     @PutMapping
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
     public R<List<BaseErrDto>> edit(@Validated @RequestBody ValidList<UpdateOraDeployVo> updateOraDeployList,
-                    BindingResult bindingResult,List<UpdateOraDeployVo> updatebeforOraDeployList){
+                    BindingResult bindingResult){
         List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateOraDeployList, bindingResult);
         if (errDtoList.isEmpty()) {
-            oraDeployService.edit(updateOraDeployList,errDtoList,updatebeforOraDeployList);
+            oraDeployService.edit(updateOraDeployList,errDtoList);
             if (errDtoList.isEmpty()){
                 return R.ok();
             }else {
@@ -109,11 +109,9 @@ public class OraDeployController{
 
     @Log("上传文件部署")
     @ApiOperation(value = "上传文件部署")
-    @PostMapping(value = "/upload")
+    @PostMapping(value = "/upload/{deployId}")
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
-    public R uploadDeploy(@RequestBody MultipartFile file, HttpServletRequest request)throws Exception{
-        Long id = Long.valueOf(request.getParameter("id"));
-        Long projectid = Long.valueOf(request.getParameter("projectid"));
+    public R uploadDeploy(@RequestBody MultipartFile file, HttpServletRequest request,@PathVariable Long deployId)throws Exception{
         String fileName = "";
         if(file != null){
             fileName = file.getOriginalFilename();
@@ -125,7 +123,7 @@ public class OraDeployController{
             FileUtil.del(deployFile);
             file.transferTo(deployFile);
             //文件下一步要根据文件名字来
-            oraDeployService.deploy(FileUtil.getFileDir() +fileName ,id,projectid);
+            oraDeployService.deploy(FileUtil.getFileDir() +fileName ,deployId);
         }else{
             System.out.println("没有找到相对应的文件");
         }
@@ -137,34 +135,34 @@ public class OraDeployController{
 
     @Log("系统还原")
     @ApiOperation(value = "系统还原")
-    @PostMapping(value = "/serverReduction")
+    @PostMapping(value = "/serverReduction/{deployHisId}")
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
-    public R serverReduction(@Validated @RequestBody OraDeployHistory resources){
-        String result = oraDeployService.serverReduction(resources);
+    public R serverReduction(@PathVariable Long deployHisId){
+        String result = oraDeployService.serverReduction(deployHisId);
         return R.ok().setData(result);
     }
     @Log("服务运行状态")
     @ApiOperation(value = "服务运行状态")
-    @PostMapping(value = "/serverStatus")
+        @PostMapping(value = "/serverStatus/{deployId}")
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
-    public R serverStatus(@Validated @RequestBody OraDeploy resources){
-        String result = oraDeployService.serverStatus(resources);
+    public R serverStatus(@PathVariable Long deployId){
+        String result = oraDeployService.serverStatus(deployId);
         return R.ok().setData(result);
     }
     @Log("启动服务")
     @ApiOperation(value = "启动服务")
-    @PostMapping(value = "/startServer")
+    @PostMapping(value = "/startServer/{deployId}")
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
-    public R startServer(@Validated @RequestBody OraDeploy resources){
-        String result = oraDeployService.startServer(resources);
+    public R startServer(@PathVariable Long deployId){
+        String result = oraDeployService.startServer(deployId);
         return R.ok().setData(result);
     }
     @Log("停止服务")
     @ApiOperation(value = "停止服务")
-    @PostMapping(value = "/stopServer")
+    @PostMapping(value = "/stopServer/{deployId}")
     @PreAuthorize("@eh.check('operation:oraDeploy:edit')")
-    public R stopServer(@Validated @RequestBody OraDeploy resources){
-        String result = oraDeployService.stopServer(resources);
+    public R stopServer(@PathVariable Long deployId){
+        String result = oraDeployService.stopServer(deployId);
         return R.ok().setData(result);
     }
 }

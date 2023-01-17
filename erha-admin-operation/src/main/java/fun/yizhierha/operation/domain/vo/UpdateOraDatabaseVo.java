@@ -23,9 +23,6 @@ public class UpdateOraDatabaseVo extends UpdateVo{
     @ApiModelProperty(value = "密码")
     private String pwd;
 
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
-
     @ApiModelProperty(value = "类型")
     private String typeDatabese;
     @ApiModelProperty("更新者")

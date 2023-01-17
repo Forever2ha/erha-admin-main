@@ -51,6 +51,12 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+server:
+  tomcat:
+    max-swallow-size: 1024MB
 mybatis-plus:
   type-handlers-package: fun.yizhierha.common.mybatis

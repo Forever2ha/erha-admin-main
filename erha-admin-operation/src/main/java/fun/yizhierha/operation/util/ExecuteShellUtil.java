@@ -21,7 +21,12 @@ public class ExecuteShellUtil {
 
     private Vector<String> stdout;
 
-    Session session;
+    private Session session;
+
+
+    public Session getSession() {
+        return session;
+    }
 
     public ExecuteShellUtil(final String ipAddress, final String username, final String password, int port) {
         try {

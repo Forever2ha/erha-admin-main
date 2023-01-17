@@ -40,9 +40,10 @@ public class OraDeployHistoryServiceImpl extends ServiceImpl<OraDeployHistoryMap
     @Override
     public PageUtils<OraDeployHistory> list(RetrieveOraDeployHistoryVo retrieveOraDeployHistoryVo, Query.PageVo pageVo) {
         QueryWrapper<OraDeployHistory> wrapper = new QueryWrapper<>();
-
-
-
+        Long deployId = retrieveOraDeployHistoryVo.getDeployId();
+        String appName = retrieveOraDeployHistoryVo.getAppName();
+        if (deployId != null) wrapper.eq(OraDeployHistory.COL_DEPLOY_ID,deployId);
+        if (appName != null) wrapper.like(OraDeployHistory.COL_APP_NAME,appName);
         IPage<OraDeployHistory> iPage = baseMapper.selectPage(new Query<OraDeployHistory>().getPage(pageVo), wrapper);
         return new PageUtils<>(iPage);
     }

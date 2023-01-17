@@ -28,8 +28,6 @@ public class CreateOraAppVo {
     @ApiModelProperty(value = "部署脚本")
     private String deployScript;
 
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
     @ApiModelProperty(value = "创建者")
     private String createBy;
 

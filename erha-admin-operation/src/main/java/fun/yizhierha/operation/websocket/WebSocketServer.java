@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author ZhangHouYing
  * @date 2019-08-10 15:46
  */
-@ServerEndpoint("/webSocket/{sid}")
+@ServerEndpoint("/webSocket/{identification}")
 @Slf4j
 @Component
 public class WebSocketServer {
@@ -22,7 +22,7 @@ public class WebSocketServer {
 	/**
 	 * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
 	 */
-	private static CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<WebSocketServer>();
+	private static final CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<>();
 
 	/**
 	 * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -30,23 +30,23 @@ public class WebSocketServer {
 	private Session session;
 
 	/**
-	 * 接收sid
+	 * 接收标识符
 	 */
-	private String sid="";
+	private String identification="";
 	/**
 	 * 连接建立成功调用的方法
 	 * */
 	@OnOpen
-	public void onOpen(Session session,@PathParam("sid") String sid) {
+	public void onOpen(Session session,@PathParam("identification") String identification) {
 		this.session = session;
 		//如果存在就先删除一个，防止重复推送消息
 		for (WebSocketServer webSocket:webSocketSet) {
-			if (webSocket.sid.equals(sid)) {
+			if (webSocket.identification.equals(identification)) {
 				webSocketSet.remove(webSocket);
 			}
 		}
 		webSocketSet.add(this);
-		this.sid=sid;
+		this.identification=identification;
 	}
 
 	/**
@@ -54,6 +54,7 @@ public class WebSocketServer {
 	 */
 	@OnClose
 	public void onClose() {
+        log.info("连接关闭啦 "+this.identification);
 		webSocketSet.remove(this);
 	}
 
@@ -62,7 +63,7 @@ public class WebSocketServer {
 	 * @param message 客户端发送过来的消息*/
 	@OnMessage
 	public void onMessage(String message, Session session) {
-		log.info("收到来"+sid+"的信息:"+message);
+		log.info("收到来"+identification+"的信息:"+message);
 		//群发消息
 		for (WebSocketServer item : webSocketSet) {
 			try {
@@ -89,15 +90,15 @@ public class WebSocketServer {
 	/**
 	 * 群发自定义消息
 	 * */
-	public static void sendInfo(SocketMsg socketMsg,@PathParam("sid") String sid) throws IOException {
+	public static void sendInfo(SocketMsg socketMsg,@PathParam("identification") String identification) throws IOException {
 		String message = JSONObject.toJSONString(socketMsg);
-		log.info("推送消息到"+sid+"，推送内容:"+message);
+		log.info("推送消息到"+identification+"，推送内容:"+message);
 		for (WebSocketServer item : webSocketSet) {
 			try {
-				//这里可以设定只推送给这个sid的，为null则全部推送
-				if(sid==null) {
+				//这里可以设定只推送给这个identification的，为null则全部推送
+				if(identification==null) {
 					item.sendMessage(message);
-				}else if(item.sid.equals(sid)){
+				}else if(item.identification.equals(identification)){
 					item.sendMessage(message);
 				}
 			} catch (IOException ignored) { }
@@ -114,11 +115,11 @@ public class WebSocketServer {
 		}
 		WebSocketServer that = (WebSocketServer) o;
 		return Objects.equals(session, that.session) &&
-				Objects.equals(sid, that.sid);
+				Objects.equals(identification, that.identification);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(session, sid);
+		return Objects.hash(session, identification);
 	}
 }

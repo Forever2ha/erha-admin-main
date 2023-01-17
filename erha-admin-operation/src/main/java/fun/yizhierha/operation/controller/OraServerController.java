@@ -101,4 +101,12 @@ public class OraServerController{
         oraServerService.download(response);
     }
 
+    @ApiOperation("连接测试")
+    @Log("连接测试")
+    @PostMapping("/connect")
+    @PreAuthorize("@eh.check('operation:oraServer:add')")
+    public R<Boolean> testConnect(@RequestBody CreateOraServerVo createOraServerVo){
+        Boolean res = oraServerService.testConnect(createOraServerVo);
+        return  R.<Boolean>ok().setData(res);
+    }
 }

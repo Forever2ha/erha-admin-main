@@ -25,19 +25,19 @@ public interface OraDeployService extends IService<OraDeploy>{
 
     void save(CreateOraDeployVo createOraDeployVo);
 
-    void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList,List<UpdateOraDeployVo> updatebeforOraDeployList);
+    void edit(ValidList<UpdateOraDeployVo> updateOraDeployVoList, List<BaseErrDto> errDtoList);
 
     void remove(Set<Long> ids);
 
     void download(HttpServletResponse response);
 
-    void deploy(String dir, Long id, Long projectid);
+    void deploy(String dir, Long id);
 
-    String serverReduction(OraDeployHistory resources);
+    String serverReduction(Long deployHisId);
 
-    String serverStatus(OraDeploy resources);
+    String serverStatus(Long deployId);
 
-    String startServer(OraDeploy resources);
+    String startServer(Long deployId);
 
-    String stopServer(OraDeploy resources);
+    String stopServer(Long deployId);
 }

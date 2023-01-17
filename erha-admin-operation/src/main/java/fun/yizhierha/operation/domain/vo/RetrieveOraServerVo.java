@@ -12,7 +12,5 @@ public class RetrieveOraServerVo{
     @ApiModelProperty("名称")
     private String name;
 
-    @ApiModelProperty("项目ID")
-    private Long projectId;
 
 }

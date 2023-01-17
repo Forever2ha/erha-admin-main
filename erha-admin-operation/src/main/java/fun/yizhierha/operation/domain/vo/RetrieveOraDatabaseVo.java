@@ -15,9 +15,6 @@ public class RetrieveOraDatabaseVo{
     @ApiModelProperty("账号")
     private String userName;
 
-    @ApiModelProperty("项目ID")
-    private Long projectId;
-
     @ApiModelProperty("类型")
     private String typeDatabese;
 

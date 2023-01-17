@@ -39,7 +39,4 @@ public class UpdateOraServerVo extends UpdateVo{
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
 
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
-
 }

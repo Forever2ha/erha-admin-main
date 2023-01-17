@@ -72,8 +72,6 @@ public class OraDeploy implements Serializable{
 
     public static final String COL_UPDATE_TIME = "update_time";
 
-//    public static final String COL_PROJECT_ID = "project_id";
-
 //    public static final String COL_SERVER_ID = "server_id";
 
 }

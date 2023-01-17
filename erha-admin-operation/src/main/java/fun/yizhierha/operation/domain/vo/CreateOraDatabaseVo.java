@@ -24,10 +24,6 @@ public class CreateOraDatabaseVo{
     @ApiModelProperty(value = "密码")
     private String pwd;
 
-    @NotNull(message = "新增时[项目ID]不能为空")
-    @ApiModelProperty(value = "项目ID")
-    private Long projectId;
-
     @NotNull(message = "新增时[类型]不能为空")
     @ApiModelProperty(value = "类型")
     private String typeDatabese;

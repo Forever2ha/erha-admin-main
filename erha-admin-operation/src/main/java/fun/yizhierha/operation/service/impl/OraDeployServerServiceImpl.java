@@ -22,9 +22,4 @@ public class OraDeployServerServiceImpl extends ServiceImpl<OraDeployServerMappe
         return true;
     }
 
-    @Override
-    public void edit(List<OraDeployServer> editbeforvo, List<OraDeployServer> editaftervo) {
-        this.removeBatchByIds(editbeforvo);
-        this.saveBatch(editaftervo);
-    }
 }

@@ -44,7 +44,6 @@ public class OraDatabaseServiceImpl extends ServiceImpl<OraDatabaseMapper, OraDa
         QueryWrapper<OraDatabase> wrapper = new QueryWrapper<>();
         String name = retrieveOraDatabaseVo.getName();
         String userName = retrieveOraDatabaseVo.getUserName();
-        Long projectId = retrieveOraDatabaseVo.getProjectId();
         String typeDatabese = retrieveOraDatabaseVo.getTypeDatabese();
 
         if (name != null){
@@ -52,9 +51,6 @@ public class OraDatabaseServiceImpl extends ServiceImpl<OraDatabaseMapper, OraDa
         }
         if (userName != null){
             wrapper.like(OraDatabase.COL_USER_NAME,userName);
-        }
-        if (projectId != null){
-            wrapper.eq(OraDatabase.COL_PROJECT_ID,projectId);
         }
         if (typeDatabese != null){
             wrapper.eq(OraDatabase.COL_TYPE_DATABESE,typeDatabese);

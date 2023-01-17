@@ -44,7 +44,8 @@ public class OraDeployHistoryController{
         return R.<PageUtils<OraDeployHistory>>ok().setData(res);
     }
 
-    @ApiOperation("新增部署管理")
+    // 用户不能新增
+    /*@ApiOperation("新增部署管理")
     @Log("新增部署管理")
     @PostMapping
     @PreAuthorize("@eh.check('operation:oraDeployHistory:add')")
@@ -58,9 +59,10 @@ public class OraDeployHistoryController{
         return R.<List<BaseErrDto>>error(
                 BizCodeEnum.Client_Error_CRUD.getCode(), BizCodeEnum.Client_Error_CRUD.getMsg()
         ).setData(errDtoList);
-    }
+    }*/
 
-    @ApiOperation("修改部署管理")
+    // 用户不能修改
+    /*@ApiOperation("修改部署管理")
     @Log("修改部署管理")
     @PutMapping
     @PreAuthorize("@eh.check('operation:oraDeployHistory:edit')")
@@ -82,7 +84,7 @@ public class OraDeployHistoryController{
                 BizCodeEnum.Client_Error_CRUD.getCode(),
                 BizCodeEnum.Client_Error_CRUD.getMsg()
         ).setData(errDtoList);
-    }
+    }*/
 
     @ApiOperation("删除部署管理")
     @Log("删除部署管理")

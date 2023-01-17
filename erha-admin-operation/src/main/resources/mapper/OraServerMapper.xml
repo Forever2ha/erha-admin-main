@@ -14,27 +14,10 @@
         <result column="update_by" property="updateBy"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="project_id" property="projectId"/>
 
-        <association property="project" javaType="fun.yizhierha.operation.domain.OraProject"
-                     columnPrefix="classify_"
-                     select="queryProByClassId" column="project_id">
-            <id property="id" column="project_id"></id>
-            <result property="pname" column="pname"/>
-            <result property="planStartDate" column="plan_start_date"/>
-            <result property="planFinishDate" column="plan_finish_date"/>
-            <result property="createBy" column="create_by"/>
-            <result property="updateBy" column="update_by"/>
-            <result property="createTime" column="create_time"/>
-            <result property="updateTime" column="update_time"/>
-            <result property="actuStartDate" column="actu_start_date"/>
-            <result property="actuFinishDate" column="actu_finish_date"/>
-            <result property="enabled" column="enabled"/>
-        </association>
     </resultMap>
     <sql id="Base_Column_List">
-        `server_id`
-        ,
+        `server_id`,
         `account`,
         `ip`,
         `name`,
@@ -44,18 +27,11 @@
         `update_by`,
         `create_time`,
         `update_time`,
-        `project_id`
     </sql>
-    <select id="queryProByClassId" resultType="fun.yizhierha.operation.domain.OraProject">
-        select *
-        from ora_project
-        where project_id = #{id}
-    </select>
 
     <select id="findByIp" parameterType="java.lang.String" resultMap="BaseResultMap">
         select *
         from ora_server os
-                 left join ora_project op on os.project_id = op.project_id
         where os.ip = #{ip}
     </select>
 </mapper>

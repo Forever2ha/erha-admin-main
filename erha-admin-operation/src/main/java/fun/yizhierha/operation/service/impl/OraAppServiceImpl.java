@@ -41,13 +41,9 @@ public class OraAppServiceImpl extends ServiceImpl<OraAppMapper, OraApp> impleme
     public PageUtils<OraApp> list(RetrieveOraAppVo retrieveOraAppVo, Query.PageVo pageVo) {
         QueryWrapper<OraApp> wrapper = new QueryWrapper<>();
         String name = retrieveOraAppVo.getName();
-        Long projectId = retrieveOraAppVo.getProjectId();
 
         if (name != null){
             wrapper.like(OraApp.COL_NAME,name);
-        }
-        if (projectId != null){
-            wrapper.eq(OraApp.COL_PROJECT_ID,projectId);
         }
 
 

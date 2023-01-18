@@ -7,10 +7,12 @@ import fun.yizhierha.common.utils.ValidUtils;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.tools.other.domain.ToolEmailConfig;
 import fun.yizhierha.tools.other.domain.vo.CreateToolEmailConfigVo;
+import fun.yizhierha.tools.other.domain.vo.SendEmailVo;
 import fun.yizhierha.tools.other.domain.vo.UpdateToolEmailConfigVo;
 import fun.yizhierha.tools.other.domain.vo.RetrieveToolEmailConfigVo;
 
 import fun.yizhierha.tools.other.service.ToolEmailConfigService;
+import fun.yizhierha.tools.other.service.ToolEmailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +36,7 @@ import java.util.Set;
 public class ToolEmailController{
 
     private final ToolEmailConfigService toolEmailConfigService;
+    private final ToolEmailService toolEmailService;
 
     @ApiOperation("获取邮件配置")
     @Log("获取邮件配置")
@@ -99,6 +102,24 @@ public class ToolEmailController{
     @PreAuthorize("@eh.check('tools:email:config:list')")
     public void download(HttpServletResponse response){
         toolEmailConfigService.download(response);
+    }
+
+    @ApiOperation("发送邮件")
+    @Log("发送邮件")
+    @PostMapping
+    @PreAuthorize("@eh.check('tools:email:post')")
+    public R sendEmail(@RequestBody @Validated SendEmailVo sendEmailVo){
+        toolEmailService.sendEmail(sendEmailVo);
+        return R.ok();
+    }
+
+    @ApiOperation("激活邮件配置")
+    @Log("激活邮件配置")
+    @PostMapping("/config/active/{configId}")
+    @PreAuthorize("@eh.check('tools:email:config:edit')")
+    public R active(@PathVariable Long configId){
+        toolEmailConfigService.active(configId);
+        return R.ok();
     }
 
 }

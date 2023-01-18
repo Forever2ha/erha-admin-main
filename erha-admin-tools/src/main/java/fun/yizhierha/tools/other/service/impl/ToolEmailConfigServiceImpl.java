@@ -1,11 +1,13 @@
 package fun.yizhierha.tools.other.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
+import fun.yizhierha.common.exception.InternalServerException;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
 import fun.yizhierha.common.utils.ValidList;
@@ -84,6 +86,33 @@ public class ToolEmailConfigServiceImpl extends ServiceImpl<ToolEmailConfigMappe
     @Override
     public void download(HttpServletResponse response) {
         ExcelUtils.export(response,"邮件配置信息表",this.list(), ToolEmailConfig.class);
+    }
+
+    @Override
+    public ToolEmailConfig getActive() {
+        ToolEmailConfig one = null;
+        try {
+            one = this.getOne(new QueryWrapper<ToolEmailConfig>().eq(ToolEmailConfig.COL_ACTIVE, true));
+        }catch (Exception e){
+            throw new InternalServerException("激活的邮件配置不止一个，请核查业务逻辑");
+        }
+
+        return one;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public synchronized void active(Long configId) {
+        if (configId == null) throw new BadRequestException("configId不能为空");
+        // 将其他激活配置改为未激活
+        this.update(new UpdateWrapper<ToolEmailConfig>()
+                .eq(ToolEmailConfig.COL_ACTIVE,true)
+                .set(ToolEmailConfig.COL_ACTIVE,false));
+        // 激活当前配置
+        this.update(new UpdateWrapper<ToolEmailConfig>()
+                .eq(ToolEmailConfig.COL_CONFIG_ID,configId)
+                .set(ToolEmailConfig.COL_ACTIVE,true)
+        );
     }
 
 }

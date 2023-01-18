@@ -30,4 +30,7 @@ public interface ToolEmailConfigService extends IService<ToolEmailConfig>{
 
     void download(HttpServletResponse response);
 
+    ToolEmailConfig getActive();
+
+    void active(Long configId);
 }

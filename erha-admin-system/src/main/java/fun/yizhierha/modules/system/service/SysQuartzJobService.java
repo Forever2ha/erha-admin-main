@@ -32,4 +32,6 @@ public interface SysQuartzJobService extends IService<SysQuartzJob>{
     void removeJob(Set<Long> jobIds);
 
     void download(HttpServletResponse response);
+
+    void executionSubJob(String[] taskIds);
 }

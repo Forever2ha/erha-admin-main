@@ -18,6 +18,7 @@ import fun.yizhierha.modules.system.domain.vo.UpdateQuartzJobVo;
 import fun.yizhierha.modules.system.quartz.QuartzManage;
 import fun.yizhierha.modules.system.service.dto.SummaryQuartzJobDto;
 import fun.yizhierha.modules.system.service.mapstruct.QuartzJobMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -209,5 +210,20 @@ public class SysQuartzJobServiceImpl extends ServiceImpl<SysQuartzJobMapper, Sys
     public void download(HttpServletResponse response) {
         List<SummaryQuartzJobDto> summaryQuartzJobDtoList = quartzJobMapper.toSummaryQuartzJobDtos(list());
         ExcelUtils.export(response,"定时任务",summaryQuartzJobDtoList, SummaryQuartzJobDto.class);
+    }
+
+    @Async
+    @Override
+    public void executionSubJob(String[] taskIds) {
+        for (String taskId : taskIds) {
+            if (StringUtils.isBlank(taskId)) continue;
+            SysQuartzJob quartzJob = this.getById(taskId);
+            if (quartzJob == null)continue;
+            try {
+                quartzManage.runJobNow(quartzJob);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

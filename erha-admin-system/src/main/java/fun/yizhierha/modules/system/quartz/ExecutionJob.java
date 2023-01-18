@@ -1,5 +1,9 @@
 package fun.yizhierha.modules.system.quartz;
 
+import cn.hutool.extra.template.Template;
+import cn.hutool.extra.template.TemplateConfig;
+import cn.hutool.extra.template.TemplateEngine;
+import cn.hutool.extra.template.TemplateUtil;
 import fun.yizhierha.common.utils.SpringContextHolder;
 import fun.yizhierha.common.utils.StringUtils;
 import fun.yizhierha.config.thread.ThreadPoolExecutorUtil;
@@ -10,13 +14,15 @@ import fun.yizhierha.modules.system.service.SysQuartzLogService;
 import fun.yizhierha.modules.system.service.impl.SysQuartzJobServiceImpl;
 import fun.yizhierha.modules.system.service.impl.SysQuartzLogServiceImpl;
 import fun.yizhierha.common.utils.ValidUtils;
+import fun.yizhierha.tools.other.domain.vo.SendEmailVo;
+import fun.yizhierha.tools.other.service.ToolEmailService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import java.util.Date;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -61,7 +67,8 @@ public class ExecutionJob extends QuartzJobBean {
             // 判断是否有子任务
             if (StringUtils.isNotBlank(sysQuartzJob.getSubTask())){
                 String[] taskIds = sysQuartzJob.getSubTask().split("[,，]");
-                // todo 执行子任务
+                // 执行子任务
+                sysQuartzJobService.executionSubJob(taskIds);
             }
 
 
@@ -78,9 +85,11 @@ public class ExecutionJob extends QuartzJobBean {
                 sysQuartzJobService.toggleIsPause(sysQuartzJob);
             }
 
-            // todo 邮箱报警
-            if (sysQuartzJob.getEmail() != null){
-
+            // 邮箱报警
+            if (!StringUtils.isBlank(sysQuartzJob.getEmail())){
+                ToolEmailService emailService = SpringContextHolder.getBean(ToolEmailService.class);
+                SendEmailVo emailVo = taskAlarm(sysQuartzJob, ValidUtils.getStackTrace(ex));
+                emailService.sendEmail(emailVo);
             }
 
         }finally {
@@ -88,5 +97,18 @@ public class ExecutionJob extends QuartzJobBean {
         }
 
 
+    }
+
+    private SendEmailVo taskAlarm(SysQuartzJob quartzJob, String msg) {
+        SendEmailVo emailVo = new SendEmailVo();
+        emailVo.setTitle("定时任务【"+ quartzJob.getJobName() +"】执行失败，请尽快处理！");
+        Map<String, Object> data = new HashMap<>(16);
+        data.put("task", quartzJob);
+        data.put("msg", msg);
+        TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("templates", TemplateConfig.ResourceMode.CLASSPATH));
+        Template template = engine.getTemplate("/email/taskAlarm.ftl");
+        emailVo.setContent(template.render(data));
+        emailVo.setAddress(quartzJob.getEmail());
+        return emailVo;
     }
 }

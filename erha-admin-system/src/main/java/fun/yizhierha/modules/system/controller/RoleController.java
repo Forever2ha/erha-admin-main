@@ -28,7 +28,7 @@ import java.util.Set;
 
 @Api(tags = "系统:角色")
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/system/role")
 public class RoleController {
 
     @Autowired

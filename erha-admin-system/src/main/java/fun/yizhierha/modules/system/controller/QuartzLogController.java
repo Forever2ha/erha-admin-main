@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @Api(tags = "系统:任务执行日志")
-@RequestMapping("/api/quartzLog")
+@RequestMapping("/api/system/quartzLog")
 public class QuartzLogController {
 
     @Autowired

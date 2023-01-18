@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Api(tags = "系统:部门")
 @RestController
-@RequestMapping("/api/dept")
+@RequestMapping("/api/system/dept")
 public class DeptController {
 
     @Autowired

@@ -27,7 +27,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = "工具：代码生成: 表格信息")
-@RequestMapping("/api/generate/table")
+@RequestMapping("/api/tools/generate/table")
 @RequiredArgsConstructor
 public class TableController {
     private final TableService tableService;

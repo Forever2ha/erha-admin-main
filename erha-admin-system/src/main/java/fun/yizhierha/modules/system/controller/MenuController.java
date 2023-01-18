@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Api(tags = "系统:菜单")
 @RestController
-@RequestMapping("/api/menu")
+@RequestMapping("/api/system/menu")
 public class MenuController {
 
     @Autowired

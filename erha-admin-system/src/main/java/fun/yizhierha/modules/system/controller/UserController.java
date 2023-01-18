@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Api(tags = "系统:用户")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/system/user")
 public class
 UserController {
 

@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Api(tags = "系统:字典")
 @RestController
-@RequestMapping("/api/dict")
+@RequestMapping("/api/system/dict")
 public class DictController {
 
     @Autowired

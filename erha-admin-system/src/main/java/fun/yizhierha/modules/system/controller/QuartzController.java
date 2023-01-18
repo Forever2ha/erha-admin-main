@@ -27,7 +27,7 @@ import java.util.Set;
 
 @RestController
 @Api(tags = "系统:任务调度")
-@RequestMapping("/api/quartz")
+@RequestMapping("/api/system/quartz")
 public class QuartzController {
 
     @Autowired

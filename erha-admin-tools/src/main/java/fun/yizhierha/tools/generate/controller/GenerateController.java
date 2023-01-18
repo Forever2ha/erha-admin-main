@@ -32,7 +32,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = "工具：代码生成")
-@RequestMapping("/api/generate")
+@RequestMapping("/api/tools/generate")
 @RequiredArgsConstructor
 public class GenerateController {
 

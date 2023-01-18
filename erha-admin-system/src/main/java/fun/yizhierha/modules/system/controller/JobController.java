@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Api(tags = "系统:岗位接")
 @RestController
-@RequestMapping("/api/job")
+@RequestMapping("/api/system/job")
 public class JobController {
 
     @Autowired

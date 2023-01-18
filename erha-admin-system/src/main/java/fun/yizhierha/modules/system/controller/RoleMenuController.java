@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @Api(tags = "系统：角色菜单")
-@RequestMapping("/api/roleMenu")
+@RequestMapping("/api/system/roleMenu")
 public class RoleMenuController {
 
     @Autowired

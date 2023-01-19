@@ -394,7 +394,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
        }else {
            throw new BadRequestException("旧密码不正确!");
        }
-        // TODO: 2023/1/19  日志记录修改密码问题
     }
 
     @Transactional(rollbackFor = Exception.class)

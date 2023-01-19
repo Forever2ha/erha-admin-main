@@ -1,23 +1,24 @@
 package fun.yizhierha.modules.system.controller;
 
 import fun.yizhierha.common.annotation.Log;
+import fun.yizhierha.common.config.RsaEncryptConfig;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
-import fun.yizhierha.modules.system.domain.vo.UpdateNowUserVo;
-import fun.yizhierha.modules.system.domain.vo.UpdateUserVo;
+import fun.yizhierha.modules.security.security.TokenProvider;
+import fun.yizhierha.modules.system.domain.vo.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
 import fun.yizhierha.modules.system.domain.SysRole;
-import fun.yizhierha.modules.system.domain.vo.CreateUserVo;
-import fun.yizhierha.modules.system.domain.vo.RetrieveUserVo;
 import fun.yizhierha.modules.system.service.SysDeptService;
 import fun.yizhierha.modules.system.service.SysRoleService;
 import fun.yizhierha.modules.system.service.SysUserService;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.modules.system.service.dto.SummaryUserDto;
 import fun.yizhierha.common.utils.ValidUtils;
+import fun.yizhierha.monitor.service.OnlineUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
@@ -34,9 +36,11 @@ import java.util.stream.Collectors;
 @Api(tags = "系统:用户")
 @RestController
 @RequestMapping("/api/system/user")
-public class
-UserController {
+@RequiredArgsConstructor
+public class UserController {
 
+    @Autowired
+    OnlineUserService onlineUserService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -45,6 +49,8 @@ UserController {
     SysRoleService roleService;
     @Autowired
     SysDeptService sysDeptService;
+    private final RsaEncryptConfig rsaEncryptConfig;
+    private final TokenProvider tokenProvider;
 
     @ApiOperation(value = "获取当前用户信息")
     @Log("获取当前用户信息")
@@ -58,6 +64,23 @@ UserController {
     @PostMapping("/updateAvatar")
     public R<Map<String,String>> updateAvatar(@RequestParam MultipartFile avatar){
         return R.<Map<String,String>>ok().setData(sysUserService.updateAvatar(avatar));
+    }
+
+
+    @ApiOperation(value = "修改密码")
+    @Log("修改密码")
+    @PutMapping("/modifyPass")
+    public R modifyPass(@RequestBody @Validated UpdatePassVo vo, HttpServletRequest request){
+        // 解密
+        try {
+            vo.setNewPassword(EncryptUtils.rsaDecryptByPrivateKey(rsaEncryptConfig.getPrivateKey(),vo.getNewPassword()));
+            vo.setOldPassword(EncryptUtils.rsaDecryptByPrivateKey(rsaEncryptConfig.getPrivateKey(),vo.getOldPassword()));
+        } catch (Exception e) {
+            return R.error(BizCodeEnum.Client_Error_BadRequest.getCode(), "密码格式不合法!");
+        }
+        sysUserService.editPass(vo);
+        onlineUserService.logout(tokenProvider.getToken(request));
+        return R.ok();
     }
 
     @ApiOperation(value = "修改当前用户信息")

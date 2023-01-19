@@ -3,6 +3,7 @@ package fun.yizhierha.modules.system.service;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
 import fun.yizhierha.common.utils.ValidList;
+import fun.yizhierha.modules.system.domain.vo.UpdatePassVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateUserVo;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
 import fun.yizhierha.modules.system.domain.SysUser;
@@ -56,4 +57,6 @@ public interface SysUserService extends IService<SysUser>{
     void download(HttpServletResponse response) throws IOException;
 
     Map<String, String> updateAvatar(MultipartFile avatar);
+
+    void editPass(UpdatePassVo vo);
 }

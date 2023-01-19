@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.utils.PageUtils;
 import fun.yizhierha.common.utils.Query;
+import fun.yizhierha.common.utils.SecurityUtils;
 import fun.yizhierha.common.utils.StringUtils;
 import fun.yizhierha.common.utils.file.ExcelUtils;
 import fun.yizhierha.monitor.domain.SysLog;
@@ -122,6 +123,11 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
             JSONObject obj = JSONUtil.parseObj(log.getParams());
             log.setUsername(obj.get("username").toString());
             log.setParams(JSONUtil.toJsonStr(Dict.create().set("username", log.getUsername()).set("password","******")));
+        }
+        // 修改密码，隐藏密码信息
+        if (log.getDescription().equals("修改密码")){
+            log.setUsername(SecurityUtils.getCurrentUsername());
+            log.setParams(JSONUtil.toJsonStr(Dict.create().set("username", log.getUsername()).set("newPassword","******")));
         }
         log.setBrowser(browser);
         log.setCreateTime(new Timestamp(new Date().getTime()));

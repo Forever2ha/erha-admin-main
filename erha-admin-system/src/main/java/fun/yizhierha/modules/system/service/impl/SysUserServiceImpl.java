@@ -1,15 +1,18 @@
 package fun.yizhierha.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fun.yizhierha.common.base.BaseErrDto;
 import fun.yizhierha.common.config.FileProperties;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
+import fun.yizhierha.common.exception.InternalServerException;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.common.utils.file.ExcelUtils;
 import fun.yizhierha.common.utils.file.FileUtil;
+import fun.yizhierha.modules.system.domain.vo.UpdatePassVo;
 import fun.yizhierha.modules.system.domain.vo.UpdateUserVo;
 import fun.yizhierha.modules.security.service.UserCacheManager;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -24,7 +27,7 @@ import fun.yizhierha.modules.system.service.mapstruct.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -64,6 +67,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     FileProperties fileProperties;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserDetailsDto selectUserDetailDtoByUsername(String username) {
@@ -353,6 +360,41 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return new HashMap<String, String>(1) {{
             put("avatar", file.getName());
         }};
+    }
+
+    @Override
+    public void editPass(UpdatePassVo vo) {
+        UpdatePassVo passVo = Optional.ofNullable(vo)
+                .<BadRequestException>orElseThrow(() -> {
+                    throw new BadRequestException("updatePassVo不能为空");
+                });
+        String newPass = Optional.ofNullable(vo.getNewPassword())
+                .<BadRequestException>orElseThrow(() -> {
+                    throw new BadRequestException("新密码不能为空");
+                });
+        String oldPass = Optional.ofNullable(vo.getOldPassword())
+                .<BadRequestException>orElseThrow(() -> {
+                    throw new BadRequestException("旧密码不能为空");
+                });
+        newPass = Optional.ofNullable(passwordEncoder.encode(newPass))
+                .<BadRequestException>orElseThrow(() -> {throw new BadRequestException("对称加密失败！");});
+        // 走到这里 newPass和oldPass一定不为空
+        String username = SecurityUtils.getCurrentUsername();
+
+        SysUser sysUser = Optional.ofNullable(this.getOne(new QueryWrapper<SysUser>()
+                .eq(SysUser.COL_USERNAME, username)
+        )).<InternalServerException>orElseThrow(() -> {
+            throw new InternalServerException("不存在于数据库中！");
+        });
+       if (passwordEncoder.matches(oldPass,sysUser.getPassword())){
+           this.update(new UpdateWrapper<SysUser>()
+                   .eq(SysUser.COL_USERNAME,username)
+                   .set(SysUser.COL_PASSWORD,newPass)
+           );
+       }else {
+           throw new BadRequestException("旧密码不正确!");
+       }
+        // TODO: 2023/1/19  日志记录修改密码问题
     }
 
     @Transactional(rollbackFor = Exception.class)

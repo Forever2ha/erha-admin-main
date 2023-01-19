@@ -138,7 +138,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     }
 
     public static String getIpByRequest(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
+        // 反向代理获取真实ip 需要配置nginx： proxy_set_header X-real-ip $remote_addr;
+        String ip = request.getHeader("X-real-ip");
+        if (ip == null){
+            ip = request.getHeader("x-forwarded-for");
+        }
         if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }

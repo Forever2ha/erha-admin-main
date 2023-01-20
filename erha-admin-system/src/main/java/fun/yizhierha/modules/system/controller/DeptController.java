@@ -2,6 +2,7 @@ package fun.yizhierha.modules.system.controller;
 
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -89,8 +90,9 @@ public class DeptController {
     @DeleteMapping
     @PreAuthorize("@eh.check('system:dept:del')")
     public R deleteDept(@RequestBody Set<Long> deptIds){
-        sysDeptService.removeByIds(deptIds);
-        return  R.ok();
+        throw new BadRequestException("演示环境无法删除！");
+        // sysDeptService.removeByIds(deptIds);
+        // return  R.ok();
     }
 
     @ApiOperation("全部部门")

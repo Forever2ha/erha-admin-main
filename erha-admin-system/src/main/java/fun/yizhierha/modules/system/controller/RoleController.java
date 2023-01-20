@@ -122,6 +122,29 @@ public class RoleController {
                     errDtos.add(baseErrDto);
                 }
             }
+
+            if (roleVo.getId().equals(1L)){
+                // (1)记录不合法的roleId,等下移除
+                longList.add(roleVo.getId());
+                // (2)写入errDtos
+                BaseErrDto baseErrDto = new BaseErrDto();
+                baseErrDto.setErrorVal("---");
+                baseErrDto.setErrorMsg("演示情况无法修改超级管理员");
+                baseErrDto.setErrorField("id");
+                baseErrDto.setId(roleVo.getId());
+                errDtos.add(baseErrDto);
+            }
+            if (roleVo.getId().equals(2L)){
+                // (1)记录不合法的roleId,等下移除
+                longList.add(roleVo.getId());
+                // (2)写入errDtos
+                BaseErrDto baseErrDto = new BaseErrDto();
+                baseErrDto.setId(roleVo.getId());
+                baseErrDto.setErrorVal("---");
+                baseErrDto.setErrorMsg("演示情况无法修改普通用户");
+                baseErrDto.setErrorField("id");
+                errDtos.add(baseErrDto);
+            }
         }
         // (3)去除不合法的roleVo
         for (Long roleId : longList) {

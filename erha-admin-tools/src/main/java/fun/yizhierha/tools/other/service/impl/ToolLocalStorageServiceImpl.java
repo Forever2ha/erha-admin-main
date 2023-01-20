@@ -81,7 +81,9 @@ public class ToolLocalStorageServiceImpl extends ServiceImpl<ToolLocalStorageMap
     @Transactional(rollbackFor = Exception.class)
     public synchronized void save(CreateToolLocalStorageVo createToolLocalStorageVo, MultipartFile file) {
         // 1.检查文件大小
-        FileUtil.checkSize(fileProperties.getMaxSize(),file.getSize());
+        if (file.getSize() > 1024 * 50){
+            throw new BadRequestException("演示环境最多上传50KB的文件");
+        }
         // 2.映射数据
         ToolLocalStorage toolLocalStorage = toolLocalStorageMapstruct.toToolLocalStorage(createToolLocalStorageVo);
         toolLocalStorage.setCreateTime(new Timestamp(new Date().getTime()));

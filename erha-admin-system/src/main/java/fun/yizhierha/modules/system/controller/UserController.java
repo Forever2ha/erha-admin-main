@@ -71,7 +71,8 @@ public class UserController {
     @Log("修改密码")
     @PutMapping("/modifyPass")
     public R modifyPass(@RequestBody @Validated UpdatePassVo vo, HttpServletRequest request){
-        // 解密
+        throw new BadRequestException("演示环境不支持此操作");
+        /*// 解密
         try {
             vo.setNewPassword(EncryptUtils.rsaDecryptByPrivateKey(rsaEncryptConfig.getPrivateKey(),vo.getNewPassword()));
             vo.setOldPassword(EncryptUtils.rsaDecryptByPrivateKey(rsaEncryptConfig.getPrivateKey(),vo.getOldPassword()));
@@ -80,7 +81,7 @@ public class UserController {
         }
         sysUserService.editPass(vo);
         onlineUserService.logout(tokenProvider.getToken(request));
-        return R.ok();
+        return R.ok();*/
     }
 
     @ApiOperation(value = "修改当前用户信息")

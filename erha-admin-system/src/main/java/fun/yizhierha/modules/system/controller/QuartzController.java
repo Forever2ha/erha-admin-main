@@ -3,6 +3,7 @@ package fun.yizhierha.modules.system.controller;
 
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -64,8 +65,8 @@ public class QuartzController {
     @PutMapping
     @PreAuthorize("@eh.check('system:quartz:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateQuartzJobVo> updateQuartzJobList, BindingResult bindingResult){
-
-        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateQuartzJobList, bindingResult);
+        throw new BadRequestException("演示环境无法修改定时任务！");
+        /*List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateQuartzJobList, bindingResult);
         if (errDtoList.isEmpty()) {
             sysQuartzJobService.editQuartzJob(updateQuartzJobList,errDtoList,((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()){
@@ -80,7 +81,7 @@ public class QuartzController {
         return  R.<List<BaseErrDto>>error(
                 BizCodeEnum.Client_Error_CRUD.getCode(),
                 BizCodeEnum.Client_Error_CRUD.getMsg()
-        ).setData(errDtoList);
+        ).setData(errDtoList);*/
     }
 
     @ApiOperation("删除定时任务")
@@ -88,8 +89,9 @@ public class QuartzController {
     @DeleteMapping
     @PreAuthorize("@eh.check('system:quartz:del')")
     public R delJob(@RequestBody Set<Long> jobIds){
-        sysQuartzJobService.removeJob(jobIds);
-        return R.ok();
+        throw new BadRequestException("演示环境无法删除定时任务！");
+        /*  sysQuartzJobService.removeJob(jobIds);
+        return R.ok();*/
     }
 
     @ApiOperation("导出数据")

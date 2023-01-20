@@ -1,6 +1,7 @@
 package fun.yizhierha.monitor.controller;
 
 import fun.yizhierha.common.annotation.Log;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.monitor.domain.SysLog;
 import fun.yizhierha.monitor.domain.vo.RetrieveSysLogVo;
@@ -40,8 +41,9 @@ public class SysLogController{
     @DeleteMapping
     @PreAuthorize("@eh.check('monitor:sysLog:del')")
     public R del(@RequestBody Set<Long> ids){
-        sysLogService.remove(ids);
-        return R.ok();
+        throw new BadRequestException("演示环境下不可删除操作日志");
+        /* sysLogService.remove(ids);
+        return R.ok();*/
     }
 
     @ApiOperation("导出数据")

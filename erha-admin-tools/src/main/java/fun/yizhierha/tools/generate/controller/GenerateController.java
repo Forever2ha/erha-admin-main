@@ -66,22 +66,8 @@ public class GenerateController {
     @ApiOperation("生成代码")
     @Log("生成代码")
     public R generate(@Param("tableName") String tableName){
-        generateService.generate(tableName);
-        return R.ok();
+        throw new BadRequestException("演示环境下无法生成代码！");
     }
 
-    @GetMapping("/previewDebug")
-    @AnonymousAccess
-    public R d(@Param("tableName") String tableName){
-        List<CodeColumnConfig> codeColumnConfigList = codeColumnConfigService.list(new QueryWrapper<CodeColumnConfig>()
-                .eq(CodeColumnConfig.COL_TABLE_NAME, tableName
-                ));
-        if (codeColumnConfigList.isEmpty()) throw new BadRequestException("请先配置生成信息[step1]");
-        CodeGenConfig codeGenConfig = codeGenConfigService.getOne(new QueryWrapper<CodeGenConfig>()
-                .eq(CodeGenConfig.COL_TABLE_NAME, tableName));
-        if (codeGenConfig == null) throw new BadRequestException("请先配置生成信息[step2]");
-
-        return R.ok().setData(GenUtil.getGenMap(codeColumnConfigList,codeGenConfig));
-    }
 
 }

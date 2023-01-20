@@ -277,6 +277,12 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             SysRole role = getOne(new QueryWrapper<SysRole>().eq(SysRole.COL_ROLE_ID, usersRoles.get(0).getRoleId()));
             throw new BadRequestException(BizCodeEnum.Client_Error_CRUD.getCode(),"角色["+role.getName()+"]正在被用户使用，请先解除角色绑定。");
         }
+
+        if (list.stream().anyMatch((id) -> id.equals(1L) || id.equals(2L) )){
+            throw new BadRequestException("超级管理员和普通用户在演示情况下无法删除!");
+        }
+
+
         // 2.删除
         // 2.1 删除sys_role
         remove(new QueryWrapper<SysRole>().in(SysRole.COL_ROLE_ID,list));

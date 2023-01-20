@@ -3,6 +3,7 @@ package fun.yizhierha.modules.system.controller;
 
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -91,8 +92,9 @@ public class DictDetailController {
     @DeleteMapping
     @PreAuthorize("@eh.check('system:dictDetail:del')")
     public R delDictDetail(@RequestBody Set<Long> dictDetailIds){
-        sysDictDetailService.removeDictDetail(dictDetailIds);
-        return R.ok();
+        throw new BadRequestException("演示环境无法删除！");
+        /*     sysDictDetailService.removeDictDetail(dictDetailIds);
+        return R.ok();*/
     }
 
 }

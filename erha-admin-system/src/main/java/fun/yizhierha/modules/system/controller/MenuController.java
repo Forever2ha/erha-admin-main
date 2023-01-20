@@ -2,6 +2,7 @@ package fun.yizhierha.modules.system.controller;
 
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
@@ -68,7 +69,8 @@ public class MenuController {
     @PutMapping
     @PreAuthorize("@eh.check('system:menu:edit')")
     public R<List<BaseErrDto>> editMenu(@Validated @RequestBody ValidList<UpdateMenuVo> updateMenuVoList,BindingResult bindingResult){
-        List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateMenuVoList, bindingResult);
+        throw new BadRequestException("演示环境无法修改菜单！");
+        /*List<BaseErrDto> errDtoList = ValidUtils.getBaseErrDtoByBindingRes(updateMenuVoList, bindingResult);
         if (errDtoList.isEmpty()) {
             sysMenuService.editMenu(updateMenuVoList,errDtoList, ((UserDetailsDto) SecurityUtils.getCurrentUser()));
             if (errDtoList.isEmpty()){
@@ -83,7 +85,7 @@ public class MenuController {
         return  R.<List<BaseErrDto>>error(
                 BizCodeEnum.Client_Error_CRUD.getCode(),
                 BizCodeEnum.Client_Error_CRUD.getMsg()
-        ).setData(errDtoList);
+        ).setData(errDtoList);*/
     }
 
     @ApiOperation("删除菜单")
@@ -91,8 +93,9 @@ public class MenuController {
     @DeleteMapping
     @PreAuthorize("@eh.check('system:menu:del')")
     public R delDict(@RequestBody Set<Long> menuIds){
-        sysMenuService.removeMenu(menuIds);
-        return R.ok();
+        throw new BadRequestException("演示环境无法删除菜单！");
+     /*   sysMenuService.removeMenu(menuIds);
+        return R.ok();*/
     }
 
     @ApiOperation("导出数据")
@@ -108,8 +111,9 @@ public class MenuController {
     @PostMapping("/generate/{tableName}")
     @PreAuthorize("@eh.check('system:menu:edit')")
     public R generateMenu(@PathVariable String tableName){
-        sysMenuService.generateMenu(tableName);
-        return R.ok();
+        throw new BadRequestException("演示环境无法自动生成菜单！");
+        /* sysMenuService.generateMenu(tableName);
+        return R.ok();*/
     }
 
 }

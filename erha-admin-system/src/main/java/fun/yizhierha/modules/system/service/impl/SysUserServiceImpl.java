@@ -223,6 +223,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public synchronized void editUser(ValidList<UpdateUserVo> updateUserVoList, List<BaseErrDto> res, UserDetailsDto currentUser) {
         ArrayList<SysUser> sysUsers = new ArrayList<>();
         for (UpdateUserVo updateUserVo : updateUserVoList) {
+            if (updateUserVo.getId().equals(1L)){
+                BaseErrDto baseErrDto = new BaseErrDto();
+                baseErrDto.setErrorMsg("演示环境下无法修改admin，请修改其他用户");
+                baseErrDto.setId(1L);
+                baseErrDto.setErrorField("id");
+                baseErrDto.setErrorVal("---");
+                res.add(baseErrDto);
+                break;
+            }
+
+
             SysUser toUpdateSysUser = new SysUser();
             toUpdateSysUser.setUserId(updateUserVo.getId());
             // phone
@@ -399,6 +410,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean removeByIds(Collection<?> list) {
+        if (list.contains(1L)) {
+            throw new BadRequestException("演示环境下无法删除admin");
+        }
         // 删除role,job
         Set<Long> userIds = (Set<Long>) list;
         sysUsersRolesService.remove(new QueryWrapper<SysUsersRoles>().in(SysUsersRoles.COL_USER_ID,userIds));

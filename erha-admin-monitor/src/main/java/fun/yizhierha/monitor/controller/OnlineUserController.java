@@ -2,6 +2,7 @@ package fun.yizhierha.monitor.controller;
 
 import fun.yizhierha.common.annotation.Log;
 import fun.yizhierha.common.base.BaseErrDto;
+import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.ValidUtils;
 import fun.yizhierha.common.utils.*;
@@ -45,8 +46,9 @@ public class OnlineUserController{
     @DeleteMapping
     @PreAuthorize("@eh.check('monitor:onlineUser:del')")
     public R delJob(@RequestBody Set<String> usernames){
-        onlineUserService.removeIfExist(usernames);
-        return R.ok();
+       throw new BadRequestException("演示环境下不可踢人");
+        /* onlineUserService.removeIfExist(usernames);
+        return R.ok();*/
     }
 
     @ApiOperation("导出数据")

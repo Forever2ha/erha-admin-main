@@ -1,5 +1,6 @@
 package fun.yizhierha.tools.generate.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.utils.StringUtils;
 import fun.yizhierha.tools.generate.domain.CodeGenConfig;
@@ -28,7 +29,9 @@ public class CodeGenConfigServiceImpl extends ServiceImpl<CodeGenConfigMapper, C
             if (StringUtils.isBlank(tableName)){
                 throw new BadRequestException("新增： tableName不能为空");
             }
-            save(codeGenConfigMapstruct.toCodeGenConfig(updateOrSaveCodeGenConfigVo));
+            if (this.list(new QueryWrapper<CodeGenConfig>().eq(CodeGenConfig.COL_TABLE_NAME,tableName)).size() == 0){
+                save(codeGenConfigMapstruct.toCodeGenConfig(updateOrSaveCodeGenConfigVo));
+            }
 
         }else {
             // update

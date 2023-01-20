@@ -1,4 +1,4 @@
-#  EH-ADMIN(后端)
+#  EH-ADMIN(后端) V0.0.1
 
 <p align=center>
   <a href="">
@@ -31,10 +31,10 @@
 
 项目进度：
 - [x] 系统管理: 用户、角色、菜单、部门、岗位、字典、任务调度管理
-- [x] 系统监控：在线用户、操作日志、异常日志、服务监控、SQL监控
-- [ ] 运维管理：项目管理、服务器、应用管理、部署管理、部署备份、数据库管理、补丁管理、需求文档管理
-- [ ] 系统工具：代码生成、存储管理、邮件工具、接口文档、支付宝工具
-- [ ] 其他功能: ...
+- [x] 系统监控：在线用户、操作日志、服务监控、SQL监控
+- [x] 运维管理：服务器、应用管理、部署管理、部署备份、数据库管理
+- [x] 系统工具：代码生成、存储管理、邮件工具、接口文档、支付宝工具
+- [ ] 其他功能: 限流控制...
 
 QQ交流群：727793103
 ## 项目介绍
@@ -49,9 +49,9 @@ SpringSecurity+Jwt做登录验证和权限校验(权限控制采用RBAC思想)�
 |gitee|https://gitee.com/erha_a/erha-admin-web | https://gitee.com/erha_a/erha-admin-main |
 |github|https://github.com/Forever2ha/erha-admin-web  |https://github.com/Forever2ha/erha-admin-main |
 ## 站点演示
-**体验地址** : 暂未上线
+**体验地址** : http://175.24.198.241:81  
+**开发文档** : http://175.24.198.241
 
-**开发文档** : http://175.24.198.241/
 <img src="./doc/img/login.png">
 <img src="./doc/img/user1.png">
 <img src="./doc/img/user2.png">

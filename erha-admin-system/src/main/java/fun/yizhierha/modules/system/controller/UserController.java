@@ -6,6 +6,7 @@ import fun.yizhierha.common.exception.BadRequestException;
 import fun.yizhierha.common.exception.BizCodeEnum;
 import fun.yizhierha.common.utils.*;
 import fun.yizhierha.modules.security.security.TokenProvider;
+import fun.yizhierha.modules.security.service.UserCacheManager;
 import fun.yizhierha.modules.system.domain.vo.*;
 import fun.yizhierha.modules.security.service.dto.UserDetailsDto;
 import fun.yizhierha.modules.system.domain.SysRole;
@@ -51,6 +52,7 @@ public class UserController {
     SysDeptService sysDeptService;
     private final RsaEncryptConfig rsaEncryptConfig;
     private final TokenProvider tokenProvider;
+    private final UserCacheManager userCacheManager;
 
     @ApiOperation(value = "获取当前用户信息")
     @Log("获取当前用户信息")
@@ -80,6 +82,7 @@ public class UserController {
         }
         sysUserService.editPass(vo);
         onlineUserService.logout(tokenProvider.getToken(request));
+        userCacheManager.cleanCacheByUsername(SecurityUtils.getCurrentUsername());
         return R.ok();
     }
 
